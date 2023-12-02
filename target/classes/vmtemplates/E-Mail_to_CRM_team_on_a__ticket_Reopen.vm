@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div style="width: 100%;margin: 20px auto;">
+        <span style="font-size: 20px;">Dear <strong>${email.employeeName}</strong>,</span>
+        <br>
+        <br>
+        <p style="font-size: 18px;text-align: justify;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A new ticket bearing <span style="font-size: 20px;color: blue;">${email.ticketId}| ${email.flatNumber}</span> has been assigned to you for necessary action. You have to acknowledge the ticket within 24hrs</p>
+        <p><b style="font-size: 18px;">Customer name         :</b><b style="font-size: 16px;">${email.customerName}</b></p>
+        <p><b style="font-size: 18px;">Unit No               :</b><b style="font-size: 16px;">${email.flatNumber}</b></p>
+        <p><b style="font-size: 18px;">Project Name          :</b><b style="font-size: 16px;">${email.siteName}</b></p>
+        <p><b style="font-size: 18px;">Purpose of ticket     :</b><b style="font-size: 16px;">${email.ticketType}</b></p>
+   <!-- <p><b style="font-size: 18px;">Sub Purpose           :</b><b style="font-size: 16px;">{SUB PURPOSE}</b></p> -->
+        <p><b style="font-size: 18px;">Ticket No             :</b><b style="font-size: 16px;">${email.ticketId}</b></p>
+   <!-- <p><b style="font-size: 18px;">Ticket Message        :</b><b style="font-size: 16px;">${email.message}</b></p> -->
+   <!-- <p><b style="font-size: 18px;">URL of ticket         :</b><b style="font-size: 16px;"><a href="www.facebook.com" target="_blank">{TICKET URL}</a></b></p> -->
+        <p><b style="font-size: 18px;">Ticket department     :</b><b style="font-size: 16px;">${email.departmentName}</b></p>
+        <p><b style="font-size: 18px;">Received Date         :</b><b style="font-size: 16px;">${email.ticketCreatedDate}</b></p>
+        <p><b style="font-size: 18px;">Expected Clouser Date:</b><b style="font-size: 16px;">${email.ticketExpectedCloserDate}</b></p>
+    </div>
+</body>
+
+</html>

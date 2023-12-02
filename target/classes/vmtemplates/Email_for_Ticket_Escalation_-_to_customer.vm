@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div style="width: 100%;margin: 20px auto;">
+        <span style="font-size: 20px;">Dear <strong>${email.customerName}</strong>,</span>
+        <br>
+        <p style="font-size: 18px;text-align: justify;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Your ticket bearing <span style="font-size: 20px;color: blue;">${email.ticketId}|${email.flatNumber}</span> is escalated to next level for necessary action.You will receive a response shortly.</p>
+        <p style="font-size: 18px;">We apologize if our service did not meet your expectations.</p>
+        <!--<p style="font-size: 18px;">In meantime, please click on the link below to know the status of the ticket.</p>
+        <!--<p><a href="www.facebook.com" target="_blank">URL</a></p>-->
+        <p style="font-size: 18px;"><b>*DO NOT REPLY TO THIS E-MAIL*</b></p>
+        <p style="font-size: 18px;"><b>This is an auto generated E-mail,please do not reply to this message.</b></p>
+    </div>
+</body>
+</html>

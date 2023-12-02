@@ -1,0 +1,337 @@
+<head>
+    <style>
+  
+        body {
+            background: #f1f1f1;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .invoice {
+            font-family: inherit;
+            font-weight: 100;
+            width: 95%;
+            max-width: 1000px;
+            margin: 2% auto;
+            box-sizing: border-box;
+            padding: 70px;
+            border-radius: 5px;
+            background: #fff;
+            min-height: auto;
+            font-size: 13;
+        }
+
+        .header {
+            display: flex;
+            width: 100%;
+
+            align-items: center;
+        }
+
+        .header--invoice {
+            order: 2;
+            text-align: right;
+            width: 40%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .invoice--date,
+        .invoice--number {
+            font-size: 13px;
+            color: #494949;
+        }
+
+        .invoice--recipient {
+            margin-top: 25px;
+            margin-bottom: 4px;
+        }
+
+        .header--logo {
+            order: 1;
+            font-size: 30px;
+            width: 60%;
+            font-weight: 900;
+        }
+
+        .logo--address {
+            font-size: 13px;
+            padding: 4px;
+           
+            width: 50%;
+        }
+
+
+        .logo--address1 {
+            font-size: 13px;
+            font-family: lato;
+            text-transform: capitalize;
+        }
+
+        .description {
+            margin: auto;
+            text-align: justify;
+
+        }
+
+       
+
+        .sessiontitle {
+            text-align: center;
+            font-family: initial;
+            padding: 1px;
+            width: 100%;
+            margin-top: 10px;
+            text-transform: capitalize;
+            font-size: 13px;
+
+
+        }
+
+        .spansubtitle {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .bottomcls {
+            position: relative;
+            top: -18px;
+            font-size: 11px;
+            font-family: serif;
+            color: #795548;
+        }
+
+     
+
+       
+    </style>
+</head>
+#set ($customerDetails = $email.dataForPdf.get("customerDetails").get(0))
+ #set ($customerUnitDetails = $email.dataForPdf.get("customerUnitDetails").get(0))
+ #set ($info = ${email.demandNoteGeneratorInfo})
+<article class="invoice" style="font-family: Times New Roman, Times, sans-serif;">
+
+  
+  <p contenteditable="true" style="text-align: justify;"><b> Date:${customerDetails.get("todayDate")} </b></p>
+   
+   <p contenteditable="true" style="text-align: justify;"> <b> To, <br />
+     HDFC Limited, <br />
+     HDFC House<br />
+     No,51 Kasturba Road<br />
+     Bengaluru-560001  </b></p>
+    
+    
+  
+ 
+        <p contenteditable="true" style="text-align: justify;text-align: center;">
+    
+        <u>  <b> No Objection Certificate for sale of flat/s </b> </u>
+    
+        </p>
+
+        <p contenteditable="true" style="text-align: justify;">
+           This is to inform you that we are negotiating the following flat/s at our project sand hence request you to kindly issue a no objection to the sale of the same.
+        </p>
+
+        <table style="width:100%; border: 1px solid black;border-collapse:collapse;font-size: 13px;margin-top:20px">
+             <tr style="border: 1px solid black;">
+              <td style="border: 1px solid black;text-align: left;padding: 8px;width:6%!important;">
+                  <b>1</b>
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;width:47%!important;">
+                  <b>Customer Name</b>
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;width:47%!important;">
+                <b>   ${customerDetails.get("customerNames")} </b>
+                </td>
+            </tr>
+             <tr style="border: 1px solid black;">
+               <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                  <b>2</b>
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;" >
+                 <b>   Apartment No </b>
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;" >
+                 <b>   ${customerDetails.get("flatName")} </b>
+                </td>
+            </tr>
+              <tr style="border: 1px solid black;">
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                  <b>3</b>
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;" >
+                <b>  Building Name/Wing No </b>
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;" >
+                 <b>   ${customerDetails.get("siteName")} </b>
+                </td>
+            </tr>
+             <tr style="border: 1px solid black;">
+               <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                  <b>4</b>
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+              <b>   Contact No. </b>
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                 <b>  ${customerDetails.get("custBookInfoPhoneNo")} </b>
+                </td>
+              </tr>
+              <tr style="border: 1px solid black;">
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                  <b>5</b>
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+              <b> Email Id </b>
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                       <b>  ${customerDetails.get("custEmailId")} </b> 
+                </td>
+            </tr>
+         
+              <tr style="border: 1px solid black;">
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                  <b>6</b>
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                <b>  Bank/Institution </b>
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                      <b>${customerUnitDetails.get("customerLoanBank")}</b>
+                </td>
+            </tr>
+             <tr style="border: 1px solid black;">
+               <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                  <b>7</b>
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+               <b>  Area-sft </b>
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                 <b>   ${customerUnitDetails.get("SBUA Sq.ft")} SFT</b>
+                </td>
+            </tr>
+               <tr style="border: 1px solid black;">
+                 <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                  <b>8</b>
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+             <b>   Carpet-sft </b>
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                   <b>   ${customerUnitDetails.get("Carpet Area Sq.ft")} SFT </b> 
+                </td>
+            </tr>
+              <tr style="border: 1px solid black;">
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                  <b>9</b>
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+             <b>  UDS-sft </b>
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                <b>   ${customerUnitDetails.get("UDS Sq.ft")}  SFT</b>
+                </td>
+            </tr>
+            
+           
+              <tr style="border: 1px solid black;">
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                  <b>10</b>
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+           <b>   Rate per sft (Basic) </b>
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                   <b> Rs.${customerUnitDetails.get("Sold Base Price")}/-</b> 
+                </td>
+            </tr>
+              <tr style="border: 1px solid black;">
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                  <b>11</b>
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+              <b>   Sale Consideration </b>
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                <b>   ${customerDetails.get("totalSaleConsideration")}/- </b>
+                </td>
+            </tr>
+              <tr style="border: 1px solid black;">
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                  <b>12</b>
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+               <b> Amount Received </b>
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                 <b>  ${customerDetails.get("strtotalMilestonePaidAmount")}/- </b>
+                </td>
+            </tr>
+              <tr style="border: 1px solid black;">
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                  <b>13</b>
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                <b>  Balance Receivables </b>
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                 <b>  ${customerDetails.get("strPendingBalanceAmount")}/- </b>
+                </td>
+            </tr>
+             <tr style="border: 1px solid black;">
+               <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                  <b>14</b>
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+              <b>   Amount Demanded </b>
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                      <b>  ${customerDetails.get("strAmountDemanded")}/- </b>
+                </td>
+            </tr>
+                <tr style="border: 1px solid black;">
+                  <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                  <b>15</b>
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                 <b>  Date of Booking </b>
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                <b>  ${customerDetails.get("bookingDateSlashFormat")}  </b>
+                </td>
+            </tr>
+                <tr style="border: 1px solid black;">
+                  <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                  <b>16</b>
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+               <b>  Leads shared to Marketing team </b>
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                <b>  YES</b>
+                </td>
+            </tr>
+        </table>
+
+        <p contenteditable="true" style="margin-top:12px">We here by confirm and assure you all the sale proceeds of 
+        the said  <b> Flat No. ${customerDetails.get("flatName")}  </b> are being Routed through Escrow Account No-57500000394426  Maintained for the 
+        Project ${customerDetails.get("siteName")} with HDFC bank Ltd Bangalore.</p>
+            <br /><br /><br />
+            
+            
+            
+                 <p contenteditable="true" style="text-align: justify;"> Thank You,<br/>
+                 Yours Truly, </p>
+              
+
+     
+
+   
+
+
+
+</article>

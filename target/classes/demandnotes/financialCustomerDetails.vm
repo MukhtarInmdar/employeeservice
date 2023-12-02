@@ -1,0 +1,181 @@
+<html>
+ <head>
+ <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Demand Note</title>
+  <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'/>
+  <style>
+     td{   
+       padding: 10px;
+      } 
+     table{
+     	border: 2px solid #666; 
+     }
+  </style>
+  
+## single line comment here
+
+#*
+Multiline comment here
+Line1
+Line2
+*#
+  
+</head>
+<body>
+## 2 $requestUrl
+## 1 $email.requestUrl
+ #foreach($demandNoteGeneratorInfo in $email.demandNoteGeneratorInfoList)
+  <p style='text-align:right'><img src='${demandNoteGeneratorInfo.rightSidelogoForPdf}'  width='120' height='120' /></p>
+
+#*  
+	<table style="width:100%; border-collapse:collapse;">
+   <tr>
+   <td align="center">
+*#
+      <table  style="width:100%; border: 1px solid black;border-collapse:collapse;">
+      ## font-family: Times New Roman, Times, sans-serif;  
+        <tr>
+        <td style="border: 1px solid black;padding:2px;" align="center"> <font size="1">Sr.No</font></td>
+         <th style="border: 1px solid black;padding:2px;" align="center"> <font size="1">Project</font> </th>
+        <td style="border: 1px solid black;padding:2px;" align="center"> <font size="1">Customer Name</font> </td>
+        <td style="border: 1px solid black;padding:2px;" align="center"> <font size="1">Flat No</font> </td>
+        <td style="border: 1px solid black;padding:2px;" align="center"> <font size="1">Booking Date</font> </td>
+        #if($email.requestUrl == "customerWiseInterestDetails")
+        	<th style="border: 1px solid black;padding:2px;" align="center"> <font size="1">Total Flat Cost</font>  </th>
+        #elseif($email.requestUrl == "milestoneWiseInterestDetails")
+        	<th style="border: 1px solid black;padding:2px;" align="center"> <font size="1">Agreement Date</font>  </th>
+        	<th style="border: 1px solid black;padding:2px;" align="center"> <font size="1">Milestone name</font>  </th>
+        	<th style="border: 1px solid black;padding:2px;" align="center"> <font size="1">Demand Amount</font>  </th>
+        #elseif($email.requestUrl == "GiveInterestWaiverReport")
+	        ## don't commit this code
+	        <td style="border: 1px solid black;padding:2px;" align="center"> <font size="1">Sale Deed Date</font> </td>
+	        <td style="border: 1px solid black;padding:2px;" align="center"> <font size="1">Total Interest Amount</font> </td>
+	        <td style="border: 1px solid black;padding:2px;" align="center"> <font size="1">Amount waived off</font> </td>
+	        <td style="border: 1px solid black;padding:2px;" align="center"> <font size="1">Last Amount waived off</font> </td>
+	        <td style="border: 1px solid black;padding:2px;" align="center"> <font size="1">Amount waiver request pending</font> </td>
+	        <td style="border: 1px solid black;padding:2px;" align="center"> <font size="1">Interest Collected</font> </td>
+	        <td style="border: 1px solid black;padding:2px;" align="center"> <font size="1">Bal Interest</font> </td>        
+        #else
+	        <td style="border: 1px solid black;padding:2px;" align="center"> <font size="1">Paid Amount</font> </td>
+	        <td style="border: 1px solid black;padding:2px;" align="center"> <font size="1">Interest Amount</font> </td>
+	        <td style="border: 1px solid black;padding:2px;" align="center"> <font size="1">Delayed Days</font> </td>
+        #end
+		
+       </tr> 
+      
+        #foreach($customerDetails in ${demandNoteGeneratorInfo.customerDetailsList})
+        <tr>
+           <td  style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1">$customerDetails.sno</font>
+           </td>
+
+            <td  style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1">$customerDetails.siteName</font>
+           </td>
+           
+            <td  style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1">$customerDetails.customerName</font>
+           </td>
+           
+           <td  style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1">$customerDetails.flatNo</font>
+           </td>
+           
+           <td  style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1">$customerDetails.bookingDate</font>
+           </td>
+
+        #if($email.requestUrl == "customerWiseInterestDetails")
+			<td style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1">$customerDetails.totalAgreementCost</font>
+           </td>
+        #elseif($email.requestUrl == "milestoneWiseInterestDetails")
+        	<td style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1">$customerDetails.agreementDate</font>
+           </td>
+        	<td style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1">$customerDetails.milestoneName</font>
+           </td>
+           <td style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1">$customerDetails.totalPayAmount</font>
+           </td>
+        #elseif($email.requestUrl == "GiveInterestWaiverReport")
+		   <td style="border: 1px solid black;padding:2px;" align="center"> <font size="1">$customerDetails.saleDeedDate</font> </td>
+           <td style="border: 1px solid black;padding:2px;" align="center"> <font size="1">$customerDetails.totalInterestAmount</font> </td>
+           <td style="border: 1px solid black;padding:2px;" align="center"> <font size="1">$customerDetails.totalInterestWaiverAdjAmount</font> </td>
+           <td style="border: 1px solid black;padding:2px;" align="center"> <font size="1">$customerDetails.lastInterestWaiverAdjAmount</font> </td>
+           <td style="border: 1px solid black;padding:2px;" align="center"> <font size="1">$customerDetails.sumOfInitiatedWaiverAmount</font> </td>
+           <td style="border: 1px solid black;padding:2px;" align="center"> <font size="1">$customerDetails.totalPenalityPaidAmount</font> </td>
+           <td style="border: 1px solid black;padding:2px;" align="center"> <font size="1">$customerDetails.penaltybalanceAmount</font> </td>
+        #else
+        
+        	<td  style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1">$customerDetails.totalPaidAmount</font>
+           </td>
+           
+           <td  style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1">$customerDetails.totalInterestAmount</font>
+           </td>
+
+			<td  style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1">$customerDetails.totalDelayedDays</font>
+           </td>
+        #end
+           
+                      
+           
+      	</tr>
+    	#end
+    	 ## ${demandNoteGeneratorInfo.customerDetailsList}	 
+    	     	 
+    	 ## last row
+ #if($email.requestUrl == "customerWiseInterestDetails")   	 
+    	 <tr>
+            <td  style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1"></font>
+           </td>
+           
+            <td  style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1"> </font>
+           </td>
+           
+           <td  style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1"> </font>
+           </td>
+           
+           <td  style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1">Grand Total </font>
+           </td>
+
+			<td  style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1">$demandNoteGeneratorInfo.totalAmount</font>
+           </td>
+           
+           <td  style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1">$demandNoteGeneratorInfo.totalPaidAmount</font>
+           </td>
+           
+           <td  style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1">$demandNoteGeneratorInfo.totalPendingPenaltyAmount</font>
+           </td>
+
+			<td  style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1"> </font>
+           </td>           
+            
+         </tr>
+#else
+        
+#end
+    	     	 
+    	     	 
+     </table>
+
+ #*  </td>
+   	 </tr>
+  	 </table>
+  *#
+ #end
+</body>
+</html>

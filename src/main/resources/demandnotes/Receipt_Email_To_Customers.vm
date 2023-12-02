@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div style="width: 100%;margin: 20px auto;">
+        <p style="font-size: 16px;">Dear Sir/Madam,<strong></strong></p>
+		<br>
+		<br>
+		##<span style="font-size: 16px;">Greetings from ${email.thanksAndRegardsFrom}!<strong></strong></span>
+		<span style="font-size: 16px;">${email.thanksAndRegardsFrom}!<strong></strong></span>
+        <br>
+        <br>
+        <p style="font-size: 16px;text-align: justify;">We thank you for the payment made towards your Dream Home. The Payment receipts are uploaded in Customer app, also attached here for your reference.</p>
+		<br>
+		<br>
+        <p style="font-size: 16px;text-align: justify;">Thanks & Regards</p>
+		<p style="font-size: 16px;text-align: justify;">Team Customer Relations</p>
+    </div>
+</body>
+
+</html>

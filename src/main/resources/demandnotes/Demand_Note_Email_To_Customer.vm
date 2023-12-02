@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div style="width: 100%;margin: 20px auto;">
+        <p style="font-size: 16px;">Dear Sir/Madam,<strong></strong></p>
+		<br>
+
+		##<p style="font-size: 16px;">Greetings from ${email.thanksAndRegardsFrom}!<strong></strong></p>
+
+		<p style="font-size: 16px;">${email.thanksAndRegardsFrom}!<strong></strong></p>
+        <p style="font-size: 16px;text-align: justify;">We wish to inform you that we have completed the next milestone in your project and as per the payment schedule your next installment is falling due.</p>
+        <p style="font-size: 16px;text-align: justify;">The demand note is sent on your Customer App, also attached here. please refer the same and kindly pay the amount by the said due date.</p>
+        <p style="font-size: 16px;text-align: justify;">We once again thank you for choosing ${email.thanksAndRegardsFrom}!</p>
+		<br>
+		<br>
+        <p style="font-size: 16px;text-align: justify;">Thanks & Regards</p>
+		<p style="font-size: 16px;text-align: justify;">Team Customer Relations</p>
+    </div>
+</body>
+
+</html>

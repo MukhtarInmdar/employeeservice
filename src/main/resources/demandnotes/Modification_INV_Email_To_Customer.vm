@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div style="width: 100%;margin: 20px auto;">
+        <p style="font-size: 20px;">Dear Sir/Madam,<strong></strong></p>
+		<br>
+		<p style="font-size: 18px;">Greetings from ${email.thanksAndRegardsFrom}!<strong></strong></p>
+        <p style="font-size: 18px;text-align: justify;">We wish to inform you that we have accepted your modification suggestions in your flat.</p>
+        <p style="font-size: 18px;text-align: justify;">Please find attached the modification invoice letter for your reference and kindly pay the amount.</p>
+        <p style="font-size: 18px;text-align: justify;">We once again thank you for choosing ${email.thanksAndRegardsFrom}!</p>
+		<br>
+		<br>
+        <p style="font-size: 18px;text-align: justify;">Thanks & Regards</p>
+		<p style="font-size: 18px;text-align: justify;">Team Customer Relations</p>
+    </div>
+</body>
+
+</html>

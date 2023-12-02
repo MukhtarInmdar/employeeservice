@@ -1,0 +1,41 @@
+<html>
+<head>
+<meta charset="UTF-8">
+  <meta name="description" content="Sumadhura Customer App Mail">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+ p{margin-top: 0px;margin-bottom: 3px;}
+ body{margin:50px auto;text-align:center;}
+ @media only screen and (max-width:767px){
+ .tblwidth{width:100% !important;}
+ }
+ .tblwidth{width:50%;padding-right: 15px;}
+</style>
+</head>
+<body style="padding:25px;">
+<table class="tblwidth" align="center">
+ <tr>
+   <td><img src="http://106.51.38.64:8888/images/sumadhura_projects_images/customermailimages/sumadhura_mail_image.jpg" style="width:100%;"/></td>
+ </tr>
+ <tr>
+   <td style="padding-top:15px;"> Dear<span style="font-size:16px;font-weight:700"> <strong> ${email.name} </strong> ,</span></td>
+ </tr>
+ <tr>
+   <td style="padding-top:40px;"> A new ticket bearing ticket number ${email.ticketId} has been raised for ${email.departmentName} department as per your request. Our team will reply to all tickets within 24 hrs. </td>
+ </tr>
+ <tr>
+   <td>Ticket message: ${email.message}</td>
+ </tr>
+ <tr>
+   <td>Ticket Owner: ${email.employeeName} will be assisting you with this particular ticket.</td>
+ </tr>
+ <tr>
+  <td style="padding-top:20px;">DO NOT REPLY TO THIS E-MAIL</td>
+ </tr>
+ <tr>
+  <td style="padding-top:20px;"><span style="font-size:15px;font-weight:600">This is an auto generated E-mail. Please do not reply to this email as we will not receive your reply.</span></td>
+</tr>
+
+</table>
+</body>
+</html>

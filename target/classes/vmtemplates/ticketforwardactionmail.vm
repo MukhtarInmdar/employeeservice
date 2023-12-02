@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+<form name="loginForm" method="post" action="http://106.51.38.64:8888/SumadhuraGateway/employeeservice/employeeTicket/ticketForwardActionMail.spring">
+   <div style="width: 100%;margin: 20px auto;">
+        <span style="font-size: 20px;">Dear <strong>${email.name}</strong>,</span>
+        <br>
+        <p style="font-size: 18px;">Following Ticket escalted from <strong>${email.pendingEmployeeAndDepartmentName}</strong></p>
+		<br>
+        <p style = 'font-size:16px;font-weight:550;margin-left:7%;'>Flat Number : ${email.flatNumber} </p>
+		<p style = 'font-size:16px;font-weight:550;margin-left:7%;'>Ticket Number : ${email.ticketId} </p>
+		<p style = 'font-size:16px;font-weight:550;margin-left:7%;'>Pending dept : ${email.pendingEmployeeAndDepartmentName}</p>
+		<p style = 'font-size:16px;font-weight:550;margin-left:7%;'>Project Name : ${email.siteName}</p>
+		<p style = 'font-size:16px;font-weight:550;margin-left:7%;'>Escalation Date : ${email.escalationTime}</p>
+		<p style = 'font-size:16px;font-weight:550;margin-left:7%;'>Ticket Type : ${email.ticketType} </p>
+		<p style = 'font-size:16px;font-weight:550;margin-left:7%;'>Ticket Subject : ${email.ticketSubject}</p>
+		<p style = 'font-size:16px;font-weight:550;margin-left:7%;'>Comments : <input name = "comment" type="text"/>  </p>
+		<input style="color:blue;margin-left:13%;" type="submit" value="Approve" />
+		
+   </div>
+     <input type="hidden" name="employeeId" value="${email.employeeId}" />
+     <input type="hidden" name="ticketId" value="${email.ticketId}" />
+     <input type="hidden" name="departmentId" value="${email.departmentId}" />
+     <input type="hidden" name="requestUrl" value="${email.requestUrl}" />
+     <input type="hidden" name="ticketEscalationId" value="${email.ticketEscalationId}" />
+     <input type="hidden" name="typeOf" value="${email.typeOf}" />
+     <input type="hidden" name="toId" value="${email.toId}" />
+     <input type="hidden" name="toDeptId" value="${email.toDeptId}" />
+     <input type="hidden" name="mailOtpApproval" value="${email.mailOtpApproval}" />
+     <input type="hidden" name="type" value="${email.type}" />
+     <input type="hidden" name="merchantId" value="${email.merchantId}" />
+     
+</form>
+<br>
+<p style="font-size: 20px;"><b>For more details on ticket please login to the <a href="http://106.51.38.64:8888/sumadhura_CUG/#/">customer app</a>  portal.</b></p>
+</body>
+</html>

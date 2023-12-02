@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+
+		@media screen and (min-width: 375px) and (max-width: 767px) {
+			.cssStyles{
+				float: left;
+				width: 35%;
+				text-align: center;
+				margin: 2px;
+			}
+			#tabledata{
+				    font-size: 12px;
+					width:100%;
+			}
+		}
+		@media screen and (max-width: 320px) {
+			.cssStyles{
+				float: left;
+				width: 80%;
+				text-align: center;
+				margin: 2px;
+			}
+			#tabledata{
+				    font-size: 12px;
+					width:100%;
+			}
+		}
+		@media screen and (min-width: 768px) {
+			#tabledata{
+				    font-size: 13px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+#set ($info = ${email.demandNoteGeneratorInfo})
+
+<div style="width: 100%;margin: 13px auto;">
+   #set( $HideTable = "false" )
+        
+   #if($info.condition == "RateOfInterestAlert")
+		<span style="font-size: 13px;">Hi <strong>All</strong>,</span><br> 	
+		<p style="font-size: 13px;text-align: justify;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $info.siteName Rate of interest is not upto date in the system, Last available date is  $info.transactionDate,</p>
+	    <p style="font-size: 13px;text-align: justify;"> Please update it so that customer can see updated amount.</p>
+	    <br/>
+	    <p style="font-size: 13px;text-align: justify;">Thank you.</p>
+	    <br/><br/><br/><br/>
+		<p style="font-size: 13px;text-align: justify;">Note : This is system generated mail. Please do not reply</p>    
+	#elseif($info.condition == "")
+		     	  
+    #end ## if condition
+        
+#*     <div style="width: 100%;margin-top: 40px;">
+            <a href="${info.portalUrl}" class="cssStyles" style="font-size: 13px;padding: 9px 12px;text-decoration: none;background-color: #337ab7;border-color: #2e6da4;  color: #fff;border-radius: 10px; ">Get to the Portal</a>
+		</div>
+*#
+        <div style="margin-top: 80px;clear: both;">
+            #*<img src="http://129.154.74.18:8090/images/sumadhura_projects_images/Sumadhura_Logo.jpg" width = "150" height = "150"><br>*#
+             <img src='${info.rightSidelogoForPdf}'  width='130' height='130'/> <br/>
+            <span style="border-bottom: 3px solid #d86464;font-size: 15px;">${info.companyName}</span>
+            <p style="font-size: 13px;text-align: justify;">${info.companyBillingAddress}</p>
+            <p style="font-size: 13px;text-align: justify;"><strong>Tel </strong>: ${info.companyTelephoneNo}, </p>
+            <p style="font-size: 13px;text-align: justify;"><strong>Email </strong>: ${info.companyEmail}, </p>
+            <p style="font-size: 13px;text-align: justify;"><strong>GSTIN </strong>: ${info.companyGstin}, </p>
+            <p style="font-size: 13px;text-align: justify;"><strong>CIN </strong>: ${info.companyCin}, </p>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,198 @@
+<head>
+    <style>
+	table {
+  border: 1px solid black;
+ border-collapse: collapse;
+ width:100%;
+
+ padding:10px;
+
+
+}
+
+table, th, td {
+  border: 1px solid black;
+ border-collapse: collapse;
+ padding:5px;
+ text-align:center;
+}
+        [contenteditable="true"]:hover {
+            outline: lightblue auto 5px;
+            outline: -webkit-focus-ring-color auto 5px;
+        }
+
+        body {
+            background: #f1f1f1;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .invoice {
+          font-family: inherit;
+            font-weight: -50;
+            width: -100%;
+            max-width: -50px;
+            margin: 1% auto;
+            box-sizing: border-box;
+            padding:-20px;
+            border-radius:1px;
+            background: #fff;
+         ## font-size: 5px!important;
+            min-height: auto;
+        }
+
+        .header {
+            display: flex;
+            width: 100%;
+
+            align-items: center;
+        }
+
+        .header--invoice {
+            order: 2;
+            text-align: right;
+            width: 40%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .invoice--date,
+        .invoice--number {
+            font-size: 9px;
+            color: #494949;
+        }
+
+        .invoice--recipient {
+            margin-top: 25px;
+            margin-bottom: 4px;
+        }
+
+        .header--logo {
+            order: 1;
+            font-size: 32px;
+            width: 80%;
+            font-weight: 900;
+        }
+
+        .logo--address {
+            font-size: 14px;
+            padding: 4px;
+         
+        }
+
+
+        .logo--address1 {
+           
+            font-size: 16px;
+            font-family: lato;
+            text-transform: capitalize;
+        }
+
+        .description {
+            margin: auto;
+            text-align: justify;
+
+        }
+
+        .items--table {
+            width: 100%;
+            padding: 10px;
+
+            thead {
+                background: #ddd;
+                color: #111;
+                text-align: center;
+                font-weight: 800;
+            }
+
+            tbody {
+                text-align: center;
+            }
+
+            .total-price {
+                border: 2px solid #444;
+                padding-top: 4px;
+                font-weight: 800;
+                background: lighten(green, 50%);
+            }
+        }
+
+        .sessiontitle {
+            text-align: center;
+            font-family: initial;
+            padding: 1px;
+            width: 100%;
+            text-transform: capitalize;
+            font-size: 14px;
+			text-decoration:underline;
+			
+
+        }
+
+        .spansubtitle {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .bottomcls {
+            position: relative;
+            top: -18px;
+            font-size: 11px;
+            font-family: serif;
+            color: #795548;
+        }
+        
+    </style>
+</head>
+
+#set ($customerDetails = $email.dataForPdf.get("customerDetails").get(0))
+ #set ($customerUnitDetails = $email.dataForPdf.get("customerUnitDetails").get(0))
+ #set ($info = ${email.demandNoteGeneratorInfo})
+ 
+<article class="invoice" style="font-family: Times New Roman, Times, sans-serif;">
+##style="line-height:20px"
+
+    
+     <section class="description">
+	 
+   
+	 <p >Date: <span class="spansubtitle"><b>${customerDetails.get("todayDate")}</b></span></p><br/>
+	 
+	 <p><span class="spansubtitle">To,</span></p><br/>
+	 <p ><span class="spansubtitle"> <b>The Assistant Executive Engineer</b></span></p><br/>
+	 <p ><span class="spansubtitle">Dear Sir,</span></p><br/>
+	
+	 <p>Sub: Transfer of Electric Meter  <span class="spansubtitle"><b>RR No. ${customerUnitDetails.get("RRNO")} "${customerDetails.get("siteName")}"  - 
+	  Flat No. ${customerDetails.get("flatName")}.</b></span></p><br/>
+	
+	 <p>We wish to inform you that <span class="spansubtitle"><b>${customerDetails.get("customerNames")} ,</b></span> has purchased Apartment No.
+	 <span class="spansubtitle"> <b>${customerDetails.get("flatName")}</b></span> in our project viz.
+	  <span class="spansubtitle"><b>"${customerDetails.get("siteName")}"</b></span> 
+	  situated at Converted Land bearing Sy.No. 113 old Sy.No.113/2. Sy No.10, Sy No.8/2, Sy.No.8/3 old Sy.No.8/1, Sy.No.8/5 old Sy.No.8/1, 
+	  Sy No.9/1, Sy.No.9/2 and Sy.No.9/3 totally admeasures about 13 Acres 30.08 Guntas, all the Properties referred to above are situated adjacent 
+	  to each other at Doddabanahalli Village, BidarahalliHobli, Bangalore East Taluk, Bangalore. The sale deed in respect of this apartment had 
+	  already been executed by 
+	  
+	  #if($info.condition == "Land Owner")
+	  them
+	  #else
+	  us
+	  #end
+	   on <span class="spansubtitle"><b>${customerUnitDetails.get("saleDeedDate")}</b></span>
+	  and registered as document No <span class="spansubtitle"><b>${customerUnitDetails.get("saleDeedNo")},</b></span> in favour of 
+	  <span class="spansubtitle"><b>${customerDetails.get("customerNames")}</b></span>  have taken possession of the aforesaid apartment. </p><br/>
+	
+	 <p>We, the Builder,  <span class="spansubtitle"><b>M/s. SUMADHURA INFRACON PRIVATE LIMITED</b></span> have no objection in your transferring the Meter 
+	 <span class="spansubtitle"><b>RR No. ${customerUnitDetails.get("RRNO")}</b></span> <b>with respect of Flat No </b>
+	 <span class="spansubtitle"><b>${customerDetails.get("flatName")},</b></span> along with deposits into the name of 
+	 <span class="spansubtitle"><b>${customerDetails.get("customerNames")} .</b></span></p>
+	 <br/>
+	 <p>Kindly do the needful.</p><br/>
+	 <p>Thanking you, </p>	<br/><br/><br/>
+	 <p>Yours faithfully,</p>	<br/><br/>
+	 <p>For Sumadhura Infracon Private Limited</p>
+	
+     </section>
+</article>

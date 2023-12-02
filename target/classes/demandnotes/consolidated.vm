@@ -1,0 +1,344 @@
+<head>
+   <style>
+      .tableclass {
+	      border: 1px solid black;
+	      border-collapse: collapse;
+	      width:100%;
+	      padding:10px;
+      }
+      .tableclass, th, {
+	      border: 1px solid black;
+	      border-collapse: collapse;
+	      padding:5px;
+	      text-align:center;
+      }
+      
+      .tdcls {
+	      border: 1px solid black;
+	      border-collapse: collapse;
+	      padding:2px;
+	      text-align:center;
+	      margin : 10px 3px 10px 3px;
+      }
+      .keyname1 {
+	      display: inline-table;
+	      line-height: 21px;
+	      width: 200px;
+	      font-size: 12px;
+	      font-weight: 700;
+      }
+      .keyname2 {
+	      display: inline-table;
+	      line-height: 21px;
+	      font-size: 12px;
+      }
+      .keyname {
+	      display: inline-table;
+	      line-height: 21px;
+	      width: 200px;
+	      font-size: 12px;
+      }
+      [contenteditable="true"]:hover {
+	      outline: lightblue auto 5px;
+	      outline: -webkit-focus-ring-color auto 5px;
+      }
+      body {
+	      background: #f1f1f1;
+	      width: 100%;
+	      height: 100%;
+	      margin: 0;
+	      padding: 0;
+      }
+      .invoice {
+	      font-family: inherit;
+	      font-weight: 100;
+	      width: 95%;
+	      max-width: 1000px;
+	      margin: 2% auto;
+	      box-sizing: border-box;
+	      padding: 70px;
+	      border-radius: 5px;
+	      background: #fff;
+	      min-height: auto;
+	      //font-size: 12px;
+      }
+      .header {
+	      display: flex;
+	      width: 100%;
+	      align-items: center;
+      }
+      .header--invoice {
+	      order: 2;
+	      text-align: right;
+	      width: 40%;
+	      margin: 0;
+	      padding: 0;
+      }
+	      .invoice--date,
+	      .invoice--number {
+	      font-size: 12px;
+	      color: #494949;
+      }
+      .invoice--recipient {
+	      margin-top: 25px;
+	      margin-bottom: 4px;
+      }
+      .header--logo {
+	      order: 1;
+	      font-size: 32px;
+	      width: 80%;
+      }
+      .logo--address {
+	      font-size: 12px;
+	      padding: 4px;
+	      margin-bottom: -98px;
+      }
+      .logo--address1 {
+	      font-size: 12px;
+	      font-family: lato;
+	      text-transform: capitalize;
+	      margin-top:10px
+      }
+      .description {
+      margin: auto;
+      text-align: justify;
+      }
+      .items--table {
+      width: 100%;
+      padding: 10px;
+      thead {
+      background: #ddd;
+      color: #111;
+      text-align: center;
+      font-weight: 800;
+      }
+      tbody {
+      text-align: center;
+      }
+      .total-price {
+      border: 2px solid #444;
+      padding-top: 4px;
+      font-weight: 800;
+      background: lighten(green, 50%);
+      }
+      }
+      .sessiontitle {
+	      text-align: center;
+	      font-family: initial;
+	      text-decoration:underline;
+	      padding: 1px;
+	      width: 100%;
+	      margin-top: 35px;
+	      text-transform: capitalize;
+	      font-size: 14px;
+      }
+      .spansubtitle {
+	      font-size: 12px;
+	      font-weight:bold;
+      }
+      .bottomcls {
+      position: relative;
+      top: -18px;
+      font-size: 8px;
+      font-family: serif;
+      color: #795548;
+      }
+   </style>
+</head>
+#foreach($consolidatedReceiptPdf in $email.consolidatedReceiptPdfInfos)
+<article class="invoice">
+ #*  <div style="float:right">
+      <img src='${consolidatedReceiptPdf.rightSidelogoForPdf}'  width='120' height='120' />
+   </div>
+ *# 
+   <header class="header" >
+      <nav class="header--logo">
+         <div class="logo--address" contenteditable="true">
+            <span style="float:left;font-size: 12px">Date:${consolidatedReceiptPdf.consolidatedReceiptDate}</span><br/>
+         </div>
+      </nav>
+   </header>
+     <section class="sessiontitle" style="text-align: center;text-decoration:underline;">
+        <h3>Consolidated Receipt</h3>
+    </section>
+    <br/>
+   <section class="description">
+   
+   
+  <div style="width:100%;float:left">
+   <div style="width:15%;float:left">
+   <label  class="keyname1" style="margin-left:8px">Customer Name/s</label> 
+         <span   style="font-weight:bold;">:</span> 
+   </div>
+    <div style="width:65%;margin-left:15%; float:left">
+         <span   class="keyname2" style="font-weight:bold;"  >${consolidatedReceiptPdf.customerNames}</span>
+    </div>
+   </div>
+   
+      <table >
+         <tr style="width:100%">
+            <td>
+                  <label  class="keyname1">Booking Date</label> 
+                  <span   style="font-weight:bold">:</span> 
+                  <span   class="keyname" style="font-weight:bold;" >${consolidatedReceiptPdf.bookingDate}</span>
+            </td>
+         </tr>
+         <tr style="width:100%">
+            <td style="width:65%">
+            
+                  <label  class="keyname1">Project</label> 
+                  <span   style="font-weight:bold">:</span> 
+                  <span   class="keyname" style="font-weight:bold;" >${consolidatedReceiptPdf.siteName}</span>
+            
+            </td>
+            <td style="width:35%">
+            
+                  <label  class="keyname1">Total Cost</label> 
+                  <span   style="font-weight:bold">:</span> 
+                  <span   class="keyname" style="font-weight:bold;" >${consolidatedReceiptPdf.totalFlatCost}</span>
+               
+            </td>
+         </tr>
+         <tr style="width:100%">
+            <td style="width:65%">
+               
+                  <label  class="keyname1">Unit no</label> 
+                  <span   style="font-weight:bold">:</span> 
+                  <span   class="keyname" style="font-weight:bold;" >${consolidatedReceiptPdf.flatNo}</span>
+               
+            </td>
+            <td style="width:35%">
+               
+                  <label  class="keyname1">Total Paid</label> 
+                  <span   style="font-weight:bold">:</span> 
+                  <span   class="keyname" style="font-weight:bold;" >${consolidatedReceiptPdf.totalPaidAmount}</span>
+               
+            </td>
+         </tr>
+         <tr style="width:100%">
+            <td style="width:65%">
+               
+                  <label  class="keyname1">SBUA</label> 
+                  <span   style="font-weight:bold">:</span> 
+                  <span   class="keyname" style="font-weight:bold;" >${consolidatedReceiptPdf.sbua}</span>
+               
+            </td>
+            <td style="width:35%">
+               
+                  <label  class="keyname1">Balance On Total Cost</label> 
+                  <span   style="font-weight:bold">:</span> 
+                  <span   class="keyname" style="font-weight:bold;" >${consolidatedReceiptPdf.balanceOnTotalCost}</span>
+               
+            </td>
+         </tr>
+      </table>
+       <br/>
+      <p>
+	      <table class="tableclass" style="repeat-header: yes; repeat-footer: yes;"  height="600" >
+	         <thead>
+		         <tr>
+		            <th style="border: 1px solid black;padding:3px;font-size:11px;" align="center">S.no</th>
+		            <th style="border: 1px solid black;padding:3px;font-size:11px;width:60px;" align="center">Received date</th>
+		            <th style="border: 1px solid black;padding:3px;font-size:11px;" align="center">Transaction ref no</th>
+		            <th style="border: 1px solid black;padding:3px;font-size:11px;width:80px;" align="center">Transaction date</th>
+		            <th style="border: 1px solid black;padding:3px;font-size:11px;" align="center">Principal Amount</th>
+		            <th style="border: 1px solid black;padding:3px;font-size:11px;" align="center">CGST Amount</th>
+		            <th style="border: 1px solid black;padding:3px;font-size:11px;" align="center">SGST Amount</th>
+		            <th style="border: 1px solid black;padding:3px;font-size:11px;" align="center">Total Amount</th>
+		            <th style="border: 1px solid black;padding:3px;font-size:11px;width:50px;" align="center">Status &nbsp;</th>
+		         </tr>
+	         </thead>
+	         #foreach($completedTransactions in ${consolidatedReceiptPdf.finCompletedTransactionsList})
+			     <tr>
+			        <td class="tdcls" style="border: 1px solid black;font-size:10.2px;padding:8px 0px 8px 0px;" align="center">$completedTransactions.srNo</td>
+			        <td class="tdcls" style="border: 1px solid black;font-size:10.2px;padding:8px 0px 8px 0px;" align="center">$completedTransactions.chequeOrOnlineReceivedDate</td>
+			        <td class="tdcls" style="border: 1px solid black;font-size:10.2px;padding:8px 0px 8px 0px;" align="center">$completedTransactions.chequeOrOnlineReferenceNo</td>
+			        <td class="tdcls" style="border: 1px solid black;font-size:10.2px;padding:8px 0px 8px 0px;" align="center">$completedTransactions.chequeOrOnlineTransactionDate</td>
+			        <td class="tdcls" style="border: 1px solid black;font-size:10.2px;padding:8px 0px 8px 0px;" align="center">$completedTransactions.principalAmount</td>
+			        <td class="tdcls" style="border: 1px solid black;font-size:10.2px;padding:8px 0px 8px 0px;" align="center">$completedTransactions.cgstAmount</td>
+			        <td class="tdcls" style="border: 1px solid black;font-size:10.2px;padding:8px 0px 8px 0px;" align="center">$completedTransactions.sgstAmount</td>
+			        <td class="tdcls" style="border: 1px solid black;font-size:10.2px;padding:8px 0px 8px 0px;" align="center">$completedTransactions.totalAmount</td>
+			        <td class="tdcls" style="border: 1px solid black;font-size:10.2px;padding:8px 0px 8px 0px;" align="center">$completedTransactions.status<br/></td>
+			     </tr>
+	         #end
+	         	        	          	         
+	         <tr>
+	            <td class="tdcls" colspan="4"  style="border: 1px solid black;padding:8px 0px 8px 0px;font-size:11px;"><strong>Total</strong></td>
+	            <td class="tdcls" style="border: 1px solid black;padding:8px 0px 8px 0px;font-size:10.2px;"><strong>${consolidatedReceiptPdf.totalPrincipalAmount}</strong></td>
+	            <td class="tdcls" style="border: 1px solid black;padding:8px 0px 8px 0px;font-size:10.2px;"><strong>${consolidatedReceiptPdf.totalCgstAmount}</strong></td>
+	            <td class="tdcls" style="border: 1px solid black;padding:8px 0px 8px 0px;font-size:10.2px;"><strong>${consolidatedReceiptPdf.totalSgstAmount}</strong></td>
+	            <td class="tdcls" style="border: 1px solid black;padding:8px 0px 8px 0px;font-size:10.2px;"><strong>${consolidatedReceiptPdf.totalAmount}</strong></td>
+	            <td class="tdcls"> </td>
+	         </tr>
+	      </table>
+      </p>
+       <br/>
+         #if($consolidatedReceiptPdf.isBounceTransactionExists)
+      <p>
+	      <table class="tableclass" style="repeat-header: yes; repeat-footer: yes;">
+	         <tr>
+		            <th style="border: 1px solid black;padding:3px;font-size:11px;" align="center">S.no</th>
+		            <th style="border: 1px solid black;padding:3px;font-size:11px;width:60px;" align="center">Received date</th>
+		            <th style="border: 1px solid black;padding:3px;font-size:11px;" align="center">Transaction ref no</th>
+		            <th style="border: 1px solid black;padding:3px;font-size:11px;width:80px;" align="center">Transaction date</th>
+		            <th style="border: 1px solid black;padding:3px;font-size:11px;" align="center">Principal Amount</th>
+		            <th style="border: 1px solid black;padding:3px;font-size:11px;" align="center">CGST Amount</th>
+		            <th style="border: 1px solid black;padding:3px;font-size:11px;" align="center">SGST Amount</th>
+		            <th style="border: 1px solid black;padding:3px;font-size:11px;" align="center">Total Amount</th>
+		            <th style="border: 1px solid black;padding:3px;font-size:11px;width:50px;" align="center">Status &nbsp;</th>
+	         </tr>
+	         #foreach($completedTransactions in ${consolidatedReceiptPdf.finBouncedTransactionsList})
+			     <tr>
+			        <td class="tdcls" style="border: 1px solid black;font-size:10.2px;padding:8px 0px 8px 0px;" align="center">$completedTransactions.srNo</td>
+			        <td class="tdcls" style="border: 1px solid black;font-size:10.2px;padding:8px 0px 8px 0px;" align="center">$completedTransactions.chequeOrOnlineReceivedDate</td>
+			        <td class="tdcls" style="border: 1px solid black;font-size:10.2px;padding:8px 0px 8px 0px;" align="center">$completedTransactions.chequeOrOnlineReferenceNo</td>
+			        <td class="tdcls" style="border: 1px solid black;font-size:10.2px;padding:8px 0px 8px 0px;" align="center">$completedTransactions.chequeOrOnlineTransactionDate</td>
+			        <td class="tdcls" style="border: 1px solid black;font-size:10.2px;padding:8px 0px 8px 0px;" align="center">$completedTransactions.principalAmount</td>
+			        <td class="tdcls" style="border: 1px solid black;font-size:10.2px;padding:8px 0px 8px 0px;" align="center">$completedTransactions.cgstAmount</td>
+			        <td class="tdcls" style="border: 1px solid black;font-size:10.2px;padding:8px 0px 8px 0px;" align="center">$completedTransactions.sgstAmount</td>
+			        <td class="tdcls" style="border: 1px solid black;font-size:10.2px;padding:8px 0px 8px 0px;" align="center">$completedTransactions.totalAmount</td>
+			        <td class="tdcls" style="border: 1px solid black;font-size:10.2px;padding:8px 0px 8px 0px;" align="center">$completedTransactions.status<br/></td>
+			     </tr>
+	         #end
+	         <tr>
+	            <td class="tdcls" colspan="4" style="border: 1px solid black;padding:8px 0px 8px 0px;font-size:11px;"><strong>Total</strong></td>
+	            <td class="tdcls" style="border: 1px solid black;padding:8px 0px 8px 0px;font-size:11px;"><strong>${consolidatedReceiptPdf.totalBouncePrincipalAmount}</strong></td>
+	            <td class="tdcls" style="border: 1px solid black;padding:8px 0px 8px 0px;font-size:11px;"><strong>${consolidatedReceiptPdf.totalBounceCgstAmount}</strong></td>
+	            <td class="tdcls" style="border: 1px solid black;padding:8px 0px 8px 0px;font-size:11px;"><strong>${consolidatedReceiptPdf.totalBounceSgstAmount}</strong></td>
+	            <td class="tdcls" style="border: 1px solid black;padding:8px 0px 8px 0px;font-size:11px;"><strong>${consolidatedReceiptPdf.totalBounceAmount}</strong></td>
+	            <td class="tdcls" style="border: 1px solid black;padding:8px 0px 8px 0px;font-size:11px;"> </td>
+	         </tr>
+	      </table>
+      </p>
+	#end ## if condition
+
+      
+      <br/><br/>
+   </section>
+   <header class="header">
+      <nav class="header--logo">
+         <div class="logo--address1" contenteditable="true" >
+            <span style = "font-size:12px;"></span> <br/><br/><br/>
+            <p>
+            <span style = "font-size:12px;">Thanks and Regards,</span><br/>
+            <span style = "font-size:12px;">Customer Relations.</span><br/><br/>
+            </p>
+            <p contenteditable="true" style="color:#000000;font-size:12px;"><span class="spansubtitle">Note:</span><span >This is a system generated document. Hence, signature not required.</span></p>
+         </div>
+      </nav>
+   </header>
+#*    <br/><br/>
+  <hr class = "hrr"></hr>
+
+   <b><font size="1">${consolidatedReceiptPdf.companyName}</font></b><br/>
+   <font size="1">${consolidatedReceiptPdf.companyBillingAddress}</font>
+   <p class="bottomcls">
+    		#if($consolidatedReceiptPdf.companyCin != "-")
+			  <p  style='margin:0;'><font size="1">Tel: ${consolidatedReceiptPdf.companyTelephoneNo} CIN: ${consolidatedReceiptPdf.companyCin} GSTIN: ${consolidatedReceiptPdf.companyGstin} &nbsp;E-mail: ${consolidatedReceiptPdf.companyEmail}&nbsp;Website: <span style="color:blue">${consolidatedReceiptPdf.companyWebsite}</span></font></p>
+			  #elseif($consolidatedReceiptPdf.companyLlpin != "-")	
+			   	<p  style='margin:0;'><font size="1">Tel: ${consolidatedReceiptPdf.companyTelephoneNo} LLPIN: ${consolidatedReceiptPdf.companyLlpin} GSTIN: ${consolidatedReceiptPdf.companyGstin} &nbsp;E-mail: ${consolidatedReceiptPdf.companyEmail}&nbsp;Website: <span style="color:blue">${consolidatedReceiptPdf.companyWebsite}</span></font></p>
+			#else
+			#end
+   </p>*#
+</article>
+#end ## fisrt condition

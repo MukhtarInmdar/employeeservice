@@ -1,0 +1,20 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+	<head>
+	 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	  	<meta name="viewport" content="width=device-width, initial-scale=1">
+	  	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	  	<title>Notification Approval Mail</title> 
+	   	<style>
+	  	</style> 
+	</head>
+	<body>
+		<span style="font-size: 15px;"> Dear<strong style="font-size:15px;"> ${email.employeeName}</strong>,</span>
+	  	<br><br>
+	  	<span style="font-size:15px;color:black">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; You got a Notification for approval, with ID <b>${email.id}</b> and titled as <b>${email.title}</b>. Kindly take the necessary action accordingly.</span>
+	 	<br><br>
+	 	<span style="font-size:15px;color:black">Request from : <strong>${email.name}</strong>.</span>
+	    <br><br><br>
+	    <span style="font-size:15px;"><strong>Note :</strong> This is an auto generated E-mail, please do not reply to this mail.</span> 
+	</body> 
+ </html>

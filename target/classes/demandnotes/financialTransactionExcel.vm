@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+#set ($info = ${email.demandNoteGeneratorInfo})
+#set ($financialInfo = ${email.financialTransactionEmailInfo})
+
+    <div style="width: 100%;margin: 20px auto;">
+        <p style="font-size: 16px;">Hello All,<strong></strong></p>
+		
+		<p style="font-size: 16px;">&nbsp;&nbsp;&nbsp;&nbsp;Please find attached financial transaction excel.</p>
+		    <div style="margin-top: 80px;clear: both;">
+	             <img src='${info.rightSidelogoForPdf}'  width='120' height='120'/> <br/>
+	            <span style="border-bottom: 3px solid #d86464;font-size: 15px;">${info.companyName}</span>
+	            <p style="font-size: 13px;text-align: justify;">${info.companyBillingAddress}</p>
+	            <p style="font-size: 13px;text-align: justify;"><strong>Tel </strong>: ${info.companyTelephoneNo}, </p>
+	            <p style="font-size: 13px;text-align: justify;"><strong>Email </strong>: ${info.companyEmail}, </p>
+	            <p style="font-size: 13px;text-align: justify;"><strong>GSTIN </strong>: ${info.companyGstin}, </p>
+	            <p style="font-size: 13px;text-align: justify;"><strong>CIN </strong>: ${info.companyCin}, </p>
+	        </div>
+        
+    </div>
+</body>
+
+</html>

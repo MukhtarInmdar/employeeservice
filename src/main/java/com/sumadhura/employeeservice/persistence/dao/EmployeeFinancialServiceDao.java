@@ -1,0 +1,813 @@
+package com.sumadhura.employeeservice.persistence.dao;
+
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import com.sumadhura.employeeservice.dto.EmployeeFinancialRequest;
+import com.sumadhura.employeeservice.dto.EmployeeFinancialTransactionRequest;
+import com.sumadhura.employeeservice.dto.FileInfo;
+import com.sumadhura.employeeservice.dto.FinancialProjectMileStoneRequest;
+import com.sumadhura.employeeservice.dto.Site;
+import com.sumadhura.employeeservice.enums.FinEnum;
+import com.sumadhura.employeeservice.enums.MetadataId;
+import com.sumadhura.employeeservice.enums.Status;
+import com.sumadhura.employeeservice.exception.EmployeeFinancialServiceException;
+import com.sumadhura.employeeservice.exception.InSufficeientInputException;
+import com.sumadhura.employeeservice.persistence.dto.AddressPojo;
+import com.sumadhura.employeeservice.persistence.dto.CoApplicantPojo;
+import com.sumadhura.employeeservice.persistence.dto.CustomerPropertyDetailsPojo;
+import com.sumadhura.employeeservice.persistence.dto.DropDownPojo;
+import com.sumadhura.employeeservice.persistence.dto.EmployeeDetailsPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinAnnyApproveStatPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinAnnyEntryCommentsPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinAnnyEntryDocPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinAnonymousEntryMapPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinAnonymousEntryPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinBankPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinBokFrmDemNteSchTaxMapPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinBokFrmFlatKhataTaxPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinBokFrmLglCostTaxPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinBokFrmMaintenanceTaxPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinBookingFormAccountPaymentDetailsPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinBookingFormAccountPaymentPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinBookingFormAccountSummaryPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinBookingFormAccountsPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinBookingFormAccountsStatementPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinBookingFormCorpusFundPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinBookingFormDemandNoteDocPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinBookingFormDemandNotePojo;
+import com.sumadhura.employeeservice.persistence.dto.FinBookingFormExcessAmountPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinBookingFormExcessAmountUsagePojo;
+import com.sumadhura.employeeservice.persistence.dto.FinBookingFormFlatKhataDtlsPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinBookingFormFlatKhataPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinBookingFormLegalCostPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinBookingFormLglCostDtlsPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinBookingFormMaintenanceDtlsPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinBookingFormMaintenancePojo;
+import com.sumadhura.employeeservice.persistence.dto.FinBookingFormMilestoneTaxPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinBookingFormMilestonesPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinBookingFormModiCostDtlsPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinBookingFormModiCostPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinBookingFormModiCostTaxPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinBookingFormReceiptsPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinBookingFormRefundableAdvancePojo;
+import com.sumadhura.employeeservice.persistence.dto.FinBookingFormTdsDetailsPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinClearedUncleareTXPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinClosingBalanceReportPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinInterestRatesPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinMSChangedDtlsPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinMilDemNoteMappingPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinModificationInvoicePojo;
+import com.sumadhura.employeeservice.persistence.dto.FinPenaltyPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinPenaltyStatisticsPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinPenaltyTaxMappingPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinPenaltyTaxPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinProjDemNoteStatisticsPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinProjectAccountPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinSchemePojo;
+import com.sumadhura.employeeservice.persistence.dto.FinSchemeTaxMappingPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinTaxPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinTransactionApprRejectStatPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinTransactionApprStatPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinTransactionApprovalDetailsPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinTransactionChangedDtlsPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinTransactionChequePojo;
+import com.sumadhura.employeeservice.persistence.dto.FinTransactionCommentsPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinTransactionEntryDetailsPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinTransactionEntryDocPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinTransactionEntryPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinTransactionForPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinTransactionModePojo;
+import com.sumadhura.employeeservice.persistence.dto.FinTransactionOnlinePojo;
+import com.sumadhura.employeeservice.persistence.dto.FinTransactionPmtSetOffAccMapPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinTransactionSetOffAccMapPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinTransactionSetOffApprovalPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinTransactionSetOffEntryPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinTransactionSetOffPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinTransactionTypePojo;
+import com.sumadhura.employeeservice.persistence.dto.FinTransactionWaivedOffPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinTransferModePojo;
+import com.sumadhura.employeeservice.persistence.dto.FinancialDemandNoteMS_TRN_Pojo;
+import com.sumadhura.employeeservice.persistence.dto.FinancialDetailsPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinancialMileStoneClassifideMappingBlocksPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinancialMileStoneClassifidesPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinancialProjectDemandNotePojo;
+import com.sumadhura.employeeservice.persistence.dto.FinancialProjectMileStonePojo;
+import com.sumadhura.employeeservice.persistence.dto.FlatBookingPojo;
+import com.sumadhura.employeeservice.persistence.dto.FlatBookingSchemeMappingPojo;
+import com.sumadhura.employeeservice.persistence.dto.FlatCancellationCostPojo;
+import com.sumadhura.employeeservice.persistence.dto.FlatCostPojo;
+import com.sumadhura.employeeservice.persistence.dto.FlatSaleOwnersByAccount;
+import com.sumadhura.employeeservice.persistence.dto.InvoiceDocumentLocationPojo;
+import com.sumadhura.employeeservice.persistence.dto.ModicationInvoiceAppRej;
+import com.sumadhura.employeeservice.persistence.dto.OfficeDtlsPojo;
+import com.sumadhura.employeeservice.persistence.dto.PercentagesPojo;
+import com.sumadhura.employeeservice.persistence.dto.SiteDetailsPojo;
+import com.sumadhura.employeeservice.persistence.dto.SitePojo;
+import com.sumadhura.employeeservice.persistence.dto.StatePojo;
+import com.sumadhura.employeeservice.persistence.dto.StatusPojo;
+import com.sumadhura.employeeservice.service.dto.BookingFormRequest;
+import com.sumadhura.employeeservice.service.dto.CustomerInfo;
+import com.sumadhura.employeeservice.service.dto.CustomerPropertyDetailsInfo;
+import com.sumadhura.employeeservice.service.dto.EmployeeFinTranPaymentSetOffInfo;
+import com.sumadhura.employeeservice.service.dto.EmployeeFinancialServiceInfo;
+import com.sumadhura.employeeservice.service.dto.EmployeeFinancialTransactionServiceInfo;
+import com.sumadhura.employeeservice.service.dto.FinAnonymousEntryInfo;
+import com.sumadhura.employeeservice.service.dto.FinBookingFormAccountsInfo;
+import com.sumadhura.employeeservice.service.dto.FinPenalityInfo;
+import com.sumadhura.employeeservice.service.dto.FinTransactionEntryDetailsInfo;
+import com.sumadhura.employeeservice.service.dto.FinancialDemandNoteMS_TRN_Info;
+import com.sumadhura.employeeservice.service.dto.FinancialGstDetailsInfo;
+import com.sumadhura.employeeservice.service.dto.FinancialProjectMileStoneInfo;
+import com.sumadhura.employeeservice.service.dto.FinancialSchemeInfo;
+
+public interface EmployeeFinancialServiceDao {
+
+	List<FinancialMileStoneClassifidesPojo> getAllMileStoneAliasNameAssociatedWithSite(
+			EmployeeFinancialServiceInfo employeeFinancialInfo, Status active, String condition);
+
+	List<FinancialProjectMileStonePojo> getMileStoneNameAssociatedWithMilestoneClassifidesIdForDemandNote(EmployeeFinancialServiceInfo employeeFinancialInfo,
+			Status active, String condition);
+
+	List<FinancialMileStoneClassifideMappingBlocksPojo> getDemandNoteBlockDetails(EmployeeFinancialServiceInfo employeeFinancialDemandNoteInfo, Status active);
+
+	List<CustomerPropertyDetailsPojo> getFlatDetailsByBlockId(EmployeeFinancialServiceInfo mappingBlocksPojo, String condition, Set<Long> blockIds);
+
+	Long insertDataIntoFinProjDemandNote(FinancialProjectDemandNotePojo finProjDemandNotePojo);
+
+	Long insertDataIntoFinMilDemandNoteMapping(FinMilDemNoteMappingPojo finMilDemNoteMappingPojo);
+
+	Long insertDataIntofinProjectDemandNoteStatistics(FinProjDemNoteStatisticsPojo destFinProjDemandNotePojo);
+
+	Long insertDataIntoFinBookingFormDemandNote(FinBookingFormDemandNotePojo pojo);
+
+	Long insertDataIntoFinBookingFormMilestones(FinBookingFormMilestonesPojo pojo);
+
+	List<FinSchemeTaxMappingPojo> getFlatBookDetailsSchemeTaxDetails(CustomerPropertyDetailsInfo customerPropertyDetailsInfo, FinancialProjectMileStoneInfo finProjDemandNoteInfo) throws Exception;
+
+	List<FinBookingFormAccountSummaryPojo> getFlatBookingDetails(CustomerPropertyDetailsInfo customerPropertyDetailsInfo);
+
+	Long saveFinBokFrmDemNteSchTaxMap(FinBokFrmDemNteSchTaxMapPojo finBokFrmDemNteSchTaxMapPojo);
+
+	Long saveFinBookingFormAccountsStatement(FinBookingFormAccountsStatementPojo finBookingFormAccountsStatementPojo);
+
+	Long saveFinBookingFormAccounts(FinBookingFormAccountsPojo finBookingFormAccountsPojo);
+
+	List<FinancialProjectMileStonePojo> getPreviousNonPaidMileStoneDetails(FinancialProjectMileStoneInfo finProjDemandNoteInfo,
+			CustomerPropertyDetailsInfo customerPropertyDetailsInfo,FinEnum loadType) throws Exception;
+
+	//List<FinancialProjectMileStonePojo> getMileStoneDetailsFromBookingFormDemandNote(FinBookingFormAccountsPojo finBookingFormAccountsPojo1);
+
+	Long savePenaltyData(FinPenaltyPojo copyPropertiesFromInfoBeanToPojoBean, FinancialProjectMileStonePojo finBookingFormAccountsPojo, FinBookingFormAccountSummaryPojo accSummaryPojo);
+
+	int updateDataIntoFinBookingFormDemandNote(FinBookingFormDemandNotePojo bookingFormDemandNotePojo);
+
+ 	Long savePenaltyTaxMappingDetails(FinPenaltyTaxMappingPojo penaltyTaxMappingPojo);
+
+	List<FinBookingFormAccountsStatementPojo> getBookingFormAccountsStatementData(FinBookingFormAccountsPojo finBookingFormAccountsPojo);
+
+	boolean checkTheDateBetweenTheDates(FinancialProjectMileStoneInfo mileStoneInfo,
+			FinInterestRatesPojo finInterestRatesPojo);
+
+	List<FinPenaltyTaxPojo> getTaxOnInterestAmountData(FinancialProjectMileStoneInfo finProjDemandNoteInfo, List<Long> finPenalty);
+
+	List<FinInterestRatesPojo> getInterestDetailsOnDue(FinancialProjectMileStoneInfo finProjDemandNoteInfo);
+	
+	public List<DropDownPojo> getAllIncompletedEmpSitesList(EmployeeFinancialRequest employeeFinancialRequest) throws InSufficeientInputException;
+
+	public List<FinancialMileStoneClassifidesPojo> getAllAliasNamesForMileStone( EmployeeFinancialRequest employeeFinancialRequest);
+
+	public List<PercentagesPojo> getMileStonePercentages(EmployeeFinancialRequest employeeFinancialRequest);
+	
+	public Long saveFinMileStoneClassifides(FinancialMileStoneClassifidesPojo financialMileStoneClassifidesPojo);
+
+	public void saveFinancialMileStoneClassifideMappingBlocks(EmployeeFinancialRequest employeeFinancialRequest);
+
+	public void saveFinancialProjectMileStoneClassifides(List<FinancialProjectMileStonePojo> financialProjectMileStonePojosList);
+
+	public List<SiteDetailsPojo> getActiveBlocksFlats(EmployeeFinancialServiceInfo employeeFinancialServiceInfo);
+
+	public List<SiteDetailsPojo> getRaisedMilestoneSites(EmployeeFinancialServiceInfo employeeFinancialServiceInfo);
+
+	public List<FinBookingFormDemandNotePojo> getDemandNotes(EmployeeFinancialServiceInfo employeeFinancialServiceInfo);
+
+	public List<CustomerPropertyDetailsPojo> getCustomerPropertyDetails(EmployeeFinancialServiceInfo employeeFinancialServiceInfo);
+
+	List<FinancialProjectMileStonePojo> isMileStoneInitiatedForThisFlatBookingFormId(FinancialProjectMileStoneInfo finProjDemandNoteInfo,
+			CustomerPropertyDetailsInfo customerPropertyDetailsInfo, FinProjDemNoteStatisticsPojo demNoteStatisticsPojo);
+
+	Long savePenaltyStatisticsData(FinPenaltyStatisticsPojo finPenaltyStatisticsPojo,
+			FinancialProjectMileStonePojo finBookingFormAccountsPojo);
+
+	Long isPenaltyDetailsExistInAccountTable(FinPenalityInfo finPenalityInfo);
+
+	int upadteFinBookingFormAccountRecords(FinPenalityInfo finPenalityInfo, FinBookingFormAccountsPojo finBookingFormAccountsPojo);
+
+	Long saveDataIntoBookingFormMilestoneTax(FinBookingFormMilestoneTaxPojo bookingFormMilestoneTaxPojo);
+
+	Long getNoOfCompletedMileStone(CustomerPropertyDetailsInfo customerPropertyDetailsInfo);
+
+	List<FinPenaltyPojo> getLastInterestDateToCompare(FinancialProjectMileStonePojo finProjMileStonePojo);
+
+	List<FinBookingFormExcessAmountPojo> getExcessAmountDetails(CustomerPropertyDetailsInfo customerPropertyDetailsInfo, List<Long> metaDateId);
+	
+	List<FinBookingFormExcessAmountUsagePojo> getExcessAmountUsage(FinBookingFormExcessAmountPojo excessAmountPojo, EmployeeFinancialTransactionServiceInfo serviceInfo);
+	
+	Long saveBookingFormExcessAmountUsage(FinBookingFormExcessAmountUsagePojo pojo);
+
+	Long saveBookingFormReceiptsDetials(FinBookingFormReceiptsPojo finBookingFormReceiptsPojo);
+
+	Long updateAndReduceExcessAmount(FinBookingFormExcessAmountPojo excessAmountPojo);
+
+	int updateBookingFormAccountPaidAmount(FinBookingFormAccountsPojo finBookingFormAccountsPojo);
+	
+	int updateBookingFormAccountOnlyPaidAmount(FinBookingFormAccountsPojo finBookingFormAccountsPojo);
+
+	Timestamp getFlatAgreementCompletedDate(FinancialProjectMileStoneInfo finProjDemandNoteInfo,
+			CustomerPropertyDetailsInfo customerPropertyDetailsInfo);
+
+	Long saveTransactionEntryDetails(FinTransactionEntryPojo pojo);
+
+	Long saveTransactionChequeDetials(FinTransactionChequePojo copyPropertiesFromInfoBeanToPojoBean);
+
+	Long saveTransactionEntryDocuments(FinTransactionEntryDocPojo pojo);
+
+	Long saveTransactionEntryComments(FinTransactionCommentsPojo copyPropertiesFromInfoBeanToPojoBean);
+
+	Long saveTransactionOnlineDetails(FinTransactionOnlinePojo pojo);
+
+	Long saveTransactionSetOffDetails(FinTransactionSetOffPojo copyPropertiesFromInfoBeanToPojoBean);
+	
+	public List<FinBankPojo> getFinBankData(EmployeeFinancialTransactionServiceInfo employeeFinancialTransactionInfo);
+
+	public List<FinTransactionModePojo> getFinTransactionModeData(EmployeeFinancialTransactionServiceInfo employeeFinancialTransactionInfo);
+
+	public List<FinTransactionTypePojo> getFinTransactionTyeData(EmployeeFinancialTransactionServiceInfo employeeFinancialTransactionInfo);
+
+	public List<AddressPojo> getSiteAddressDetails(EmployeeFinancialServiceInfo employeeFinancialServiceInfo);
+
+	public List<FinProjectAccountPojo> getFinProjectAccountData(EmployeeFinancialTransactionServiceInfo employeeFinancialTransactionInfo, CustomerPropertyDetailsInfo customerPropertyDetailsInfo);
+
+	public List<FinBookingFormAccountsPojo> getFinBookingFormAccountsData1(CustomerPropertyDetailsInfo customerPropertyDetailsInfo);
+
+	public List<FinBookingFormAccountsPojo> getFinBookingFormAccountsData(FinBookingFormAccountsInfo bookingFormAccountsInfo);
+	
+	Long saveTranSetOffAccountDetails(FinTransactionSetOffAccMapPojo pojo) throws EmployeeFinancialServiceException;
+
+	String isThisPenaltyDataExist(FinPenalityInfo finPenalityInfo);
+
+	Long saveTransactionSetOffEntryDetails(FinTransactionSetOffEntryPojo copyPropertiesFromInfoBeanToPojoBean);
+
+	int updateBookingFormAccountSummary(FinBookingFormAccountSummaryPojo accSummaryPojo);
+
+	Long saveBookingFormAccountSummary(FinBookingFormAccountSummaryPojo accSummaryPojo);
+
+	Long savePaymentAnonymousEntry(FinAnonymousEntryPojo copyPropertiesFromInfoBeanToPojoBean);
+
+	List<FinAnonymousEntryPojo> getOnlinePaymentRererenceNumber(EmployeeFinancialTransactionServiceInfo transactionServiceInfo) throws Exception;
+
+	Long saveTransactionAnonymousEntryMapping(FinAnonymousEntryMapPojo copyPropertiesFromInfoBeanToPojoBean);
+
+	Long saveBookingFormModificationCostDetails(FinBookingFormModiCostDtlsPojo finModificationChargesPojo);
+
+	Long saveBookingFormModificationCost(FinBookingFormModiCostPojo pojo);
+
+	Long saveBookingFormModiCostTax(FinBookingFormModiCostTaxPojo copyPropertiesFromInfoBeanToPojoBean);
+
+	//List<FinModificationTaxPojo> getModificationChargesTaxDetails();
+	public List<FinTransactionEntryPojo> getMisPendingTransactions(EmployeeFinancialTransactionServiceInfo employeeFinancialTransactionServiceInfo);
+
+	public List<FinTransactionEntryDetailsPojo> getFinTransactionEntryDetails(EmployeeFinancialTransactionServiceInfo employeeFinancialTransactionInfo, CustomerPropertyDetailsInfo customerPropertyDetailsInfo);
+
+	public List<FinTransactionSetOffPojo> getFinTransactionSetOffData(FinTransactionEntryDetailsInfo finTransactionEntryDetailsInfo);
+
+	public List<FinTransactionCommentsPojo> getFinTransactionCommentsData(EmployeeFinancialTransactionServiceInfo employeeFinancialTransactionInfo);
+
+	public List<FinBookingFormAccountsPojo> getFinBookingFormAccountsInvoices(CustomerPropertyDetailsInfo customerPropertyDetailsInfo);
+
+	List<FinTransactionEntryDetailsPojo> getFinancialTransactionPaymentSetOffData(EmployeeFinancialTransactionServiceInfo transactionServiceInfo);
+
+	Long saveTranPaymentSetOffAccountDetails(FinTransactionPmtSetOffAccMapPojo copyPropertiesFromInfoBeanToPojoBean) throws EmployeeFinancialServiceException;
+
+	List<FinTransactionApprovalDetailsPojo> getNextLevelEmployeeApprovalDetails(EmployeeFinancialTransactionServiceInfo transactionServiceInfo, FinTransactionApprovalDetailsPojo finTransactionApprovalDetailsPojo, Status status);
+
+	Long saveNextLeveTransactionApprovalDetails(FinTransactionSetOffApprovalPojo pojo);	
+	
+	public List<CoApplicantPojo> getCoApplicantDetails(CustomerPropertyDetailsInfo customerPropertyDetailsInfo);
+
+	public List<FinAnonymousEntryPojo> getAnonymousEntriesData(EmployeeFinancialTransactionServiceInfo employeeFinancialTransactionServiceInfo, Long status);
+
+	int updateNextLevelTransactionApprovalDetails(
+			FinTransactionSetOffApprovalPojo copyPropertiesFromInfoBeanToPojoBean);
+
+	Long saveApproveRejectStatistics(FinTransactionApprRejectStatPojo copyPropertiesFromInfoBeanToPojoBean);
+
+	List<FinTransactionApprovalDetailsPojo> isValidEmployeeToApproveTransaction(EmployeeFinancialTransactionServiceInfo transactionServiceInfo, Status status);
+
+	Long updateAndIncreaseExcessAmount(FinBookingFormExcessAmountPojo finBookingFormExcessAmountPojo);
+	
+	Long updateAndRevertExcessAmount(FinBookingFormExcessAmountPojo finBookingFormExcessAmountPojo);
+
+	Long saveBookingFormExcessAmount(FinBookingFormExcessAmountPojo finBookingFormExcessAmountPojo);
+
+	int updatePaidAmountBookingFormAccountSummary(FinBookingFormAccountSummaryPojo accSummaryPojo);
+
+	List<FinTransactionEntryDetailsPojo> getFinancialTransactionPaymentRefundSetOffData(
+			EmployeeFinancialTransactionServiceInfo transactionServiceInfo);
+
+	int updateTransactionStatus(EmployeeFinancialTransactionServiceInfo transactionServiceInfo, Long statusId);
+
+	Long saveBookingFormAccountPayments(FinBookingFormAccountPaymentPojo pojo);
+
+	Long saveBookingFormAccountPaymentsDetails(FinBookingFormAccountPaymentPojo pojo);
+
+	int updateBookingFormAccountPayments(FinBookingFormAccountPaymentPojo pojo);
+
+	int updateBookingFormAccountSummaryRefundAmount(FinBookingFormAccountSummaryPojo accSummaryPojo);
+ 
+	int decreaseBookingFormAccountPaidAmount(FinBookingFormAccountsPojo pojo);
+	
+	public List<FinAnnyEntryDocPojo> getFinAnnyEntryDocData(FinAnonymousEntryInfo finAnonymousEntryInfo);
+
+	public List<FinAnnyEntryCommentsPojo> getFinAnnyEntryCommentsData(EmployeeFinancialTransactionServiceInfo employeeFinancialTransactionServiceInfo);
+
+	public List<FinTransferModePojo> getFinTransferModeData(EmployeeFinancialTransactionServiceInfo employeeFinancialTransactionInfo);
+
+	public List<FinTransactionApprStatPojo> getFinTransactionApprStatData(EmployeeFinancialTransactionServiceInfo employeeFinancialTransactionInfo);
+
+	public FinBookingFormLegalCostPojo saveFinBookingFormLegalCostData(FinBookingFormLegalCostPojo finBookingFormLegalCostPojo);
+
+	public List<FinBookingFormLglCostDtlsPojo> saveFinBookingFormLglCostDtlsData(List<FinBookingFormLglCostDtlsPojo> finBookingFormLglCostDtlsPojoList);
+
+	public boolean isTypeExistedInFinBookingFormAccounts(CustomerPropertyDetailsInfo customerPropertyDetailsInfo, EmployeeFinancialTransactionServiceInfo employeeFinancialTransactionServiceInfo);
+
+	public FinBokFrmLglCostTaxPojo saveFinBokFrmLglCostTaxData(FinBokFrmLglCostTaxPojo finBokFrmLglCostTaxPojo);
+
+	List<FinBokFrmDemNteSchTaxMapPojo> getSumOfMileStoneTaxDetails(FinSchemeTaxMappingPojo schemeDetails, FinancialProjectMileStonePojo mileStonePojo);
+
+	void getMileStoneDetailsForTDS(EmployeeFinancialServiceInfo employeeFinancialInfo, Status active);
+
+	List<FinBookingFormTdsDetailsPojo> getMileStoneTDSDetails(FinancialProjectMileStonePojo financialProjectMileStonePojo);
+
+	Long savefinBookingFormTdsDetails(FinBookingFormTdsDetailsPojo pojo);
+
+	int updateMileStoneTDSDetails(FinBookingFormTdsDetailsPojo finBookingFormTdsDetailsPojo);
+
+	int updateProjectMilestoneStatus(FinancialProjectMileStoneInfo finProjDemandNoteInfo, Long status);
+
+	Long saveAnonymousEntryComments(FinAnnyEntryCommentsPojo pojo);
+
+	Long saveAnonymousEntryDocuments(FinAnnyEntryDocPojo pojo);
+
+	Long saveAnonymousApproveStatistics(FinAnnyApproveStatPojo copyPropertiesFromInfoBeanToPojoBean);
+
+	List<FinAnnyApproveStatPojo> getAnonymousApprStatData(EmployeeFinancialTransactionServiceInfo service);
+
+	Long saveFinBookinFormDemandNoteDoc(FinBookingFormDemandNoteDocPojo demandNoteDocPojo);
+
+	List<FinTransactionForPojo> getTransactionForDetails(EmployeeFinancialTransactionServiceInfo employeeFinancialTransactionInfo);
+
+	List<FinBookingFormDemandNoteDocPojo> loadDemandNotePDFFile(EmployeeFinancialServiceInfo serviceInfo);
+
+	boolean isReferenceNoIsExist(EmployeeFinancialTransactionServiceInfo transactionServiceInfo) throws EmployeeFinancialServiceException;
+
+	int updateTransactionDetails(EmployeeFinancialTransactionServiceInfo transactionServiceInfo);
+
+	long saveTransactionChangedDetails(List<FinTransactionChangedDtlsPojo> changedDetailsList);
+
+	int updateTransactionSetOffDetails(FinTransactionSetOffPojo copyPropertiesFromInfoBeanToPojoBean, Long long1);
+
+	int updateTranSetOffAccountDetails(List<Long> listOfTransactionSetOffAccMap,
+			EmployeeFinTranPaymentSetOffInfo paymentSetOffDetails);
+
+	int updateTranPaymentSetOffAccountDetails(List<Long> listOfTransactionPaymentSetOffMap,
+			EmployeeFinTranPaymentSetOffInfo paymentSetOffDetails);
+
+	List<FinTransactionChangedDtlsPojo> getTransactionChnagedDetails(FinTransactionEntryDetailsInfo finTransactionEntryDetailsInfo);
+
+	int updateAnonymousEntryStatus(FinAnonymousEntryPojo finAnonymousEntryPojo);
+
+	int updateTransactionEntryDetails(FinTransactionEntryPojo entryPojo);
+
+	int updateTransactionChequeDetials(FinTransactionChequePojo copyPropertiesFromInfoBeanToPojoBean);
+
+	int updateTransactionOnlineDetails(FinTransactionOnlinePojo copyPropertiesFromInfoBeanToPojoBean);
+
+	List<FinTransactionEntryDocPojo> getFinTransactionEntryDocuments(FinTransactionEntryDetailsInfo finTransactionEntryDetailsInfo, MetadataId docType);
+
+	void getExistingMileStoneDetailsForRegenerateDemandNote(FinancialProjectMileStoneInfo finProjDemandNoteInfo,
+			CustomerPropertyDetailsInfo customerPropertyDetailsInfo);
+
+	public Long saveFlatCancelationCost(FlatCancellationCostPojo pojo);
+
+	public Long saveFinBookingFormRefundableAdvance(FinBookingFormRefundableAdvancePojo pojo);
+	List<FinBokFrmDemNteSchTaxMapPojo> getMileStoneTaxDetails1(CustomerPropertyDetailsInfo customerPropertyDetailsInfo);
+
+	List<FinTransactionEntryPojo> isAnyTransactionInApproval(EmployeeFinancialTransactionServiceInfo transactionServiceInfo, Status transactionStage);
+
+	 List<Map<String, Object>>  getFinBookingFormAccountType(FinancialProjectMileStoneInfo finProjDemandNoteInfo);
+	
+	public List<FlatBookingPojo> getCustomerDetailsAndPendingAmounts(EmployeeFinancialServiceInfo employeeFinancialServiceInfo);
+
+	public int saveInvoiceDocumentLocationForCharges(List<InvoiceDocumentLocationPojo> invoiceDocumentLocationPojoList);
+
+	public List<FinBookingFormExcessAmountPojo> getExcessAmountDetailsForRefund(EmployeeFinancialTransactionServiceInfo employeeFinancialTransactionServiceInfo);
+
+	public List<OfficeDtlsPojo> getOfficeDetailsBySite(EmployeeFinancialServiceInfo employeeFinancialServiceInfo);
+
+	List<FinBookingFormDemandNotePojo> getDemandNoteId(FinBookingFormDemandNotePojo demandNoteInfo );
+
+	List<FinancialMileStoneClassifidesPojo> loadCustomerInvolvedAlianNameDetails(EmployeeFinancialServiceInfo employeeFinancialDemandNoteInfo,CustomerPropertyDetailsInfo customerPropertyDetailsInfo);
+
+	Long getCountOfDemandNoteDoc(FinBookingFormDemandNoteDocPojo demandNoteDocPojo);
+
+	Long updateChequeBounceDetails(FinTransactionChequePojo chequePojo);
+
+	List<Map<String, Object>> getMilstonePaidOrNotPaidDetails(List<Long> projectMileStoneIds, Long[] bookingIds);
+
+	Long checkDemandNoteIsGeneratedOrNotForTransaction(
+			EmployeeFinancialTransactionServiceInfo transactionServiceInfo);
+
+	Long updateMilstonePaidOrNotPaidStatus(Map<String, Object> accountDetails);
+
+	List<FinTransactionEntryDetailsPojo> getTransactionDetails(FinTransactionEntryDetailsInfo transactionEntryDetailsInfo, CustomerPropertyDetailsInfo customerPropertyDetailsInfo) throws Exception;
+
+	int inActiveInterestRatesDetails(EmployeeFinancialServiceInfo serviceInfo, FinancialGstDetailsInfo gstDetailsInfo, FinInterestRatesPojo finInterestRatesPojo);
+
+	List<FinInterestRatesPojo> getTaxOnInterestData(EmployeeFinancialServiceInfo serviceInfo, FinancialGstDetailsInfo iterable_element);
+
+	List<String> validateInterestRatesDates(EmployeeFinancialServiceInfo serviceInfo, FinancialGstDetailsInfo gstDetailsInfo,
+			FinInterestRatesPojo finInterestRatesPojo);
+
+	Long insertInterestDetails(FinInterestRatesPojo interestRatesPojo);
+
+	int isPercentageExists(FinancialGstDetailsInfo gstDetailsInfo);
+
+	long savePercentage(FinancialGstDetailsInfo gstDetailsInfo);
+
+	int revertBookingFormAccountAmount(FinBookingFormAccountsPojo pojo);
+
+	int inActiveAccountStatementRecord(FinTransactionEntryDetailsPojo entryDetailsPojo);
+
+	int inActiveReceiptRecord(FinTransactionEntryDetailsPojo entryDetailsPojo);
+
+	List<FinBookingFormReceiptsPojo> getPreviousTransactionPaidDate(FinTransactionEntryDetailsInfo transactionEntryDetailsInfo);
+
+	int revertBookingFormAccountSummaryAmount(FinBookingFormAccountSummaryPojo pojo);
+
+	Long copyTransactionApproveRejectDetails(FinTransactionApprStatPojo apprStatPojo, EmployeeFinancialTransactionServiceInfo transactionServiceInfo);
+
+	int copyTransactionChangedDetails(FinTransactionApprStatPojo apprStatPojo);
+
+	int copyTransactionSetOffApprovaldetails(EmployeeFinancialTransactionServiceInfo clonedTransactionServiceInfo,
+			EmployeeFinancialTransactionServiceInfo transactionServiceInfo);
+
+	int updateBookingFormAccountPaidDate(FinBookingFormAccountsPojo bookingFormAccountsPojo);
+
+	List<FinBookingFormAccountsStatementPojo> getBookingFormAccountsStatementAndReceiptData(
+			FinBookingFormAccountsPojo bookingFormAccountsPojo, FinEnum dataOrder);
+
+	int updateFinPenaltyStatus(FinBookingFormAccountsPojo bookingFormAccountsPojo);
+
+	int updateBookingFormAccountStatus(FinPenaltyPojo finPenaltyPojo, MetadataId finPenalty);
+
+	List<FinPenaltyPojo> getFinPenaltyDetails(FinBookingFormAccountsPojo bookingFormAccountsPojo);
+
+	List<FinBookingFormAccountPaymentDetailsPojo> getTransactionPayemntDetails(FinTransactionEntryDetailsInfo serviceInfo) throws Exception;
+
+	int revertExcessAmountOfPayment(FinBookingFormExcessAmountPojo excessAmountPojo);
+
+	int revertFinBookingFormAccountsAmountOfPayment(FinBookingFormAccountsPojo pojo);
+
+	int inActiveBookingFormAccountPayment(FinBookingFormAccountPaymentDetailsPojo paymentRefundDetailsPojo);
+
+	List<FinBookingFormAccountPaymentDetailsPojo> getExcessAmountPaymentRefundDetails(FinBookingFormAccountPaymentPojo bookingFormAccountPaymentPojo);
+
+	List<FinBookingFormDemandNotePojo> getMilestoneDemandNoteId(FinancialProjectMileStoneInfo demandNoteInfo);
+
+	int updateDemandNoteDetails(FinBookingFormDemandNotePojo finBookingFormDemandNotePojo, FinancialProjectMileStoneInfo demandNoteInfo);
+
+	int updateBookingFormAccountStatementData(FinBookingFormAccountsPojo prevData, FinBookingFormAccountsPojo currData);
+
+	int insertFinBankData(FinBankPojo bankPojo);
+
+	List<DropDownPojo> getSiteData(Site site);
+
+	List<FinancialProjectMileStonePojo> getMilestoneDetails(EmployeeFinancialServiceInfo employeeFinancialDemandNoteInfo) throws Exception;
+
+	List<FinSchemePojo> getFinSchemeDetails(FinancialSchemeInfo financialSchemeInfo);
+
+	List<FinTaxPojo> getFinTaxDetails(FinancialSchemeInfo financialSchemeInfo);
+
+	int insertFinSchemeDetails(FinSchemePojo finSchemePojo);
+
+	int insertFinTaxDetails(FinTaxPojo finTaxPojo);
+
+	List<FinSchemeTaxMappingPojo> checkSchemeDetails(FinancialSchemeInfo schemeDetails);
+
+	int insertFinSchemeTaxMappingDetails(FinSchemeTaxMappingPojo finSchemePojo);
+
+	int insertFlatBookingSchemeMappingDetails(FlatBookingSchemeMappingPojo flatBookingSchemeMappingPojo);
+
+	List<FlatBookingSchemeMappingPojo> getFlatBookingSchemeMappingDetails(
+			FlatBookingSchemeMappingPojo flatBookingSchemeMappingPojo);
+
+	List<FinancialProjectMileStonePojo> getGeneratedMilestoneDetailsOfFlat(EmployeeFinancialServiceInfo employeeFinancialInfo, Long id);
+
+	List<FinancialProjectMileStonePojo> getNextMilestoneDetails(FinancialProjectMileStonePojo financialProjectMileStonePojo);
+
+	int decreaseBookingFormAccountStatementPaidAmount(FinBookingFormAccountsStatementPojo accStmtPojo, String condition);
+
+	int revertFinBookingFormAccountsStatementAmountOfPayment(FinBookingFormAccountsStatementPojo accStatementPojo);
+
+	int upadteFinBookingFormAccountPenaltyRecordTypeId(FinPenalityInfo finPenalityInfo );
+
+	int updateBookingFormAccountTaxAmountPaid(FinancialProjectMileStonePojo mileStonePojo);
+
+	int revertBookingFormAccountTaxAmountPaid(FinancialProjectMileStonePojo mileStonePojo);
+
+	int updateDataIntoFinBookingFormMilestones(FinBookingFormMilestonesPojo mileStonePojo);
+
+	int updateFinBookingFormAccounts(FinBookingFormAccountsPojo finBookingFormAccountsPojo);
+
+	List<FinTransactionApprovalDetailsPojo> getTheNextLevelEmplaoyeeDetails(EmployeeFinancialTransactionServiceInfo transactionServiceInfo);
+
+	List<FinBookingFormAccountsPojo> getCustomerInvoices(EmployeeFinancialTransactionServiceInfo transactionServiceInfo);
+
+	List<FinBookingFormAccountsPojo> getFlatPaidAmountDetails(BookingFormRequest bookingFormRequest, List<Long> types);
+
+	Long loadBlockCompletionPercent(BookingFormRequest bookingFormRequest);
+
+	List<Map<String, Object>> getNonRefundFlats(EmployeeFinancialRequest employeeFinancialRequest);
+
+	List<FinAnonymousEntryPojo> getCompletedTrnOnlinePaymentRererenceNumber(
+			EmployeeFinancialTransactionServiceInfo transactionServiceInfo);
+
+	List<Map<String, Object>> isReferenceNoIsExistForUploadData(List<String> holdOnlineReferenceNumber, Long siteId) throws Exception;
+
+	int checkIsThisReceiptTransactionAlreadyAdjusted(EmployeeFinancialTransactionServiceInfo transactionServiceInfo, FinEnum receipt);
+
+	int checkIsThisPaymentRefundTransactionAlreadyAdjusted(
+			EmployeeFinancialTransactionServiceInfo transactionServiceInfo, FinEnum payment);
+
+	public Long getNoOfCompletedMileStoneForBooking(CustomerPropertyDetailsInfo customerPropertyDetailsInfo);
+
+	public List<Map<String, Object>> getFinBookingFormAccountByTypeAndID(FinBookingFormAccountsInfo finBookingFormAccountsPojo);
+
+	public List<CustomerPropertyDetailsPojo> getCustomerDetails(EmployeeFinancialServiceInfo employeeFinancialServiceInfo);
+
+	public List<FinTransactionEntryDetailsPojo> getTransactionDetailsConsolidatedReceipt(FinTransactionEntryDetailsInfo transactionEntryDetailsInfo);
+
+	int inActiveUploadedAttachmetns(FileInfo fileInfo);
+
+	List<FinPenaltyPojo> getLastInterestDateToFromMasterTB(FinancialProjectMileStoneInfo mileStoneInfo);
+
+	int updateTransactionSetOffGSTDetails(FinTransactionSetOffPojo setOffPojo);
+
+	List<FinClosingBalanceReportPojo> getClosingBalanceReportDetails(EmployeeFinancialServiceInfo serviceInfo);
+
+	List<FinTransactionEntryPojo> getTransactionDataOnReceiveDate(
+			EmployeeFinancialTransactionServiceInfo transactionServiceInfo, Status approved,
+			MetadataId transactionType);
+
+	List<Map<String, Object>> getTransactionDataByReceiptNo(EmployeeFinancialTransactionServiceInfo transactionServiceInfo, List<Long> ids);
+
+	int updateAnonymousEntryDetails(FinAnonymousEntryPojo anonymousEntryPojo);
+
+	boolean isReferenceNoIsExistById(EmployeeFinancialTransactionServiceInfo transactionServiceInfo) throws Exception;
+
+	Long loadSiteAccountNumberIdUsingNumber(FinancialDemandNoteMS_TRN_Info trn_Request, String condition);
+
+	List<FinInterestRatesPojo> getAvailbleMonthInterestDetailsOnDue(FinancialProjectMileStoneInfo mileStoneInfo);
+
+	int deleteAnonymousEntryDocuments(FileInfo fileInfo);
+
+
+	 public Long getApprovalNextLevelId(EmployeeFinancialTransactionServiceInfo transactionServiceInfo, Status status);
+
+	Long saveModifiactionInvocieAppRej(ModicationInvoiceAppRej modicationInvoiceAppRej);
+
+	List<FinModificationInvoicePojo> getPendingModificationInvoices(
+			 EmployeeFinancialRequest employeeFinancialPojo,List<Long> listOfApprovalId);
+
+	int editFinBookingForm_Milestones_Details(FinBookingFormMilestonesPojo bookingFormMilestonesPojo);
+
+	int editFinBookingForm_Accounts_Details(FinBookingFormAccountsPojo bookingFormAccountsPojo);
+
+	int saveMilestoneChangedDetails(List<FinMSChangedDtlsPojo> listOfChangedDetails);
+
+	List<FinBookingFormAccountsPojo> getAccountsExcessAmountDetailsIfAny(
+			FinBookingFormAccountsInfo bookingFormAccountsInfo, List<Long> processedBookingFormIds);
+
+	public List<Map<String, Object>> getSiteIdsOfRateOfInterest();
+
+	public List<Map<String, Object>>  getEmployeeDetailsUsingDeptAndRoll(Site site, Map<String, Object> map);
+
+	List<FinTransactionApprovalDetailsPojo> getModifyLevelDetails(
+			EmployeeFinancialTransactionServiceInfo transactionServiceInfo,
+			FinTransactionApprovalDetailsPojo finTransactionApprovalDetailsPojo);
+
+	public List<FinancialProjectMileStonePojo> getFinancialDetails(EmployeeFinancialServiceInfo employeeFinancialRequest, Status active);
+
+	List<FinBookingFormAccountsPojo> getFinPenaltyDetailsForInterestWaiver(FinancialProjectMileStoneInfo mileStoneInfo);
+
+	List<FinBookingFormAccountsPojo> getFinMilestoneDetailsForInterestWaiver1(
+			FinancialProjectMileStoneInfo mileStoneInfo);
+
+	List<Long> getNextApprovalLevelId(EmployeeFinancialRequest employeeFinancialRequest);
+	
+	//List<FinModificationInvocieDetailsPojo> getPendingModificationInvoiceDetails(EmployeeFinancialRequest employeeFinancialPojo);
+			
+	int updateModificationTransactionStatus(EmployeeFinancialTransactionServiceInfo transactionServiceInfo,
+			Long status);
+
+	List<ModicationInvoiceAppRej> getModificationApprRejectDetails(
+			EmployeeFinancialTransactionServiceInfo transactionServiceInfo);
+
+	public List<ModicationInvoiceAppRej> getNextModificationApprovalDetails(EmployeeFinancialTransactionServiceInfo transactionServiceInfo);
+
+	List<FinBookingFormModiCostDtlsPojo> getModificationCostDetails(FinancialProjectMileStonePojo pojo);
+
+	List<FinBookingFormLglCostDtlsPojo> getLegalCostDetails(FinancialProjectMileStonePojo pojo);
+	
+	List<FinBookingFormModiCostPojo> getModificationCost(FinancialProjectMileStonePojo pojo);
+
+	boolean isValidModificationInvoiceToApprove(EmployeeFinancialTransactionServiceInfo transactionServiceInfo,
+			Status approved);
+
+	public List<SitePojo> getSiteDetails(Site site);
+
+	List<FinTransactionEntryPojo> isAnyInterestWaiverInApproval(
+			EmployeeFinancialTransactionServiceInfo transactionServiceInfo, Status transactionStage);
+
+	List<FinancialProjectMileStonePojo> getLastMilestoneDetails(
+			EmployeeFinancialServiceInfo employeeFinancialServiceInfo, Status active, String condition);
+
+	List<Map<String, Object>> loadDemandNoteFormats(EmployeeFinancialServiceInfo info);
+
+	Double getInitiatedInterestWaiverDetails(CustomerPropertyDetailsInfo flatInfo, String requestUrl);
+
+	int updateMilestoneStatus(FinancialProjectMileStoneRequest mileStoneRequest);
+
+	List<Map<String, Object>> downloadGeneratedDemandNote(EmployeeFinancialRequest employeeFinancialRequest);
+
+	public abstract List<FinBookingFormAccountsPojo> getAllCustomersInvoices(EmployeeFinancialTransactionServiceInfo empFinTranSerInfo);
+
+	List<FinTransactionSetOffPojo> getInterestWaivedAndPaidDetails(EmployeeFinancialServiceInfo empFinSerInfo);
+
+	List<FinPenaltyStatisticsPojo> loadPenaltyStatisticsData(
+			FinancialProjectMileStonePojo financialProjectMileStonePojo);
+
+	void insertMappingAccess();
+
+	FinBookingFormMaintenancePojo saveMaintenanceCharges(FinBookingFormMaintenancePojo bookingFormMaintenancePojo);
+
+	FinBookingFormMaintenanceDtlsPojo saveMaintenanceChargesDetails(
+			FinBookingFormMaintenanceDtlsPojo bookingFormMaintenanceDtlsPojo);
+
+	FinBokFrmMaintenanceTaxPojo saveMaintenanceChargesTaxData(FinBokFrmMaintenanceTaxPojo bokFrmMaintenanceTaxPojo);
+
+	FinBookingFormFlatKhataPojo saveFlatKhata(FinBookingFormFlatKhataPojo bookingFormMaintenancePojo);
+
+	FinBookingFormFlatKhataDtlsPojo saveFlatKhataDetails(
+			FinBookingFormFlatKhataDtlsPojo bookingFormMaintenanceDtlsPojo);
+
+	FinBokFrmFlatKhataTaxPojo saveFlatKhataTaxData(FinBokFrmFlatKhataTaxPojo bokFrmMaintenanceTaxPojo);
+
+	FinBookingFormCorpusFundPojo saveCorpusFund(FinBookingFormCorpusFundPojo bookingFormMaintenancePojo);
+
+	int updatePenaltyStasticsPaidAmount(FinPenaltyStatisticsPojo penaltyAdjustmentInfo);
+	int updatePenaltyTaxPaidAmount(FinPenaltyTaxMappingPojo taxMappingPojo);
+	
+	void checkDuplicateApprovalMappingAccess();
+
+	List<FinPenaltyTaxMappingPojo> loadPenaltyTaxMappigData(FinPenaltyStatisticsPojo paidpenaltyStatisticsPojo);
+
+	void checkEmployeeApprovalMappingAccess();
+
+	List<FinBookingFormAccountsPojo> getSumOfFlatPaidAmountDetails(CustomerPropertyDetailsInfo customerPropertyDetailsInfo, List<Long> asList);
+
+	int decreasePenaltyStasticsPaidAmount(FinPenaltyStatisticsPojo paidpenaltyStatisticsPojo);
+
+	int decreasePenaltyTaxPaidAmount(FinPenaltyTaxMappingPojo paidtaxMappingPojo);
+
+	List<FinBookingFormMaintenanceDtlsPojo> loadMaintenance_ChargesDetails(FinancialProjectMileStonePojo pojo);
+
+	List<FinBokFrmMaintenanceTaxPojo> loadMaintenance_ChargesTAXDetails(FinBookingFormMaintenanceDtlsPojo pojo);
+
+	List<FinBookingFormFlatKhataDtlsPojo> loadFlatKhataDetails(FinancialProjectMileStonePojo pojo);
+
+	List<FinBokFrmFlatKhataTaxPojo> loadFlatKhataTAXDetails(FinBookingFormFlatKhataDtlsPojo pojo);
+
+	int updateBookingFormAccountInterestDetails(FinBookingFormAccountsPojo bookingFormAccountsPojo);
+
+	int decreaseExtraAdjustedPaidAmount(FinBookingFormAccountsPojo bookingFormAccountsPojo);
+
+	int resetPenaltyStasticsPaidAmount(FinPenaltyStatisticsPojo paidpenaltyStatisticsPojo);
+
+	int resetPenaltyTaxPaidAmount(FinPenaltyTaxMappingPojo paidtaxMappingPojo);
+
+	List<FinTransactionSetOffPojo> getTransactionPaymenSetOffTypes(FinTransactionEntryPojo finTransactionEntryPojo);
+
+	int updateOldPenaltyStasticsTotalAmt(FinPenaltyStatisticsPojo paidpenaltyStatisticsPojo);
+
+	int updateOldPenaltyTaxTotalAmt(FinPenaltyTaxMappingPojo paidtaxMappingPojo);
+
+	Double getLastApprovedInterestWaiverDetails(CustomerPropertyDetailsInfo flatInfo, String requestUrl);
+
+	List<FinancialDemandNoteMS_TRN_Pojo> loadOldBookingTransaction(FlatBookingPojo oldFlatBookingPojo);
+
+	List<FinBookingFormExcessAmountPojo> getSumOfFlatPaidExcessAmount(
+			CustomerPropertyDetailsInfo customerPropertyDetailsInfo2, List<Long> paymentTypes);
+
+	int inActiveOldBookingTransaction(FlatBookingPojo oldFlatBookingPojo);
+
+	Long getTransactionFirstLevelEmpId(EmployeeFinancialTransactionServiceInfo transactionServiceInfo);
+
+	//void revertOnlyRefundAmount(FlatBookingPojo newFlatBookingPojo);
+
+	int activeSuspenseEntryData(FlatBookingPojo oldFlatBookingPojo);
+
+	List<FinTransactionEntryPojo> getMisCompletedTransactions(EmployeeFinancialTransactionServiceInfo tansactionServiceInfo) throws Exception;
+
+	List<FinBookingFormExcessAmountPojo> getSumOfFlatPaidExcessAmountByInvoiveNo(
+			CustomerPropertyDetailsInfo customerPropertyDetailsInfo2, List<Long> paymentTypes);
+
+	List<FinBookingFormAccountsPojo> getSumOfFlatPaidAmountDetailsByInvoiveNo(
+			CustomerPropertyDetailsInfo customerPropertyDetailsInfo2, List<Long> paymentTypes);
+
+	List<Map<String, Object>> getAnonymousEntriesDataForReport(EmployeeFinancialTransactionServiceInfo object, Long status);
+
+	int copyTransactionSetOffApprovaldetailsFrmUpload(EmployeeFinancialTransactionServiceInfo transactionServiceInfo);
+
+	List<Map<String, Object>> getNextLevelEmployeeForStatusModule(EmployeeFinancialTransactionRequest empTransReq);
+
+	List<FinTransactionEntryPojo> getMisPendingTransactionsStatus(EmployeeFinancialTransactionServiceInfo tansactionServiceInfo) throws Exception;
+
+	List<EmployeeDetailsPojo> getEmployeeDetailsUsingDeptAndRollAndBlockId(CustomerPropertyDetailsPojo customerPropertyDetailsPojo, Map<String, Object> map);
+
+	int updateAnonymousEntryReferenceNoAmount(FinAnonymousEntryPojo anonymousEntryPojo);
+
+	List<Map<String, Object>> getClearedTransactionReport(EmployeeFinancialTransactionRequest empTransReq);
+	int isAnyTransactionCreated(EmployeeFinancialTransactionServiceInfo transactionServiceInfo);
+
+	List<Map<String, Object>> getPendingTransactionReport(EmployeeFinancialTransactionRequest tansactionServiceInfo);
+
+	List<Map<String, Object>> getSuspnesEntryTransactionReport(
+			EmployeeFinancialTransactionRequest tansactionServiceInfo);
+
+	Long checkSchemeDetailsInserted(EmployeeFinancialTransactionServiceInfo transactionServiceInfo);
+
+	Long checkDemandNoteAccountDetails(EmployeeFinancialTransactionServiceInfo transactionServiceInfo);
+
+	List<FinProjectAccountPojo> viewFinProjectAccountDataForInvoices(
+			EmployeeFinancialTransactionServiceInfo employeeFinancialTransactionInfo,
+			CustomerPropertyDetailsInfo customerPropertyDetailsInfo);
+	
+	List<FlatSaleOwnersByAccount> getFlatSaleOwnerByAccountId(EmployeeFinancialServiceInfo employeeFinancialRequest);
+	List<Map<String, Object>>  loadListSiteAccountNumberIdUsingNumber(FinancialDemandNoteMS_TRN_Info trn_Request, String string);
+
+	List<FlatCostPojo> getFlatCost(BookingFormRequest bookingFormRequest);
+
+	List<FinancialDetailsPojo> getFinancialDetails(CustomerInfo customerInfo, Status status);
+
+	List<CustomerPropertyDetailsPojo> getCustomerPropertyDetails(CustomerInfo customerInfo, Status status);
+
+	List<CustomerPropertyDetailsPojo> getCustomerAllActivePropertyDetails(CustomerInfo customerInfo, Status status);
+
+	List<FinClearedUncleareTXPojo> getClearedTransactionReportByAccountNo(
+			EmployeeFinancialTransactionRequest tansactionServiceInfo);
+
+	List<FinClearedUncleareTXPojo> getPendingTransactionReportByAccountNo(
+			EmployeeFinancialTransactionRequest tansactionServiceInfo);
+
+	List<FinClearedUncleareTXPojo> getSuspnseEntriesTransactionReportByAccountNo(
+			EmployeeFinancialTransactionRequest tansactionServiceInfo);
+
+	List<FinProjectAccountPojo> getAccountNumbers(EmployeeFinancialTransactionRequest tansactionServiceInfo);
+
+	List<StatusPojo> getBookingStatuses(EmployeeFinancialTransactionRequest tansactionServiceInfo);
+
+	List<StatePojo> getStates(EmployeeFinancialTransactionRequest tansactionServiceInfo);
+
+	int updateBookingFormAccountSummaryOnlyPayAmount(FinBookingFormAccountSummaryPojo accSummaryPojo);
+
+	int updateFinBookingFormAccountsPayAmount(FinBookingFormAccountsPojo accountsPojo);
+	List<FinancialDemandNoteMS_TRN_Pojo> loadPendingOldBookingTransaction(FlatBookingPojo oldFlatBookingPojo);
+
+	int updateFinTransactionBookingId(FlatBookingPojo oldFlatBookingPojo, FlatBookingPojo newFlatBookingPojo,
+			FinancialDemandNoteMS_TRN_Pojo finTansaction);
+
+	int isThisTransactionHavingOnlyExces(FinTransactionEntryDetailsInfo transactionEntryDetailsInfo,
+			CustomerPropertyDetailsInfo customerPropertyDetailsInfo);
+
+	Long saveTransactionWaivedOffDetials(FinTransactionWaivedOffPojo pojo);
+
+	int updateTransactionWaivedOffDetials(FinTransactionWaivedOffPojo pojo);
+
+	int checkDuplicateTransactionOrNot(EmployeeFinancialTransactionRequest tansactionServiceInfo);
+
+	Long getLastTXFinTxsetOfAppLevelId(EmployeeFinancialTransactionServiceInfo transactionServiceInfo);
+	}

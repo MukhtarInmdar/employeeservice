@@ -1,0 +1,65 @@
+<html>
+<head>
+<meta charset="UTF-8">
+  <meta name="description" content="Sumadhura Customer App Mail">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+ p{margin-top: 0px;margin-bottom: 3px;}
+ body{margin:50px auto;text-align:center;}
+ @media only screen and (max-width:767px){
+ .tblwidth{width:100% !important;}
+ }
+ .tblwidth{width:50%;padding-right: 15px;}
+</style>
+</head>
+<body style="padding:25px;">
+<table class="tblwidth" align="center">
+ <tr>
+   <td><img src="http://106.51.38.64:8888/images/sumadhura_projects_images/customermailimages/sumadhura_mail_image.jpg" style="width:100%;"/></td>
+ </tr>
+ <tr>
+   <td style="padding-top:15px;"> Dear<span style="font-size:16px;font-weight:700"> <strong> ${email.customerName} </strong> ,</span></td>
+ </tr>
+ <tr>
+   <td style="padding-top:40px;"></td>
+ </tr>
+ <tr>
+   <td>Thank you for choosing Sumadhura Infracon Pvt. Ltd., an ISO 9001:2015 certified company.</td>
+ </tr>
+ <tr>
+   <td style="padding-top:20px;text-align:justify"><p style=""><span style="font-size:16px;font-weight:700">With OVER TWO DECADES</span> of experience in the real estate sector, Sumadhura Group has established itself as a preferred residential property developer in the country with significant presence in the metropolitan city of Bangalore. Having a proven track record of innovation and quality, our unique customer centricbusiness model has been instrumental in our rapid growth.</td>
+ </tr>
+ <tr>
+  <td style="padding-top:20px;"><span style="font-size:16px;font-weight:700">OUR ABILITY</span> to deliver luxurious and affordable housing projects <span style="font-size:16px;font-weight:700">ON TIME</span> has ensured a continual interest from our customers. </td>
+ </tr>
+ <tr>
+  <td style="padding-top:20px;"><span style="font-size:16px;font-weight:700">TRANSPARENCY</span> in our operations has been an effective strategy for achieving  highest levels of customer satisfaction.</td>
+ </tr>
+ <tr>
+  <td style="padding-top:20px;">PFA all project brochure for your reference.</td>
+ </tr>
+ <tr>
+  <td style="padding-top:20px;"><span style="font-size:15px;font-weight:600">Customer Relations,</span></td>
+</tr>
+<tr>
+  <td>Email:enquiries@sumadhuragroup.com</td>
+ </tr>
+ <tr>
+  <td><span style="font-size:16px;font-weight:bold">Sumadhura Infracon Pvt Ltd.</span></td>
+ </tr>
+ <!-- <tr> -->
+  <!-- <td style="padding-top:60px;"><span style="font-size:16px;font-weight:bold">Thanks and Regards</td> -->
+ <!-- </tr> -->
+ <!-- <tr style="padding-top:20px;"> -->
+   <!-- <td><img src="http://106.51.38.64:9999/images/sumadhura_projects_images/customermailimages/sumadhuralogo.png" style="width:150px;height:150px;"/></td> -->
+ <!-- </tr> -->
+ <!-- <tr> -->
+  <!-- <td>Sumadhura Infracon Pvt Ltd</td> -->
+ <!-- </tr> -->
+ <!-- <tr><td><p>No. 43, 2nd Floor, CKB plaza, Varthur main road, Marathahalli,</p></td></tr> -->
+ <!-- <tr><td><p>Bengaluru - 560037.  Ph :  080-4216 1470/4212 6699.</p></td></tr> -->
+ <!-- <tr><td><p>url : <a href="https://www.sumadhuragroup.com/" target="_blank">www.sumadhuragroup.com</a></p></td></tr> -->
+ <!-- <tr><td ><img src="http://106.51.38.64:9999/images/sumadhura_projects_images/customermailimages/certificate logo.jpg" style="border-top:1px solid #000;"/></td></tr> -->
+</table>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+
+		@media screen and (min-width: 375px) and (max-width: 767px) {
+			.cssStyles{
+				float: left;
+				width: 35%;
+				text-align: center;
+				margin: 2px;
+				padding : 8px;
+			}
+			#tabledata{
+				    font-size: 14px;
+					width:100%;
+					padding : 8px;
+			}
+		}
+		@media screen and (max-width: 320px) {
+			.cssStyles{
+				float: left;
+				width: 80%;
+				text-align: center;
+				margin: 2px;
+				padding : 8px;
+			}
+			#tabledata{
+				    font-size: 14px;
+					width:100%;
+					padding : 8px;
+			}
+		}
+		@media screen and (min-width: 768px) {
+			#tabledata{
+				    font-size: 14px;
+				    padding : 8px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+#set ($info = ${email.demandNoteGeneratorInfo})
+#set ($financialInfo = ${email.financialTransactionEmailInfo})
+
+    <div style="width: 100%;margin: 14px auto;">
+        #set( $HideTable = "false" )
+        #set( $HideButton = "false" )
+   #if($financialInfo.buttonType == "Modification invoice created")
+			     <span style="font-size: 14px;">Hello <strong>$financialInfo.nextApprovalLevelName</strong>,</span><br> 	
+			     <p style="font-size: 14px;text-align: justify;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Below mentioned Modification invoice is pending for approval.</p>
+	        	 <p style="font-size: 14px;text-align: justify;">from  <strong>$financialInfo.currentApprovalLevelName</strong></p>
+		     	
+	#elseif($financialInfo.buttonType == "Modification invoice approved")
+		     	 <span style="font-size: 14px;">Hello <strong>$financialInfo.nextApprovalLevelName</strong>,</span><br>
+			     <p style="font-size: 14px;text-align: justify;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Below mentioned Modification invoice is pending for approval.</p>
+	        	 <p style="font-size: 14px;text-align: justify;"> from  <strong>$financialInfo.currentApprovalLevelName</strong></p>
+
+	#elseif($financialInfo.buttonType == "Modification invoice rejected")
+		     	<span style="font-size: 14px;">Hello <strong>All</strong>,</span><br>
+			    <p style="font-size: 14px;text-align: justify;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Below mentioned Modification invoice is rejected.</p>
+	        	<p style="font-size: 14px;text-align: justify;">Flat Modification Invoice rejected by  <strong>$financialInfo.currentApprovalLevelName</strong></p>
+
+	#else
+	 
+    #end
+        
+ 	<table id="tabledata" style="border:1px solid #000;border-collapse: collapse;margin-top: 30px;">
+			 #if($HideTable == "false")
+				<thead>
+					<tr  style="background: #f0f0f0;">
+							<th  style="border: 1px solid black; font-size: 14px;padding:3px;">Project</th>
+							<th style="border: 1px solid black; font-size: 14px;padding:3px;">Flat No</th>
+							<th style="border: 1px solid black; font-size: 14px;padding:3px;">Customer Name</th>
+							<th style="border: 1px solid black; font-size: 14px;padding:3px;">Invoice Amount</th>
+							<th style="border: 1px solid black; font-size: 14px;padding:3px;">Comments</th>
+					</tr>
+				</thead>
+	            <tbody>
+	            #foreach($financialTRN_Info in $email.financialTransactionEmailInfo.financialTransactionDetailsList)
+					<tr>
+							<td style="border: 1px solid black; font-size: 14px;padding:3px;">$financialTRN_Info.siteName</td>	
+							<td style="border: 1px solid black; font-size: 14px;padding:3px;">$financialTRN_Info.flatNo</td>
+							<td style="border: 1px solid black; font-size: 14px;padding:3px;">$financialTRN_Info.customerName</td>
+							<td style="border: 1px solid black; font-size: 14px;padding:3px;">$financialTRN_Info.transactionAmount</td>
+							<td style="border: 1px solid black; font-size: 14px;padding:3px;">$financialTRN_Info.comment</td>
+					</tr>
+				#end
+	            </tbody>
+			#elseif($financialInfo.buttonType == "Cheque Bounced")
+
+			 #else 
+		     	
+		     #end
+        </table>
+        
+       <div style="width: 100%;margin-top: 40px;">
+			<!--<a href="#Approve" class="cssStyles" style="font-size: 14px;padding: 9px 12px;text-decoration: none;background-color: #337ab7;border-color: #2e6da4;  color: #fff;border-radius: 10px; ">Approve</a>&nbsp;&nbsp;
+	        <a href="#Reject" class="cssStyles" style="font-size: 14px;padding: 9px 12px;text-decoration: none;background-color: #337ab7;border-color: #2e6da4;  color: #fff;border-radius: 10px; ">Reject</a>&nbsp;&nbsp;	-->	
+	        #if( $HideButton == "false1212")   
+	            <a href="${financialInfo.portalUrl}" class="cssStyles" style="font-size: 14px;padding: 9px 12px;text-decoration: none;background-color: #337ab7;border-color: #2e6da4;  color: #fff;border-radius: 10px; ">Edit and Approve</a>
+			#end
+		</div>
+#*
+        <div style="margin-top: 80px;clear: both;">
+            ## <img src="http://129.154.74.18:8090/images/sumadhura_projects_images/Sumadhura_Logo.jpg" width = "150" height = "150"><br>
+             <img src='${info.rightSidelogoForPdf}'  width='120' height='120'/> <br/>
+            <span style="border-bottom: 3px solid #d86464;font-size: 15px;">${info.companyName}</span>
+            <p style="font-size: 14px;text-align: justify;">${info.companyBillingAddress}</p>
+            <p style="font-size: 14px;text-align: justify;"><strong>Tel </strong>: ${info.companyTelephoneNo}, </p>
+            <p style="font-size: 14px;text-align: justify;"><strong>Email </strong>: ${info.companyEmail}, </p>
+            <p style="font-size: 14px;text-align: justify;"><strong>GSTIN </strong>: ${info.companyGstin}, </p>
+            <p style="font-size: 14px;text-align: justify;"><strong>CIN </strong>: ${info.companyCin}, </p>
+        </div>
+*#        
+    </div>
+</body>
+
+</html>

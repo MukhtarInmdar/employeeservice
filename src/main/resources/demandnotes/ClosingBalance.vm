@@ -1,0 +1,168 @@
+<html>
+<body>
+ ## #foreach($demandNoteGeneratorInfo in $email.demandNoteGeneratorInfoList)
+
+#*
+	 #foreach($mapKey in $email.dataForPdf.keySet())
+	    #if($mapKey=="closingBalanceData")
+	    	#foreach($info in $email.dataForPdf.get("closingBalanceData"))
+		    	 $mapKey
+	    		 ${info.get("blockName")}
+	    	 #end 
+	    #end
+	 #end
+*#
+{$email.dataForPdf.get("closingBalanceReportFooter")}
+
+ll
+## ${email.dataForPdf}
+
+     <table  style="width:100%; border: 1px solid black;border-collapse:collapse;" class = "tableData">
+        <tr>
+ 			<th style="border: 1px solid black;padding:2px;" align="center"> Sr.No</th>
+	        <th style="border: 1px solid black;padding:2px;" align="center"> Site Name </th>
+	        <th style="border: 1px solid black;padding:2px;" align="center"> Block Name </th>
+	        <th style="border: 1px solid black;padding:2px;" align="center"> Flat No </th>
+	        <th style="border: 1px solid black;padding:2px;" align="center"> Customer Name </th>
+	        <th style="border: 1px solid black;padding:2px;" align="center"> Pan card </th>
+	        
+	        <th style="border: 1px solid black;padding:2px;" align="center"> Booking Date </th>
+	        <th style="border: 1px solid black;padding:2px;" align="center"> Agreement Date </th>
+	        <th style="border: 1px solid black;padding:2px;" align="center"> SBUA </th>
+	        
+	        <th style="border: 1px solid black;padding:2px;" align="center"> Basic Flat Cost  </th>
+	        <th style="border: 1px solid black;padding:2px;" align="center"> Amenities Flat Cost </th>
+	        <th style="border: 1px solid black;padding:2px;" align="center"> Flat Cost Excl GST </th>
+	        <th style="border: 1px solid black;padding:2px;" align="center"> Total Flat Cost </th>
+	        
+	        <th style="border: 1px solid black;padding:2px;" align="center"> Total Amount Paid </th>
+	        <th style="border: 1px solid black;padding:2px;" align="center"> Total Pending Amount As Per Work Completion  </th>
+        </tr> 
+##    #foreach($mapKey in $email.dataForPdf.keySet())
+##    #if($mapKey=="closingBalanceData")
+    	#foreach($info in $email.dataForPdf.get("closingBalanceData"))
+		     <tr>
+	           <td  style="border: 1px solid black;padding:2px;" align="center">${info.get("serialNo")}</td>
+
+	           <td  style="border: 1px solid black;padding:2px;" align="center">
+	           		${info.get("siteName")}
+	           </td>
+	           
+	            <td  style="border: 1px solid black;padding:2px;" align="center">
+	           		${info.get("blockName")}
+	           </td>
+	           
+	           <td  style="border: 1px solid black;padding:2px;" align="center">
+	           		${info.get("flatNo")}
+	           </td>
+	           
+	           <td  style="border: 1px solid black;padding:2px;" align="center">
+	           		${info.get("custName")}
+	           </td>
+	
+				<td  style="border: 1px solid black;padding:2px;" align="center">
+	           		${info.get("pancard")}
+	           </td>
+	           
+	           <td  style="border: 1px solid black;padding:2px;" align="center">
+	           		${info.get("bookingDate")}
+	           </td>
+	           
+	           <td  style="border: 1px solid black;padding:2px;" align="center">
+	           		${info.get("agreementDate")}
+	           </td>
+	
+				<td  style="border: 1px solid black;padding:2px;" align="center">
+	           		${info.get("sbua")}
+	           </td>     
+	                 
+				<td  style="border: 1px solid black;padding:2px;" align="center">
+	           		${info.get("basicFlatCost")}
+	           </td>     
+				<td  style="border: 1px solid black;padding:2px;" align="center">
+	           		${info.get("amenitiesFlatCost")}
+	           </td>
+				<td  style="border: 1px solid black;padding:2px;" align="center">
+	           		${info.get("totalCostExclGST")}
+	           </td>     
+	                
+				<td  style="border: 1px solid black;padding:2px;" align="center">
+	           		${info.get("totalAgreementCost")}
+	           </td>     
+				<td  style="border: 1px solid black;padding:2px;" align="center">
+	           		${info.get("totalAmountPaid")}
+	           </td>     
+				<td  style="border: 1px solid black;padding:2px;" align="center">
+	           		${info.get("TotalPendingAmountAsPerWorkCompletion")}
+	           </td>     
+	           
+	      	</tr>
+    	 #end 
+##    #end
+## #end
+
+    	 ## ${demandNoteGeneratorInfo.customerDetailsList}	 
+    	     	 
+    	 ## last row
+  #foreach($info in $email.dataForPdf.get("closingBalanceReportFooter"))  	 
+    	 <tr>
+		       <td  style="border: 1px solid black;padding:2px;" align="center">
+	           		 
+	           </td>
+
+	           <td  style="border: 1px solid black;padding:2px;" align="center">
+	           		 
+	           </td>
+	           
+	            <td  style="border: 1px solid black;padding:2px;" align="center">
+	           		 
+	           </td>
+	           
+	           <td  style="border: 1px solid black;padding:2px;" align="center">
+	           		 
+	           </td>
+	           
+	           <td  style="border: 1px solid black;padding:2px;" align="center">
+	           		 
+	           </td>
+	
+				<td  style="border: 1px solid black;padding:2px;" align="center">
+	           		 
+	           </td>
+	           
+	           <td  style="border: 1px solid black;padding:2px;" align="center">
+	           		 
+	           </td>
+	           
+	           <td  style="border: 1px solid black;padding:2px;" align="center">
+	           		 
+	           </td>
+	
+				<td  style="border: 1px solid black;padding:2px;" align="center">
+	           		Total
+	           </td>     
+	                 
+				<td  style="border: 1px solid black;padding:2px;" align="center">
+	           		${info.get("basicFlatCost")}
+	           </td>     
+				<td  style="border: 1px solid black;padding:2px;" align="center">
+	           		${info.get("amenitiesFlatCost")}
+	           </td>     
+				<td  style="border: 1px solid black;padding:2px;" align="center">
+	           		${info.get("totalCostExclGST")}
+	           </td>     
+				<td  style="border: 1px solid black;padding:2px;" align="center">
+	           		${info.get("totalAgreementCost")}
+	           </td>     
+				<td  style="border: 1px solid black;padding:2px;" align="center">
+	           		${info.get("totalAmountPaid")}
+	           </td>     
+				<td  style="border: 1px solid black;padding:2px;" align="center">
+	           		${info.get("TotalPendingAmountAsPerWorkCompletion")}
+	           </td>     
+         </tr>
+      #end   
+     </table>
+## #end
+</body>
+</html>

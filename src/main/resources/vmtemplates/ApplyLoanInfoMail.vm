@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+
+		@media screen and (min-width: 375px) and (max-width: 767px) {
+			.cssStyles{
+				float: left;
+				width: 35%;
+				text-align: center;
+				margin: 2px;
+			}
+			#tabledata{
+				    font-size: 12px;
+					width:100%;
+			}
+		}
+		@media screen and (max-width: 320px) {
+			.cssStyles{
+				float: left;
+				width: 80%;
+				text-align: center;
+				margin: 2px;
+			}
+			#tabledata{
+				    font-size: 12px;
+					width:100%;
+			}
+		}
+		@media screen and (min-width: 768px) {
+			#tabledata{
+				    font-size: 13px;
+			}
+		}
+	</style>
+</head>
+
+
+<body>
+ #set ($customerDetails = $email.dataForTemplate.get(0))
+  
+	##$customerDetails
+
+    <div style="width: 100%;margin: 20px auto;">
+        <p style="font-size: 16px;">Dear All,<strong></strong></p>
+
+		<p style="font-size: 16px;">
+
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Banker updated the status ${customerDetails.get("leadStatus")} Below are the details,<br>
+			
+					<ul style="font-size: 13px;text-align: justify;">
+					##referenceId is nothing but lead id
+						<li><span style="font-weight:bold;">Lead Id         :</span> ${customerDetails.get("customerLoanEOIDetailsId")}</li>
+						<li><span style="font-weight:bold;">Project         :</span> ${customerDetails.get("siteName")}</li>
+						<li><span style="font-weight:bold;">Flat No         :</span> ${customerDetails.get("flatNo")}</li>
+						<li><span style="font-weight:bold;">Customer Name   :</span> ${customerDetails.get("custName")}</li>
+						<li><span style="font-weight:bold;">Total Flat cost :</span> ${customerDetails.get("flatCost")}</li>
+						<li><span style="font-weight:bold;">Comments 		:</span> ${customerDetails.get("bankerComment")}</li>
+					</ul> 
+		</p>
+
+		<br>
+		<br>
+        <p style="font-size: 16px;text-align: justify;">Thanks & Regards</p>
+		<br>
+		<br>
+		<p style="font-size: 13px;text-align: justify;">Note : This is system generated mail. Please do not reply</p>   
+    </div>
+</body>
+
+</html>

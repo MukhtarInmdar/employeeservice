@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div style="width: 100%;margin: 20px auto;">
+        <span style="font-size: 20px;">Dear <strong>${email.customerName}</strong>,</span>
+        <br>
+        <p style="font-size: 18px;text-align: justify;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Your ticket bearing <span style="font-size: 20px;color: blue;">${email.ticketId}| ${email.flatNo}</span> has been resolved successfully!</p>
+        <p style="font-size: 18px;">Thank you for providing us a great opportunity to foster a better relationship with you.</p>
+        <p style="font-size: 18px;">Request you to share your valuable feedback on how helpful was our customer service by using App.</p>
+        
+    </div>
+</body>
+</html>

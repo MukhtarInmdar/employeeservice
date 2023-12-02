@@ -1,0 +1,257 @@
+<head>
+    <style>
+		.tableclass {
+  border: 1px solid black;
+ border-collapse: collapse;
+ width:100%;
+ padding:10px;
+}
+
+.tableclass, th, .tdcls {
+  border: 1px solid black;
+ border-collapse: collapse;
+ padding:5px;
+ text-align:center;
+}
+		.keyname1 {
+    
+    display: inline-table;
+    line-height: 21px;
+    width: 200px;
+	 font-size: 16px;
+	  font-weight: 700;
+   
+}
+	.keyname {
+    
+    display: inline-table;
+    line-height: 21px;
+    width: 200px;
+	 font-size: 16px;
+   
+}
+      [contenteditable="true"]:hover {
+            outline: lightblue auto 5px;
+            outline: -webkit-focus-ring-color auto 5px;
+        }
+
+        body {
+            background: #f1f1f1;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .invoice {
+            font-family: inherit;
+            font-weight: 100;
+            width: 95%;
+            max-width: 1000px;
+            margin: 2% auto;
+            box-sizing: border-box;
+            padding: 70px;
+            border-radius: 5px;
+            background: #fff;
+            min-height: auto;
+            font-size: 17;
+        }
+
+        .header {
+            display: flex;
+            width: 100%;
+            align-items: center;
+        }
+
+        .header--invoice {
+            order: 2;
+            text-align: right;
+            width: 40%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .invoice--date,
+        .invoice--number {
+            font-size: 12px;
+            color: #494949;
+        }
+
+        .invoice--recipient {
+            margin-top: 25px;
+            margin-bottom: 4px;
+        }
+
+        .header--logo {
+            order: 1;
+            font-size: 25px;
+            width: 80%;
+           
+        }
+
+        .logo--address {
+            font-size: 14px;
+            padding: 4px;
+			margin-bottom: -98px;
+			float: right;
+        }
+
+
+        .logo--address1 {
+          
+            font-size: 16px;
+            font-family: lato;
+            text-transform: capitalize;
+			margin-top:10px
+        }
+
+        .description {
+            margin: auto;
+            text-align: justify;
+
+        }
+
+        .items--table {
+            width: 100%;
+            padding: 10px;
+
+            thead {
+                background: #ddd;
+                color: #111;
+                text-align: center;
+                font-weight: 800;
+            }
+
+            tbody {
+                text-align: center;
+            }
+
+            .total-price {
+                border: 2px solid #444;
+                padding-top: 4px;
+                font-weight: 800;
+                background: lighten(green, 50%);
+            }
+        }
+
+        .sessiontitle {
+            text-align: center;
+            font-family: initial;
+        text-decoration:underline;
+            padding: 1px;
+            width: 100%;
+            margin-top: 35px;
+            text-transform: capitalize;
+            font-size: 15px;
+			
+
+        }
+
+        .spansubtitle {
+            font-size: 18px;
+			font-weight:bold;
+           
+        }
+
+        .bottomcls {
+            position: relative;
+            top: -18px;
+            font-size: 11px;
+            font-family: serif;
+            color: #795548;
+        }
+    </style>
+</head>
+
+
+<article style=" font-family: inherit;font-weight: 100;
+            width: 95%;max-width: 1000px;margin: 2% auto;
+            box-sizing: border-box;padding: 70px;
+            border-radius: 5px;background: #fff;
+            min-height: auto;font-size: 17;">
+			<section  style="text-align: center;font-family: initial;
+      	    text-decoration:underline;padding: 1px;width: 100%;
+            margin-top: 35px;text-transform: capitalize;font-size: 15;">
+		#set( $carParkingAllotmentPdfDetailInfo = $email.carParkingAllotmentPdfDetailInfo )	
+        <h3>CAR PARKING ALLOTMENT LETTER</h3>
+    </section>
+    <header class="header" >
+
+        <nav class="header--logo">
+						
+		
+            <div class="logo--address" contenteditable="true">
+                <span style="font-weight:900">Date:</span>${carParkingAllotmentPdfDetailInfo.allotmentDate}<br/>
+				
+				</div><br/>
+				<p style="font-size:16px;margin-top:30px">
+				To,<br/>
+                Mr./Mrs. ${carParkingAllotmentPdfDetailInfo.custName}<br/></p>
+			
+        </nav>
+    </header>
+	<section  style="text-align: center;font-family: initial;
+        text-decoration:underline;padding: 1px;width: 100%;
+        margin-top: 35px;text-transform: capitalize;font-size: 15;">
+		#set( $carParkingAllotmentPdfDetailInfo = $email.carParkingAllotmentPdfDetailInfo )	
+        <h3>Sub: Car Parking Allotment Letter</h3>
+    </section>
+
+    <section class="description" style="font-size:16px">
+	
+	<p contenteditable="true">Dear Sir/Madam,</p>
+        <p contenteditable="true">Greetings ${carParkingAllotmentPdfDetailInfo.greetingsFrom}!</p>
+        <p contenteditable="true" style="width: 83%;line-height: 30px;">
+		&nbsp;&nbsp;&nbsp;&nbsp;We are please to inform you that, we have allotted the car parking as per your choice and requirement in <span class="spansubtitle">&ldquo;${carParkingAllotmentPdfDetailInfo.siteName}&rdquo;</span> Located at Survey Number ${carParkingAllotmentPdfDetailInfo.siteAddress}.
+
+        </p><br/>
+       <p contenteditable="true">
+		<span style="text-decoration:underline">Below are the details:</span><br/>
+	    <table >
+	         <tr style="width:100%">
+	            <td>
+	                  <label  class="keyname1">Flat No</label> 
+	                  <span   style="font-weight:bold">:</span> 
+	                  <span   class="keyname" style="font-weight:bold;" >${carParkingAllotmentPdfDetailInfo.flatNo}</span>
+	            </td>
+	         </tr>
+	         
+	         <tr style="width:100%">
+	            <td>
+	                  <label  class="keyname1">Car Parking Slot No</label> 
+	                  <span   style="font-weight:bold">:</span> 
+	                  <span   class="keyname" style="font-weight:bold;" >${carParkingAllotmentPdfDetailInfo.slotName}</span>
+	            </td>
+	         </tr>
+	         
+	         <tr style="width:100%">
+	            <td>
+	                  <label  class="keyname1">Basement</label> 
+	                  <span   style="font-weight:bold">:</span> 
+	                  <span   class="keyname" style="font-weight:bold;" >${carParkingAllotmentPdfDetailInfo.basementName}</span>
+	            </td>
+	         </tr>
+        </table>
+      </p>
+     
+    </section>
+
+    <header class="header">
+
+        <nav class="header--logo">
+
+            <div class="logo--address1" contenteditable="true" style="font-size:16px">
+			   <br/><br/><br/>
+               Thanks & &nbsp;Regards <br/>
+			   Technical CRM <br/>
+               ${carParkingAllotmentPdfDetailInfo.thanksAndRegardsFrom} 
+               <br/><br/><br/><br/><br/><br/><br/>
+               This is system generated allotment letter. No Signature is required.
+  
+            </div>
+        </nav>
+		
+    </header>
+ 
+   
+</article>

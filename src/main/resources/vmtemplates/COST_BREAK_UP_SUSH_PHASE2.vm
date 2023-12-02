@@ -1,0 +1,231 @@
+<head>
+<title>Cost Break-Up Letter</title>
+   <style>
+      table {
+	      border: 1px solid black;
+	      border-collapse: collapse;
+	      width:100%;
+	      padding:8px;
+      }
+      table, th, td {
+	      border: 1px solid black;
+	      border-collapse: collapse;
+	      padding:5px;
+      }
+      [contenteditable="true"]:hover {
+      outline: lightblue auto 5px;
+      outline: -webkit-focus-ring-color auto 5px;
+      }
+      body {
+	      background: #f1f1f1;
+	      width: 100%;
+	      height: 100%;
+	      margin: 0;
+	      padding: 0;
+	      font-size: 10px;
+      }
+      .invoice {
+	      font-family: inherit;
+	      font-weight: 100;
+	      width: 95%;
+	      //max-width: 1000px;
+	      margin: 2% auto;
+	      box-sizing: border-box;
+	      padding: 70px;
+	      border-radius: 5px;
+	      background: #fff;
+	      min-height: auto;
+      }
+          
+   </style>
+</head>
+ #set ($customerDetails = $email.dataForPdf.get("customerDetails").get(0))
+ #set ($customerUnitDetails = $email.dataForPdf.get("customerUnitDetails").get(0))
+ #set ($mileStones = $email.dataForPdf.get("mileStones"))
+ #set ($termsAndConditions = $email.dataForPdf.get("termsAndConditions"))
+ #set ($siteOtherChargesDetails = $email.dataForPdf.get("siteOtherChargesDetailsList").get(0))
+ #set ($info = ${email.demandNoteGeneratorInfo})
+##  $email.dataForPdf.get("mileStones")
+##  $email.dataForPdf.get("mileStones").get(0)
+## ${mileStones}
+<article class="invoice">
+   
+   <section style="text-align: center;
+      text-decoration:underline; padding: 1px; width: 100%;
+      text-transform: capitalize;">
+      <h3>COST BREAK-UP AND PAYMENT SCHEDULE</h3>
+   </section>
+   <section class="description">
+      <table style="width:100%; border: 1px solid black;border-collapse:collapse;font-size:11px;">
+         <tr>
+            <td> RERA No</td>
+            <td> ${customerDetails.get("RERA")}</td>
+         </tr>
+         <tr>
+            <td>Customer Name</td>
+            <td>${customerDetails.get("customerNames")}</td>
+         </tr>
+         <tr>
+            <td>Project</td>
+            <td>${customerDetails.get("siteName")}</td>
+         </tr>
+         <tr>
+            <td>Unit No</td>
+            <td style="font-weight:bold"  align="right">${customerDetails.get("flatName")}</td>
+         </tr>
+         <tr>
+            <td>SBUA</td>
+            <td align="right">${customerUnitDetails.get("SBUA")}</td>
+         </tr>
+         <tr>
+            <td>Carpet Area</td>
+            <td align="right">${customerUnitDetails.get("Carpet Area")}</td>
+         </tr>
+         <tr>
+            <td>Balcony Area</td>
+            <td align="right">${customerUnitDetails.get("Balcony Area")}</td>
+         </tr>
+         <tr>
+            <td>Basic Price</td>
+            <td align="right">${customerUnitDetails.get("Sold Base Price")}</td>
+         </tr>
+         <tr>
+            <td style="font-weight:bold">Basic Flat Cost</td>
+            <td align="right" style="font-weight:bold">${customerUnitDetails.get("Basic Flat Cost")}</td>
+         </tr>
+         <tr>
+            <td>Car Parking</td>
+            <td align="right">$email.carPrakingTotalCost</td>
+         </tr>
+         <tr>
+            <td>Taxes</td>
+            <td align="right">${customerUnitDetails.get("Total GST Amount")}</td>
+         </tr>
+         <tr>
+            <td style="font-weight:bold">Total Flat Cost (Incl. Taxes)</td>
+            <td align="right" style="font-weight:bold">${customerUnitDetails.get("Total Agreement Cost")}</td>
+         </tr>
+      </table>
+    ##  <br/>
+      
+        
+      #set ($i = 0)
+      <table style="width:100%; border: 1px solid black;border-collapse:collapse;font-size:11px;">
+         <tr>
+          <th align="left">A)</th>
+            <th align="left">DESCRIPTION OF PROGRESS OF WORK</th>
+            <th align="center">%</th>
+            <th align="right">Amount</th>
+         </tr>
+      #foreach($milestone in ${mileStones})
+        #set($i = $i+1)
+         <tr>
+           <td align="left">$i</td>
+            <td align="left">$milestone.milestoneName</td>
+            <td align="center">$milestone.percentage</td>
+            <td align="right">$milestone.totalDueAmount</td>
+         </tr>
+      #end 
+#*         <tr>
+            <td>On Foundation of Respective Block</td>
+            <td>20</td>
+            <td>18,47,348</td>
+         </tr>
+ *#
+      </table>
+      
+     
+ 
+      	<p style="font-weight:bold;padding-top:5px;padding-bottom:5px;font-size:11px;">THE ABOVE TOTAL EXCLUDES REGISTRATION,STAMP DUTY AND BWSSB CHARGES.</p>
+    
+      
+      #set ($index = 1)
+      
+	       <table style="width:100%; border: 1px solid black;border-collapse:collapse;font-size:11px;">
+	         
+		        <tr>
+		            <th >B)</th>
+		            <th colspan="2">OTHER DOCUMENTATION AND SERVICE CHARGES</th>
+		         </tr>
+		## #foreach($siteOtherChargesDetail in ${siteOtherChargesDetailsList})         
+		        #if(${siteOtherChargesDetails.containsKey("35")})
+			         <tr>
+			            <td>$index</td>
+			            <td>Flat Legal and Documentation Charges</td>
+			            <td>Rs.${siteOtherChargesDetails.get("35")} (Plus Applicable Taxes)</td>
+			            #set ($index = $index+1)
+			         </tr>
+		        #end
+		 ## #end       
+		##  #foreach($siteOtherChargesDetail in ${siteOtherChargesDetailsList})
+		        #if(${siteOtherChargesDetails.containsKey("102")})
+			         <tr>
+			            <td>$index</td>
+			            <td>Individual Flat Khata bifurcation and other charges</td>
+			            <td>Rs.${siteOtherChargesDetails.get("102")} (Plus Applicable Taxes)</td>
+			         </tr>
+		         #end
+		 ##  #end     
+		   #set ($index = 1)  
+		         <tr>
+		            <th>C)</th>
+		            <th colspan="2">AMOUNTS PAYABLE AT THE TIME OF REGISTRATION</th>
+		         </tr>
+		    #if($info.siteId == 131)
+	        	##   #foreach($siteOtherChargesDetail in ${siteOtherChargesDetailsList})     
+		          #if(${siteOtherChargesDetails.containsKey("103")})
+			         <tr>
+			            <td>$index</td>
+			            <td colspan="2">Maintenance for 2 year @ Rs. $siteOtherChargesDetails.get("103")/-Sq.ft per year Plus(Applicable Taxes) to be paid by Customer, at the time of Registration</td>
+			            #set ($index = $index+1)
+			         </tr>
+		          #end
+		        ##   #end
+		        ##    #foreach($siteOtherChargesDetail in ${siteOtherChargesDetailsList})
+		          #if(${siteOtherChargesDetails.containsKey("104")}) 
+			         <tr>
+			            <td>$index</td>
+			            <td colspan="2">Corpus Fund of Rs.${siteOtherChargesDetails.get("104")}/- to be paid by Customer, at the time of Registration</td>
+			         </tr>
+		          #end	    
+		        ##   #end
+	        #else 
+	        	##   #foreach($siteOtherChargesDetail in ${siteOtherChargesDetailsList})     
+		          #if(${siteOtherChargesDetails.containsKey("103")})
+			         <tr>
+			            <td>$index</td>
+			            <td colspan="2">Maintenance for 2 years @ Rs.${siteOtherChargesDetails.get("103")}/- per Sq.ft per year Plus Applicable Taxes (SBUA)</td>
+			            #set ($index = $index+1)
+			         </tr>
+		          #end
+		        ##   #end
+		        ##    #foreach($siteOtherChargesDetail in ${siteOtherChargesDetailsList})
+		          #if(${siteOtherChargesDetails.containsKey("104")}) 
+			         <tr>
+			            <td>$index</td>
+			            <td colspan="2">Corpus Fund of Rs.${siteOtherChargesDetails.get("104")}/- per Sq.ft (SBUA)</td>
+			         </tr>
+		          #end	    
+		        ##   #end 
+	        #end
+		         
+	      </table>
+	      
+      <br/>
+       <br/>
+      <p style="font-weight:bold">Terms and Conditions</p>
+      <ol style="font-size:10px;">
+			 #foreach($termsAndCondition in ${termsAndConditions})     
+			      <li>$termsAndCondition.value</li>
+			 #end     
+ 	  </ol> 
+#*    <p>1. All Payments Cheques/Electronic transfers should be in favour of <span style="font-weight:bold">"Sumadhura Infracon Pvt Ltd"</span> only</p>
+      <p>2.The customer/s shall issue post dated cheques for 10% Value of the agreement flat cost at the time of booking</p>
+      <p>3. If customer is opting for a bank loan, all the required documents shall be given before entering into 'ATS' / Tripartite Agreement</p>
+*#
+      
+      <p style="font-size:10px;">Note: This is system generated document and does not require signature.
+      Amounts are rounded to the nearest unit
+      </p>
+   </section>
+</article>

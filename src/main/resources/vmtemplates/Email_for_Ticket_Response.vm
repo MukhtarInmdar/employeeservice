@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div style="width: 100%;margin: 20px auto;">
+        <span style="font-size: 20px;">Dear <strong>${email.customerName}</strong>,</span>
+        <br>
+        <p style="font-size: 18px;text-align: justify;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Your ticket bearing <span style="font-size: 20px;color: blue;">${email.ticketId}| ${email.flatNumber}</span> has received the following response !</p>
+         <!-- <div style="width:100%;"><div style="width:15%;float:left;"><b style="font-size: 18px;">Ticket response         :</b></div><div style="width:60%;float:left;">${email.message}</div></div>   -->
+		 <p><b style="font-size: 18px;">Ticket response:</b><b style="font-size: 16px;">${email.message}</b></p>
+        <p style="font-size: 18px;text-align: justify;">If you have further queries or concerns, let us know! We are always happy to help you. Thank you for being a  Loyal Customer.</p>  
+    </div>
+</body>
+</html>

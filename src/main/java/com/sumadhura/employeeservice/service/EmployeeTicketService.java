@@ -1,0 +1,98 @@
+/**
+ * 
+ */
+package com.sumadhura.employeeservice.service;
+
+
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+import com.sumadhura.employeeservice.dto.ChangeTicketType;
+import com.sumadhura.employeeservice.dto.CustomerProfileResponse;
+import com.sumadhura.employeeservice.dto.DepartmentResponse;
+import com.sumadhura.employeeservice.dto.EmployeeTicketResponse;
+import com.sumadhura.employeeservice.dto.Result;
+import com.sumadhura.employeeservice.dto.TicketEscalationResponse;
+import com.sumadhura.employeeservice.dto.TicketForwardMenuResponse;
+import com.sumadhura.employeeservice.enums.Status;
+import com.sumadhura.employeeservice.exception.InSufficeientInputException;
+import com.sumadhura.employeeservice.exception.InformationNotFoundException;
+import com.sumadhura.employeeservice.exception.InvalidStatusException;
+import com.sumadhura.employeeservice.exception.SQLInsertionException;
+import com.sumadhura.employeeservice.exception.TicketAssignFailedException;
+import com.sumadhura.employeeservice.persistence.dto.EmployeeDetailsMailPojo;
+import com.sumadhura.employeeservice.persistence.dto.EmployeeLevelDetailsPojo;
+import com.sumadhura.employeeservice.persistence.dto.LevelPojo;
+import com.sumadhura.employeeservice.persistence.dto.TicketReportingPojo;
+import com.sumadhura.employeeservice.service.dto.EmployeeTicketRequestInfo;
+import com.sumadhura.employeeservice.service.dto.PushNotificationInfo;
+
+import lombok.NonNull;
+
+/**
+ * EmployeeTicketService Interface provides Employee Ticketing specific services.
+ * 
+ * @author Venkat_Koniki
+ * @since 26.04.2019
+ * @time 05:30PM
+ */
+public interface EmployeeTicketService {
+
+	public EmployeeTicketResponse getTicketList(EmployeeTicketRequestInfo employeeTicketRequestInfo) throws InvalidStatusException, IllegalAccessException, InvocationTargetException, InterruptedException, ExecutionException;
+	public EmployeeTicketResponse getTicketDtls(EmployeeTicketRequestInfo employeeTicketRequestInfo) throws InvalidStatusException, IllegalAccessException, InvocationTargetException, InterruptedException, ExecutionException;
+	public CustomerProfileResponse getCustomerProfileDetails(EmployeeTicketRequestInfo employeeTicketRequestInfo);
+	public Result updateTicketConversation(EmployeeTicketRequestInfo employeeTicketRequestInfo) throws SQLInsertionException, InformationNotFoundException, Exception;
+	public TicketForwardMenuResponse getTicketForwardMenuDetails(EmployeeTicketRequestInfo employeeTicketRequestInfo);
+	public Result forwardTicketDetails(EmployeeTicketRequestInfo employeeTicketRequestInfo) throws SQLInsertionException, InSufficeientInputException, TicketAssignFailedException, InformationNotFoundException, Exception;
+	public Result seekInfoTicketDetails(EmployeeTicketRequestInfo employeeTicketRequestInfo) throws SQLInsertionException, InSufficeientInputException, IllegalAccessException, InvocationTargetException, InformationNotFoundException;
+	public DepartmentResponse getDepartmentDetails(EmployeeTicketRequestInfo employeeTicketRequestInfo);
+	public Result ticketViewRequestInfo(EmployeeTicketRequestInfo employeeTicketRequestInfo) throws InvalidStatusException, InformationNotFoundException, InterruptedException, ExecutionException;
+    public Result viewRequestInfo(EmployeeTicketRequestInfo employeeTicketRequestInfo);
+    public Result insertSeekInfoDetails(EmployeeTicketRequestInfo employeeTicketRequestInfo) throws SQLInsertionException, IllegalAccessException, InvocationTargetException;
+    public Result closeTicket(EmployeeTicketRequestInfo employeeTicketRequestInfo) throws InformationNotFoundException, Exception;
+	public Result makeAsPublic( EmployeeTicketRequestInfo employeeTicketRequestInfo);
+	public Result getCustomerRaisedTicketList(EmployeeTicketRequestInfo employeeTicketRequestInfo);
+	public Result getCustomerTicketDetails(EmployeeTicketRequestInfo employeeTicketRequestInfo) throws IllegalAccessException, InvocationTargetException, InterruptedException, ExecutionException;
+	public Result chatSubmit(EmployeeTicketRequestInfo employeeTicketRequestToemployeeTicketRequestInfo) throws InformationNotFoundException, SQLInsertionException, IllegalAccessException, InvocationTargetException;
+	public Result insertExtendEsacalationTime( EmployeeTicketRequestInfo employeeTicketRequestInfo) throws SQLInsertionException, InterruptedException, ExecutionException;
+	public Result getExtendEsacalationTimeDetails(EmployeeTicketRequestInfo employeeTicketRequestInfo) throws InformationNotFoundException;
+	public Result updateExtendEsacalationTimeDetailsStatus(EmployeeTicketRequestInfo employeeTicketRequestInfo) throws InSufficeientInputException;
+	public Result getSystemEscalatedTicketDetails(EmployeeTicketRequestInfo employeeTicketRequestInfo) throws InformationNotFoundException, InvalidStatusException;
+	public boolean sendEmployeeTicketForwardMail(@NonNull EmployeeTicketRequestInfo employeeTicketRequestInfo) throws InformationNotFoundException;
+	public Result insertEmployeeLeaveDetails(EmployeeTicketRequestInfo employeeTicketRequestInfo) throws SQLInsertionException;
+	public Result getEmployeeDetails(EmployeeTicketRequestInfo employeeTicketRequestInfo) throws InformationNotFoundException;
+	public Result isEmployeeAvailable(EmployeeTicketRequestInfo employeeTicketRequestInfo) throws InformationNotFoundException;
+	public Result reOpenTicket(EmployeeTicketRequestInfo employeeTicketRequestInfo) throws Exception;
+	public Result insertTicketStatistics(EmployeeTicketRequestInfo employeeTicketRequestInfo,Status status) throws SQLInsertionException;
+	public void insertTicketStatisticsInMultithreadedMode(EmployeeTicketRequestInfo employeeTicketRequestInfo,Status status);
+	public Result updateMessageToCustomer(EmployeeTicketRequestInfo employeeTicketRequestInfo) throws Exception;
+	public List<PushNotificationInfo> createNotification(EmployeeTicketRequestInfo employeeTicketRequestInfo)
+			throws InformationNotFoundException, IllegalAccessException, InvocationTargetException;
+    public List<TicketEscalationResponse> getTicketEscaltionDtls(EmployeeTicketRequestInfo employeeTicketRequestInfo);
+	public EmployeeTicketResponse changeTicketOwnerDropDown(EmployeeTicketRequestInfo employeeTicketRequestInfo) throws InformationNotFoundException;
+	public Integer changeTicketOwner(EmployeeTicketRequestInfo employeeTicketRequestInfo) throws InSufficeientInputException;
+	public Result updateTicketStatusInactive(EmployeeTicketRequestInfo employeeTicketRequestInfo);
+    public Result getExtendedEscalationTimeApprovalLevel(EmployeeTicketRequestInfo employeeTicketRequestInfo);
+	public Result getChangeTicketTypeMailDetails(EmployeeTicketRequestInfo employeeTicketRequestInfo) throws FileNotFoundException, IOException;
+	public Result sendChangeTicketTypeMail(ChangeTicketType ChangeTicketTypeRequest);
+	public Result changeTicketTypeRemindAgain(ChangeTicketType ChangeTicketTypeRequest);
+	public Result changeTicketTypeAction(ChangeTicketType ChangeTicketTypeRequest);
+	public List<TicketReportingPojo> getCustomerTicketList(EmployeeTicketRequestInfo employeeTicketRequestInfo);
+	public Result saveTicketsComplaint(EmployeeTicketRequestInfo employeeTicketRequestInfo);
+	public EmployeeTicketResponse getTicketComplaintList(EmployeeTicketRequestInfo employeeTicketRequestInfo);
+	public EmployeeTicketResponse getTicketAdditionalDetails(EmployeeTicketRequestInfo employeeTicketRequestInfo) throws InvalidStatusException, InterruptedException, ExecutionException;
+	public Result getTicketCountList(EmployeeTicketRequestInfo employeeTicketRequestInfo) throws InvalidStatusException, InterruptedException, ExecutionException;
+	public EmployeeTicketResponse getClosedTicketList(EmployeeTicketRequestInfo employeeTicketRequestInfo);
+	public EmployeeTicketResponse getTicketPendingDeptDtls(EmployeeTicketRequestInfo employeeTicketRequestInfo);
+	EmployeeTicketResponse createTicketTypeDetailsForCRM(EmployeeTicketRequestInfo employeeTicketRequestInfo);
+	List<EmployeeDetailsMailPojo> getCrmEmployees(EmployeeTicketRequestInfo employeeTicketRequestInfo);
+	EmployeeTicketResponse createTicketEscalationsLevels(EmployeeTicketRequestInfo employeeTicketRequestInfo)  throws InformationNotFoundException ;
+	List<LevelPojo> getEscalationLevel(EmployeeTicketRequestInfo employeeTicketRequestInfo);
+	List<EmployeeLevelDetailsPojo> getEscalationLevelEmployees(EmployeeTicketRequestInfo employeeTicketRequestInfo);
+	EmployeeTicketResponse createTicketEscalationsEcxtentionLevels(EmployeeTicketRequestInfo employeeTicketRequestInfo)
+			throws InformationNotFoundException;
+}

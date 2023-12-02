@@ -1,0 +1,169 @@
+<head>
+    <style>
+      .keyname1 {
+      display: inline-table;
+      line-height: 21px;
+      width: 200px;
+      font-size: 18px;
+      }
+      .keyname {
+      display: inline-table;
+      line-height: 21px;
+      width: 200px;
+      font-size: 16px;
+      }
+      table {
+      border: 1px solid black;
+      border-collapse: collapse;
+      width:100%;
+      padding:10px;
+      }
+      table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+      padding:5px;
+      text-align:left;
+      }
+      [contenteditable="true"]:hover {
+      outline: lightblue auto 5px;
+      outline: -webkit-focus-ring-color auto 5px;
+      }
+      body {
+      background: #f1f1f1;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      }
+      .invoice {
+      font-family: inherit;
+      font-weight: 100;
+      width: 95%;
+      max-width: 1000px;
+      margin: 2% auto;
+      box-sizing: border-box;
+      padding: 70px;
+      border-radius: 5px;
+      background: #fff;
+      min-height: auto;
+      font-size: 17px;
+      }
+      .header {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      }
+      .header--invoice {
+      order: 2;
+      text-align: right;
+      width: 40%;
+      margin: 0;
+      padding: 0;
+      }
+      .invoice--date,
+      .invoice--number {
+      font-size: 12px;
+      color: #494949;
+      }
+      .invoice--recipient {
+      margin-top: 25px;
+      margin-bottom: 4px;
+      }
+      .header--logo {
+      order: 1;
+      width: 80%;
+      }
+      .logo--address {
+      font-size: 14px;
+      padding: 4px;
+      }
+      .logo--address1 {
+      font-size: 16px;
+      font-family: lato;
+      text-transform: capitalize;
+      }
+      .description {
+      margin: auto;
+      text-align: justify;
+      }
+      .items--table {
+      width: 100%;
+      padding: 10px;
+      thead {
+      background: #ddd;
+      color: #111;
+      text-align: center;
+      font-weight: 800;
+      }
+      tbody {
+      text-align: center;
+      }
+      .total-price {
+      border: 2px solid #444;
+      padding-top: 4px;
+      font-weight: 800;
+      background: lighten(green, 50%);
+      }
+      }
+      .sessiontitle {
+      text-align: center;
+      font-family: initial;
+      text-decoration:underline;
+      padding: 1px;
+      width: 100%;
+      text-transform: capitalize;
+      font-size: 15px;
+      }
+      .spansubtitle {
+      font-size: 18px;
+      font-weight:bold;
+      }
+      .bottomcls {
+      position: relative;
+      top: -18px;
+      font-size: 11px;
+      font-family: serif;
+      color: #795548;
+      }
+   </style>
+</head>
+ #set ($info = ${email.demandNoteGeneratorInfo})
+ #set ($customerDetails = $email.dataForPdf.get("customerDetails").get(0))
+ #set ($customerUnitDetails = $email.dataForPdf.get("customerUnitDetails").get(0))
+<body  class="welcomeMail">
+<article class="invoice welcomeMail">
+
+<section style="margin: auto;text-align: justify;">
+    <p style="font-size: 16px;">Hello All,<strong></strong></p>
+		<br>
+     <p style="font-size: 16px;text-align: justify;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NOC letter has been generated for the below details :</p> 
+     <p style="font-size: 16px;text-align: justify;">Project : "${customerDetails.get("siteName")}"</p>   
+     <p style="font-size: 16px;text-align: justify;">Name : ${customerDetails.get("customerNames")}</p>
+     <p style="font-size: 16px;text-align: justify;">Booking Date : ${customerDetails.get("bookingDate")}
+     <p style="font-size: 16px;text-align: justify;">Block : ${customerDetails.get("blockName")}</p>
+     <p style="font-size: 16px;text-align: justify;">Unit : ${customerDetails.get("flatName")} </p>
+
+	  <p>&nbsp;</p>
+	  <p>&nbsp;</p>
+	  <p>&nbsp;</p>
+  </section> 
+   <header class="header"> <nav class="header--logo">
+         <div class="logo--address1" contenteditable="true" >
+            
+		    <h6 style='margin:0;'><font size="1">$info.companyName</font></h6>
+		    <p  style='margin:0;'><font size="1">$info.companyBillingAddress</font></p>
+		    #if($demandNoteGeneratorInfo.companyCin != "-")
+		     	<p  style='margin:0;'><font size="1">Tel: $info.companyTelephoneNo CIN: $info.companyCin GSTIN: $info.companyGstin</font></p>
+		     #elseif($demandNoteGeneratorInfo.companyLlpin != "-")	
+		     	<p  style='margin:0;'><font size="1">Tel: $info.companyTelephoneNo LLPIN: $info.companyLlpin GSTIN: $info.companyGstin</font></p>
+		     #else
+		     #end
+		     ##<p  style='margin:0;'><font size="1">GSTIN: $info.companyGstin</font></p>
+		     <p  style='margin:0;'><font size="1">E-mail: $info.companyEmail Website: $info.companyWebsite</font></p>
+		     ##<p  style='margin:0;'><font size="1">Website: $info.companyWebsite</font></p>
+         </div>
+      </nav> 
+  </header>
+   
+	</article> 
+<body>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div style="width: 100%;margin: 20px auto;">
+        <span style="font-size: 20px;">Dear <strong>${email.name}</strong>,</span>
+        <br>
+        <p style="font-size: 18px;text-align: justify;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A new ticket bearing <span style="font-size: 20px;color: blue;">${email.ticketId}|${email.flatNumber}</span> has been assigned to you for necessary action.</p>
+        <p><b style="font-size: 18px;">Ticket message :</b><b style="font-size: 16px;">${email.message}</b></p>
+        <p style="font-size: 18px;"><b style="font-size: 18px;">Ticket Transfer: </b> <b style="font-size: 16px;">${email.name}</b><span style="font-size: 16px;"> has assigned this particular ticket.</span>
+        <p style="font-size: 18px;"><b>*DO NOT REPLY TO THIS E-MAIL*</b></p>
+        <p style="font-size: 18px;"><b>This is an auto generated E-mail,please do not reply to this message.</b></p>
+    </div>
+</body>
+</html>

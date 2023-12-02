@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <!DOCTYPE xml> -->
+<mappings xmlns="http://dozer.sourceforge.net"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://dozer.sourceforge.net 
+      http://dozer.sourceforge.net/schema/beanmapping.xsd">
+	<configuration>
+		<date-format>dd-MM-yyyy</date-format>
+	</configuration>
+
+	<mapping wildcard="true">
+		<class-a>com.sumadhura.employeeservice.dto.FinancialProjectMileStoneRequest</class-a>
+		<class-b>com.sumadhura.employeeservice.service.dto.FinancialProjectMileStoneInfo </class-b>
+	</mapping>
+	
+	<mapping wildcard="true">
+		<class-a>com.sumadhura.employeeservice.dto.EmployeeFinancialRequest</class-a>
+		<class-b>com.sumadhura.employeeservice.service.dto.EmployeeFinancialServiceInfo </class-b>
+	<field>
+		<a>comments</a>
+		<b>comments</b>
+		<b-hint>java.util.Map</b-hint>
+	</field>
+	</mapping>
+
+	<mapping wildcard="true">
+		<class-a>com.sumadhura.employeeservice.service.dto.FinPenalityInfo</class-a>
+		<class-b>com.sumadhura.employeeservice.persistence.dto.FinPenaltyStatisticsPojo</class-b>
+		<field>
+			<a>penaltyTotalAmount</a>
+			<b>statTotalAmount</b>
+		</field>
+	</mapping>
+
+	<mapping wildcard="true">
+		<class-a>com.sumadhura.employeeservice.persistence.dto.FinancialProjectMileStonePojo</class-a>
+		<class-b>com.sumadhura.employeeservice.dto.FinancialProjectMileStoneResponse</class-b>
+
+		<field>
+			<a>bookingFormModiCostDtlsPojos</a>
+			<b>bookingFormModiCostDtlsResponses</b>
+		</field>
+		<field>
+			<a>bookingFormLglCostDtlsPojos</a>
+			<b>bookingFormLglCostDtlsResponses</b>
+		</field>
+		<field>
+			<a>maintenanceChargesDtlsPojos</a>
+			<b>maintenanceChargesDtlsResponse</b>
+		</field>
+		<field>
+			<a>flatKhataChargesDtlsPojos</a>
+			<b>flatKhataChargesDtlsResponse</b>
+		</field>
+	</mapping>
+
+
+
+	<mapping wildcard="true">
+		<class-a>com.sumadhura.employeeservice.service.dto.FinBookingFormAccountsInfo</class-a>
+		<class-b>com.sumadhura.employeeservice.persistence.dto.FinBookingFormExcessAmountUsagePojo </class-b>
+	<field>
+		<a>usedAmount</a>
+		<b>convertedAmount</b>
+	</field>
+	</mapping>
+	
+	<mapping wildcard="true">
+		<class-a>com.sumadhura.employeeservice.service.dto.EmployeeFinancialMultipleTRNInfo</class-a>
+		<class-b>com.sumadhura.employeeservice.service.dto.EmployeeFinancialTransactionServiceInfo</class-b>
+		<field>
+			<a>empId</a>
+			<b>employeeId</b>
+		</field> 
+		<field>
+			<a>empId</a>
+			<b>createdBy</b>
+		</field> 
+	 
+	</mapping>
+	
+	<mapping wildcard="true">
+		<class-a>com.sumadhura.employeeservice.dto.EmployeeFinancialTransactionRequest</class-a>
+		<class-b>com.sumadhura.employeeservice.service.dto.EmployeeFinancialTransactionServiceInfo</class-b>
+	<field>
+		<a>empId</a>
+		<b>employeeId</b>
+	</field> 
+	<field>
+		<a>empId</a>
+		<b>createdBy</b>
+	</field> 
+	<field>
+		<a>comments</a>
+		<b>comments</b>
+		<b-hint>java.util.Map</b-hint>
+	</field> 
+	<field>
+		<a>paymentSetOffDetails</a>
+		<b>paymentSetOffDetails</b>
+		<a-hint>com.sumadhura.employeeservice.dto.EmployeeFinTranPaymentSetOffRequest</a-hint>
+		<b-hint>com.sumadhura.employeeservice.service.dto.EmployeeFinTranPaymentSetOffInfo</b-hint>
+	</field>
+		<field>
+		<a>modiCostDtlsRequests</a>
+		<b>modiCostDtlsInfos</b>
+		<a-hint>com.sumadhura.employeeservice.dto.EmployeeFinModiChargesRequest</a-hint>
+		<b-hint>com.sumadhura.employeeservice.service.dto.EmployeeFinModiCostInfo</b-hint>
+	</field> 
+	</mapping>
+	
+	
+
+	<mapping>
+		<class-a map-null="false">com.sumadhura.employeeservice.service.dto.EmployeeFinancialTransactionServiceInfo</class-a>
+		<class-b map-null="false">com.sumadhura.employeeservice.persistence.dto.FinTransactionEntryPojo</class-b>
+<!-- 		<field> -->
+<!-- 			<a>employeeId</a> -->
+<!-- 			<b>createdBy</b> -->
+<!-- 		</field> -->
+		<field>
+			<a>transactionForId</a>
+			<b>transactionFor</b>
+		</field>
+		<field>
+			<a>siteAccountId</a>
+			<b>finSiteProjAccountMapId</b>
+		</field>
+		<!-- <field>
+			<a>bankId</a>
+			<b>bankId</b>
+		</field> -->
+	</mapping>
+	
+	<mapping>
+		<class-a map-null="false">com.sumadhura.employeeservice.dto.FinTransactionEntryDetailsResponse</class-a>
+		<class-b map-null="false">com.sumadhura.employeeservice.service.dto.EmployeeFinancialTransactionServiceInfo</class-b>
+		<field>
+			<a>finBankId</a>
+			<b>bankId</b>
+		</field>
+		<field>
+			<a>finTransactionNo</a>
+			<b>transactionNo</b>
+		</field>
+	</mapping>
+	
+	<mapping>
+		<class-a map-null="false">com.sumadhura.employeeservice.dto.FinTransactionSetOffResponse</class-a>
+		<class-b map-null="false">com.sumadhura.employeeservice.service.dto.EmployeeFinTranPaymentSetOffInfo</class-b>
+		<field>
+			<a>setOffAmount</a>
+			<b>amount</b>
+		</field>
+		<field>
+			<a>setOffTypeName</a>
+			<b>setOffTypeName</b>
+		</field>
+		<field>
+			<a>finBokAccInvoiceNo</a>
+			<b>invoiceNo</b>
+		</field>
+		<field>
+			<a>setOffType</a>
+			<b>setOffTypeId</b>
+		</field>
+	</mapping>
+	
+	<mapping>
+		<class-a map-null="false">com.sumadhura.employeeservice.service.dto.EmployeeFinancialTransactionServiceInfo</class-a>
+		<class-b map-null="false">com.sumadhura.employeeservice.persistence.dto.FinTransactionSetOffEntryPojo</class-b>
+<!-- 		<field> -->
+<!-- 			<a>employeeId</a> -->
+<!-- 			<b>createdBy</b> -->
+<!-- 		</field> -->
+	</mapping>
+	
+	<mapping>
+		<class-a map-null="false">com.sumadhura.employeeservice.service.dto.EmployeeFinancialTransactionServiceInfo</class-a>
+		<class-b map-null="false">com.sumadhura.employeeservice.persistence.dto.FinTransactionChequePojo</class-b>
+<!-- 		<field> -->
+<!-- 			<a>employeeId</a> -->
+<!-- 			<b>createdBy</b> -->
+<!-- 		</field> -->
+		
+		<field>
+			<a>transactionDate</a>
+			<b>chequeDate</b>
+		</field>
+		<field>
+			<a>transactionAmount</a>
+			<b>chequeAmount</b>
+		</field>
+	</mapping>
+	
+<mapping>
+	<class-a map-null="false">com.sumadhura.employeeservice.service.dto.EmployeeFinancialTransactionServiceInfo</class-a>
+	<class-b map-null="false">com.sumadhura.employeeservice.persistence.dto.FinTransactionOnlinePojo</class-b>
+	<field>
+		<a>transactionAmount</a>
+		<b>amount</b>
+	</field>
+	<field>
+		<a>transactionReceiveDate</a>
+		<b>transactionDate</b>
+	</field>
+	<field>
+		<a>bankId</a>
+		<b>finBankId</b>
+	</field>
+</mapping>
+
+	<mapping>
+		<class-a>com.sumadhura.employeeservice.service.dto.EmployeeFinancialTransactionServiceInfo</class-a>
+		<class-b>com.sumadhura.employeeservice.persistence.dto.FinTransactionCommentsPojo</class-b>
+<!-- 		<field> -->
+<!-- 			<a>employeeId</a> -->
+<!-- 			<b>createdBy</b> -->
+<!-- 		</field> -->
+		<field>
+			<a>transactionEntryId</a>
+			<b>typeId</b>
+		</field>
+	</mapping>
+
+	<mapping>
+		<class-a>com.sumadhura.employeeservice.service.dto.EmployeeFinancialTransactionServiceInfo</class-a>
+		<class-b>com.sumadhura.employeeservice.persistence.dto.FinAnnyEntryCommentsPojo</class-b>
+<!-- 		<field> -->
+<!-- 			<a>employeeId</a> -->
+<!-- 			<b>createdBy</b> -->
+<!-- 		</field> -->
+		<field>
+			<a>anonymousEntryId</a>
+			<b>typeId</b>
+		</field>
+	</mapping>
+
+	<mapping wildcard="true">
+		<class-a>com.sumadhura.employeeservice.dto.FileInfo</class-a>
+		<class-b>com.sumadhura.employeeservice.persistence.dto.FinTransactionEntryDocPojo
+		</class-b>
+		<field copy-by-reference="true">
+			<a>name</a>
+			<b>documentName</b>
+		</field>
+		<field copy-by-reference="true">
+			<a>url</a>
+			<b>documentLocation</b>
+		</field>
+	</mapping>
+	
+	<mapping wildcard="true" type="bi-directional">
+		<class-a>com.sumadhura.employeeservice.dto.FileInfo</class-a>
+		<class-b>com.sumadhura.employeeservice.persistence.dto.FinBookingFormDemandNoteDocPojo
+		</class-b>
+		<field copy-by-reference="true">
+			<a>name</a>
+			<b>documentName</b>
+		</field>
+		<field copy-by-reference="true">
+			<a>url</a>
+			<b>documentLocation</b>
+		</field>
+		<field>
+			<a>id</a>
+			<b>finBookingFormDemandNoteId</b>
+		</field>
+	</mapping>
+	
+	
+	
+	
+	<mapping wildcard="true">
+		<class-a>com.sumadhura.employeeservice.dto.FileInfo</class-a>
+		<class-b>com.sumadhura.employeeservice.persistence.dto.FinAnnyEntryDocPojo
+		</class-b>
+		<field copy-by-reference="true">
+			<a>name</a>
+			<b>docName</b>
+		</field>
+		<field copy-by-reference="true">
+			<a>url</a>
+			<b>location</b>
+		</field>
+	</mapping>
+
+
+	<mapping>
+		
+		<class-a>com.sumadhura.employeeservice.service.dto.EmployeeFinTranPaymentSetOffInfo</class-a>
+		<class-b>com.sumadhura.employeeservice.persistence.dto.FinTransactionSetOffPojo</class-b>
+		<field>
+			<a>typeId</a>
+			<b>setOffType</b>
+		</field>
+		<field>
+			<a>amount</a>
+			<b>setOffAmount</b>
+		</field>
+		<field>
+			<a>payableAmount</a>
+			<b>payableAmount</b>
+		</field>
+		<field>
+			<a>invoiceNo</a>
+			<b>finBokAccInvoiceNo</b>
+		</field>
+	</mapping>
+	
+	<mapping>
+			<class-a>com.sumadhura.employeeservice.persistence.dto.FinBookingFormMilestonesPojo</class-a>
+			<class-b>com.sumadhura.employeeservice.persistence.dto.FinBookingFormAccountSummaryPojo</class-b>
+			
+			<field>
+				<a>createdBy</a>
+				<b>createdBy</b>
+			</field>
+			<field>
+				<a>createdBy</a>
+				<b>modifiedBy</b>
+			</field>
+			<field>
+				<a>mileStoneTaxAmount</a>
+				<b>payableAmount</b>
+			</field>
+			<field>
+				<a>mileStoneTaxAmount</a>
+				<b>balanceAmount</b>
+			</field>
+		</mapping>
+		
+		<mapping>
+		<class-a>com.sumadhura.employeeservice.service.dto.FinPenalityInfo</class-a>
+		<class-b>com.sumadhura.employeeservice.persistence.dto.FinBookingFormAccountSummaryPojo</class-b>
+		<field>
+			<a>createdBy</a>
+			<b>modifiedBy</b>
+		</field>
+		<field>
+			<a>createdBy</a>
+			<b>createdBy</b>
+		</field>
+	 	<field>
+			<a>penaltyTotalAmount</a>
+			<b>payableAmount</b>
+		</field>
+		<field>
+			<a>penaltyTotalAmount</a>
+			<b>balanceAmount</b>
+		</field>
+	</mapping>
+	
+<!-- 		<mapping>
+		<class-a>com.sumadhura.employeeservice.service.dto.FinBookingFormAccountsInfo</class-a>
+		<class-b>com.sumadhura.employeeservice.persistence.dto.FinBookingFormAccountSummaryPojo</class-b>
+		<field>
+			<a>createdBy</a>
+			<b>modifiedBy</b>
+		</field>
+		<field>
+			<a>createdBy</a>
+			<b>createdBy</b>
+		</field>
+	 	<field>
+			<a>paidAmount</a>
+			<b>paidAmount</b>
+		</field>
+		<field>
+			<a>paidAmount</a>
+			<b>balanceAmount</b>
+		</field>
+	</mapping> -->
+	
+	<mapping>
+		<class-a>com.sumadhura.employeeservice.persistence.dto.FinBookingFormModiCostPojo</class-a>
+		<class-b>com.sumadhura.employeeservice.persistence.dto.FinBookingFormAccountSummaryPojo</class-b>
+		<field>
+			<a>createdBy</a>
+			<b>modifiedBy</b>
+		</field>
+		<field>
+			<a>createdBy</a>
+			<b>createdBy</b>
+		</field>
+	 	<field>
+			<a>totalAmount</a>
+			<b>payableAmount</b>
+		</field>
+		<field>
+			<a>totalAmount</a>
+			<b>balanceAmount</b>
+		</field>
+	</mapping>
+
+	
+<!-- 	<mapping> -->
+<!-- 		<class-a>com.sumadhura.employeeservice.service.dto.EmployeeFinTranPaymentSetOffInfo</class-a> -->
+<!-- 		<class-b>com.sumadhura.employeeservice.persistence.dto.FinTransactionSetOffAccMapPojo</class-b> -->
+<!-- 	</mapping> -->
+	
+	<mapping>
+		<class-a map-null="false">com.sumadhura.employeeservice.service.dto.EmployeeFinancialTransactionServiceInfo</class-a>
+		<class-b map-null="false">com.sumadhura.employeeservice.persistence.dto.FinAnonymousEntryPojo</class-b>
+		<!-- <field>
+			<a>siteAccountId</a>
+			<b>finSiteProjAccountMapId</b>
+		</field> -->
+		<field>
+			<a>receivedAmount</a>
+			<b>amount</b>
+		</field>
+	</mapping>
+	
+<!-- 	<mapping> -->
+<!-- 		<class-a>com.sumadhura.employeeservice.service.dto.EmployeeFinModiCostInfo</class-a> -->
+<!-- 		<class-b>com.sumadhura.employeeservice.persistence.dto.FinBookingFormModiCostPojo</class-b> -->
+<!-- 	</mapping> -->
+	
+	<mapping>
+		<class-a>com.sumadhura.employeeservice.service.dto.EmployeeFinancialTransactionServiceInfo</class-a>
+		<class-b>com.sumadhura.employeeservice.service.dto.EmployeeFinModiCostInfo</class-b>
+		<field>
+			<a>transactionAmount</a>
+			<b>basicAmount</b>
+		</field>
+		<field>
+			<a>siteAccountId</a>
+			<b>siteAccountId</b>
+		</field>
+	</mapping>
+
+	<mapping>
+		<class-a>com.sumadhura.employeeservice.service.dto.EmployeeFinancialTransactionServiceInfo</class-a>
+		<class-b>com.sumadhura.employeeservice.persistence.dto.FinTransactionSetOffApprovalPojo</class-b>
+		<field>
+			<a>createdBy</a>
+			<b>modifiedBy</b>
+		</field>
+		<field>
+			<a>createdBy</a>
+			<b>createdBy</b>
+		</field>
+	</mapping>
+
+	<mapping>
+		<class-a>com.sumadhura.employeeservice.service.dto.EmployeeFinancialTransactionServiceInfo</class-a>
+		<class-b>com.sumadhura.employeeservice.persistence.dto.FinTransactionApprRejectStatPojo</class-b>
+ 		<field>
+			<a>transactionActionType</a>
+			<b>actionType</b>
+		</field>
+		<field>
+			<a>employeeId</a>
+			<b>empId</b>
+		</field>
+	</mapping>
+	
+	<mapping>
+		<class-a>com.sumadhura.employeeservice.service.dto.EmployeeFinancialTransactionServiceInfo</class-a>
+		<class-b>com.sumadhura.employeeservice.persistence.dto.FinAnnyApproveStatPojo</class-b>
+ 		<field>
+			<a>transactionActionType</a>
+			<b>actionType</b>
+		</field>
+		<field>
+			<a>employeeId</a>
+			<b>empId</b>
+		</field>
+	</mapping>
+	
+		<mapping>
+		<class-a map-null="false">com.sumadhura.employeeservice.service.dto.EmployeeFinancialTransactionServiceInfo</class-a>
+		<class-b map-null="false">com.sumadhura.employeeservice.persistence.dto.FinBookingFormReceiptsPojo</class-b>
+		<field>
+			<a>transactionAmount</a>
+			<b>paidAmount</b>
+		</field>
+		
+		<field>
+			<a>transactionReceiveDate</a>
+			<b>paidDate</b>
+		</field>
+	</mapping>
+	
+	 <mapping>
+		<class-a map-null="false">com.sumadhura.employeeservice.service.dto.FinancialProjectMileStoneInfo</class-a>
+		<class-b map-null="false">com.sumadhura.employeeservice.persistence.dto.FinBookingFormTdsDetailsPojo</class-b>
+		<field>
+			<a>createdBy</a>
+			<b>modifiedBy</b>
+		</field>
+		 <field>
+			<a>submitedById</a>
+			<b>submitedBy</b>
+		</field>
+	</mapping>
+	
+</mappings>

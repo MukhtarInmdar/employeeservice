@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		table {
+			border: 1px solid black;
+			border-collapse: collapse;
+			width:100%;
+			padding:10px;
+		}
+
+		table, th, td {
+			border: 2px solid black;
+			padding:5px;
+			text-align:center;
+		}
+		
+	</style>
+</head>
+
+<body>
+    <div style="width: 100%;margin: 20px auto;">
+        <p>Dear<b style="font-size: 18px;"> ${email.employeeName},</b></p>
+        <p style="font-size: 18px;text-align: justify;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You have one car parking allotment request for approval.</p>
+		<p style="font-size: 16px;"><b style="font-size: 16px;">Below are the details.</b></p>
+		<table style="width:100%; border-collapse:collapse;">
+			<tr>
+				<th>S.No</th>
+				<th>Basement No</th>
+				<th>Slot No</th>
+				<th>Flat No</th>
+			</tr>
+				<td>1</td>
+				<td>${email.basementName}</td>
+				<td>${email.slotName}</td>
+				<td>${email.flatNo}</td>
+			<tr>
+			</tr>
+		</table>
+		<br>
+		<p style="text-align:center;"><a href="http://106.51.38.64:8888/sumadhura_CUG/#/">
+			<button style="color:white;background-color:DodgerBlue;padding: 4px">Login And Approve</button></a>
+		</p>
+        <br>		
+		<p><b style="font-size: 18px;">*DO NOT REPLY TO THIS E-MAIL*</b></p>
+        <p style="font-size: 18px;">This is an auto generated E-mail, please do not reply to this E-mail.</p>
+    </div>
+</body>
+</html>

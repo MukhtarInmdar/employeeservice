@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+#set ($info = ${email.demandNoteGeneratorInfo})
+#set ($financialInfo = ${email.financialTransactionEmailInfo})
+
+       #foreach($financialTRN_Info in $email.financialTransactionEmailInfo.financialTransactionDetailsList)
+		    <div style="width: 100%;margin: 20px auto;">
+		        <p style="font-size: 16px;">Dear $financialTRN_Info.customerName,<strong></strong></p>
+				<br>
+		        	
+		        <p style="font-size: 16px;text-align: justify;">
+		        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Your Cheque of Rs.<strong>$financialTRN_Info.transactionAmount</strong> dated <strong>$financialTRN_Info.transactionDate</strong>
+		        	bearing Cheque number <strong>$financialTRN_Info.chequeNumber</strong> drawn on bank <strong>$financialTRN_Info.bankName</strong>
+		        	 is returned due to <strong>Authentication of branch required</strong>
+		        </p>
+				
+				<br>
+				<p style="font-size: 16px;">
+
+					<span style="padding-top:4px;">With warm regards,</span><br>
+			        <span style="padding-top:4px;">Customer Relations</span><br>
+					<span style="padding-top:4px;">$info.thanksAndRegardsFrom</span><br><br>
+					
+					<span style="padding-top:4px;">Note : This is a system generated email,Please contact our CRM for any further</span><br>
+					<span style="padding-top:4px;">queries:7816888222</span><br>
+
+				</p>				
+		    </div>
+        #end
+
+</body>
+
+</html>

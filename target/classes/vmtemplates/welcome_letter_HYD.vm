@@ -1,0 +1,192 @@
+<head>
+    <style>
+      .keyname1 {
+      display: inline-table;
+      line-height: 21px;
+      width: 200px;
+      font-size: 18px;
+      }
+      .keyname {
+      display: inline-table;
+      line-height: 21px;
+      width: 200px;
+      font-size: 16px;
+      }
+      table {
+      border: 1px solid black;
+      border-collapse: collapse;
+      width:100%;
+      padding:10px;
+      }
+      table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+      padding:5px;
+      text-align:left;
+      }
+      [contenteditable="true"]:hover {
+      outline: lightblue auto 5px;
+      outline: -webkit-focus-ring-color auto 5px;
+      }
+      body {
+      background: #f1f1f1;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      }
+      .invoice {
+      font-family: inherit;
+      font-weight: 100;
+      width: 95%;
+      max-width: 1000px;
+      margin: 2% auto;
+      box-sizing: border-box;
+      padding: 70px;
+      border-radius: 5px;
+      background: #fff;
+      min-height: auto;
+      font-size: 17px;
+      }
+      .header {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      }
+      .header--invoice {
+      order: 2;
+      text-align: right;
+      width: 40%;
+      margin: 0;
+      padding: 0;
+      }
+      .invoice--date,
+      .invoice--number {
+      font-size: 12px;
+      color: #494949;
+      }
+      .invoice--recipient {
+      margin-top: 25px;
+      margin-bottom: 4px;
+      }
+      .header--logo {
+      order: 1;
+      width: 80%;
+      }
+      .logo--address {
+      font-size: 14px;
+      padding: 4px;
+      }
+      .logo--address1 {
+      font-size: 16px;
+      font-family: lato;
+      text-transform: capitalize;
+      }
+      .description {
+      margin: auto;
+      text-align: justify;
+      }
+      .items--table {
+      width: 100%;
+      padding: 10px;
+      thead {
+      background: #ddd;
+      color: #111;
+      text-align: center;
+      font-weight: 800;
+      }
+      tbody {
+      text-align: center;
+      }
+      .total-price {
+      border: 2px solid #444;
+      padding-top: 4px;
+      font-weight: 800;
+      background: lighten(green, 50%);
+      }
+      }
+      .sessiontitle {
+      text-align: center;
+      font-family: initial;
+      text-decoration:underline;
+      padding: 1px;
+      width: 100%;
+      text-transform: capitalize;
+      font-size: 15px;
+      }
+      .spansubtitle {
+      font-size: 18px;
+      font-weight:bold;
+      }
+      .bottomcls {
+      position: relative;
+      top: -18px;
+      font-size: 11px;
+      font-family: serif;
+      color: #795548;
+      }
+   </style>
+</head>
+ #set ($info = ${email.demandNoteGeneratorInfo})
+ #set ($customerDetails = $email.dataForPdf.get("customerDetails").get(0))
+ #set ($customerUnitDetails = $email.dataForPdf.get("customerUnitDetails").get(0))
+<body  class="welcomeMail">
+<article class="invoice welcomeMail">
+   ## <div  contenteditable="true">
+      ## <span >Sub :</span>Welcome to Aspire Aurum - B704 <br/> commented details
+   ## </div>
+   <section style="margin: auto;text-align: justify;">
+      <p contenteditable="true">Dear ${customerDetails.get("customername").trim()},</p>
+      <div></div>
+      <p contenteditable="true">Welcome to ${customerDetails.get("greetingsFrom")}!!!</p>
+      <div></div>
+      <p contenteditable="true">We congratulate you and your family on your New Home!</p>
+      <div></div>
+      <p contenteditable="true">With reference to your Booking application dated ${customerDetails.get("bookingDate")} for Flat No ${customerDetails.get("flatName")} ,${customerDetails.get("blockName")} ,in our esteemed project "${customerDetails.get("siteName")}",Situated at Survey No: ${info.surveyNo}, ${info.siteAddress}.</p>
+      <div></div>
+      <p contenteditable="true">We would like to brief you on the flat details and payment terms.</p>
+      <div></div>
+      <p contenteditable="true">The SBUA for your flat is ${customerUnitDetails.get("SBUA")} with a Total cost of Rs.${customerDetails.get("totalAgreementCost")}/- (Inclusive of All Taxes). The Allotment Letter, Cost Break - up, Draft Agreement copy of your flat are attached herewith for your kind perusal.</p>
+      <div></div>
+      ##<p contenteditable="true">If you would like to access the legal documents of the project "${customerDetails.get("siteName")}".  Kindly refer to the attached link.</p>
+      <div></div>
+      <p contenteditable="true">We have received the booking amount of Rs.${customerDetails.get("totalMilestonePaidAmount")}/-. Please execute the Agreement of sale within 10days from the date of booking by clearing the balance Booking amount(if any).</p>
+      <div></div>
+      <p contenteditable="true">Kindly note that the total due's as per the payment Schedule, for completed milestones has to be paid within 30days from the date of Booking.</p>
+      <div></div>
+      <p contenteditable="true">The payment receipt and the Demand Note is available under the Financials tab in the App for your reference. <br/>I would be your personalised Customer Service  Representative for all your Financial & documentation services. For any further queries and concerns, please contact me on ${customerDetails.get("empMobileNo")} (or) you can write to us on this Platform (Customer App). We would be Happy to Serve You!</p>
+      <div></div>
+      <p contenteditable="true">Please find below, the ${customerDetails.get("siteName")} Bank Account Details for online fund transfers:</p>
+      <p contenteditable="true">
+       <label  class="keyname1" style="float:left;font-size: 15px">Ac Name <span   style="font-weight:bold">:</span> <span   class="keyname" style="margin-left:20px;">$info.companyName</span></label><div></div>     
+       <label  class="keyname1" style="float:left;font-size: 15px">Ac no <span   style="font-weight:bold">:</span> <span   class="keyname" style="margin-left:20px;">${customerDetails.get("accountBankNumber")}</span></label><div></div>            
+       <label  class="keyname1" style="float:left;font-size: 15px">IFSC <span   style="font-weight:bold">:</span> <span   class="keyname" style="margin-left:20px;">${customerDetails.get("accountIfscCode")}</span></label>       <div></div>      
+       <label  class="keyname1" style="float:left;font-size: 15px">Bank <span   style="font-weight:bold">:</span><span   class="keyname" style="margin-left:20px;">${customerDetails.get("accountBankName")}</span></label>           <div></div>
+       <label  class="keyname1" style="float:left;font-size: 15px">MICR <span   style="font-weight:bold">:</span><span   class="keyname" style="margin-left:20px;">${customerDetails.get("accountMicr")}</span></label>            <div></div>
+       <label  class="keyname1" style="float:left;font-size: 15px">Branch <span   style="font-weight:bold">:</span><span   class="keyname" style="margin-left:20px;">${customerDetails.get("accountBankAddress")}</span></label>       <div></div>
+       <label  class="keyname1" style="float:left;font-size: 15px">SWIFT <span   style="font-weight:bold">:</span> <span   class="keyname" style="margin-left:20px;">${customerDetails.get("accountSwift")}</span></label>  <div></div>
+      </p> 
+
+   </section> <header class="header"> <nav class="header--logo">
+         <div class="logo--address1" contenteditable="true" >
+		For Any Home Loans assistance, please speak to Mr Bala Purushtottam Gupta (Ph # 91 92469 61026,Email ID:hyd.homeloans@sumadhuragroup.com)<br/>
+        <div></div>           
+		   Happy to Assist You Always!! <br/>
+          <div></div>
+            Thanks & Best Regards<br/>
+			  <div></div>
+            ${customerDetails.get("empName")} - ${customerDetails.get("emp_designation")}
+		    <h6 style='margin:0;'><font size="1">$info.companyName</font></h6>
+		    <p  style='margin:0;'><font size="1">$info.companyBillingAddress</font></p>
+		    #if($demandNoteGeneratorInfo.companyCin != "-")
+		     	<p  style='margin:0;'><font size="1">Tel: $info.companyTelephoneNo CIN: $info.companyCin GSTIN: $info.companyGstin</font></p>
+		     #elseif($demandNoteGeneratorInfo.companyLlpin != "-")	
+		     	<p  style='margin:0;'><font size="1">Tel: $info.companyTelephoneNo LLPIN: $info.companyLlpin GSTIN: $info.companyGstin</font></p>
+		     #else
+		     #end
+		     ##<p  style='margin:0;'><font size="1">GSTIN: $info.companyGstin</font></p>
+		     <p  style='margin:0;'><font size="1">E-mail: $info.companyEmail Website: $info.companyWebsite</font></p>
+		     ##<p  style='margin:0;'><font size="1">Website: $info.companyWebsite</font></p>
+
+         </div>
+      </nav> </header> </article> <body>

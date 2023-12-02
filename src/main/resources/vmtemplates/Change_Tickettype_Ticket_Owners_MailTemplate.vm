@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Ticket Reporting mail</title> 
+  <style>
+     td{   
+       padding: 10px;
+      } 
+     table{
+     border: 2px solid #666; 
+     }
+  </style> 
+</head>
+  <body>
+  <p style='text-align:right'><img src='http://106.51.38.64:8888/images/sumadhura_projects_images/Sumadhura_Logo.jpg'  width='150' height='150'/></p>
+  <table  width="100%" cellpadding="0" cellspacing="0" style="min-width:100%;border-collapse:collapse;">
+      <tr>
+       <td align="left">
+         <span style="font-size: 15px;"><b>Dear</b><strong style="font-size:15px;color:green"> ${email.employeeName}</strong>,</span>
+         <br>
+       </td>
+     </tr>
+     
+     <!--<tr>
+       <td align="left">
+         <span style="font-size:15px;color:blue">Ticket type for the below ticket has been changed and assigned to the respective <strong>${email.departmentName}</strong>to address the queries.</span>
+         <br>
+       </td>
+     </tr>-->
+     
+     <tr>
+       <td align="left">
+         <span style="font-size:15px;color:blue">${email.message}</span>
+         <br>
+       </td>
+     </tr>
+     
+     <tr>
+       <td align="left">
+         <p style="font-size:15px;color:blue">Ticket No: <strong><a href='http://106.51.38.64:8888/sumadhura_CUG/#/'>${email.ticketId}</a></strong></p>
+         <p style="font-size:15px;color:blue">Ticket Message: <strong>${email.ticketSubject}</strong></p>
+         <p style="font-size:15px;color:blue">Raised Under Category: <strong>${email.ticketType}</strong></p>
+         <p style="font-size:15px;color:blue">Category to be Changed to: <strong>${email.categoryToBeRaised}</strong></p>
+       </td>
+     </tr>
+     
+     <tr>
+       <td align="left">
+        <p style="font-size:15px;color:red"><b>*DO NOT REPLY TO THIS E-MAIL*</b></p>
+        <p style="font-size:15px;color:red"><b>This is an auto generated E-mail,please do not reply to this message.</b></p> 
+         <br>
+       </td>
+     </tr>
+  </table>
+ </html>

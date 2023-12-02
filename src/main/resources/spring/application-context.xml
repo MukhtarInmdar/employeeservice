@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans default-autowire="byName"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+	xmlns:cxf="http://cxf.apache.org/core"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+	    http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+		http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
+		http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+		http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<context:annotation-config />
+
+	<context:property-placeholder
+		location="classpath:applicationname.properties" />
+
+	<!-- Enables the Spring MVC @Controller programming model -->
+  <mvc:annotation-driven />
+
+	<!-- the mvc resources tag does the magic -->
+	<!-- <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/> 
+		<mvc:resources mapping="/swagger-ui.html" location="classpath:/META-INF/resources/swagger-ui.html"/> -->
+
+	<!-- Enable @AspectJ annotation support -->
+	<aop:aspectj-autoproxy expose-proxy="true" />
+
+	<!-- Include a swagger configuration -->
+	<!-- <bean name="/swaggerConfig" class="com.sumadhura.employeeservice.configuration.Swagger2UiConfiguration"/> -->
+
+	<!-- Task Scheduling -->
+	<task:executor id="myexecutor" pool-size="8-25" queue-capacity="100" />
+	<task:scheduler id="scheduler" pool-size="10" />
+    <task:annotation-driven executor="myexecutor" scheduler="scheduler" />
+	<bean class="com.sumadhura.employeeservice.schedulers.FinancialScheduler" />
+	<!-- <bean class="com.sumadhura.employeeservice.schedulers.NOCScheduler" /> -->
+
+  
+	<context:component-scan
+		base-package="com.sumadhura.employeeservice" />
+
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+	<import resource="springDao.xml" />
+
+	<cxf:bus>
+		<cxf:features>
+			<cxf:logging />
+		</cxf:features>
+		<cxf:inInterceptors>
+			<ref bean="gzipInInterceptor" />
+		</cxf:inInterceptors>
+		<cxf:outInterceptors>
+			<ref bean="gzipOutInterceptor" />
+		</cxf:outInterceptors>
+	</cxf:bus>
+
+
+	<jaxrs:server id="restContainer" address="/">
+
+		<jaxrs:serviceBeans>
+			<ref bean="gzipOutInterceptor" />
+			<ref bean="gzipInInterceptor" />
+			<ref bean="loginRestService" />
+		
+			
+			<ref bean="bookingFormRestService" />
+			<ref bean="blockRestService" />
+			<ref bean="floorRestService" />
+			<ref bean="flatRestService" />
+			<ref bean="siteRestService" />
+		
+			<ref bean="employeeFinancialRestService" />
+
+			<ref bean="messengerRestService"/>
+			
+			
+			<ref bean="applyLoanEmpRestService"/>
+			
+			
+			<ref bean="customerLeadRestService" />
+<!--             <ref bean="dozerBeanMapper"/> -->
+		</jaxrs:serviceBeans>
+
+		<jaxrs:providers>
+<bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
+<bean class="com.sumadhura.employeeservice.exception.provider.AuthenticationExceptionHandler"/>
+<bean class="com.sumadhura.employeeservice.exception.provider.ConnectExceptionHandler"/>
+<bean class="com.sumadhura.employeeservice.exception.provider.SQLInsertionExceptionHandler"/>
+<bean class="com.sumadhura.employeeservice.exception.provider.DataAccessExceptionHandler"/>
+<bean class="com.sumadhura.employeeservice.exception.provider.InSufficeientInputExceptionHandler"/>
+<bean class="com.sumadhura.employeeservice.exception.provider.GlobalExceptionHandler"/>
+<bean class="com.sumadhura.employeeservice.exception.provider.InvalidStatusExceptionHandler"/>
+<bean class="com.sumadhura.employeeservice.exception.provider.InSufficeientInputExceptionHandler" />
+
+        <bean class="com.sumadhura.employeeservice.exception.provider.RefundAmountExceptionHandler"/>
+        <bean class="com.sumadhura.employeeservice.exception.provider.FinancialServiceExceptionHandler"/>
+        <bean class="com.sumadhura.employeeservice.exception.provider.NoInformationFoundExceptionHandler"/>
+		</jaxrs:providers>
+	</jaxrs:server>
+
+	
+	<bean id="gzipOutInterceptor"
+		class="org.apache.cxf.transport.common.gzip.GZIPOutInterceptor" />
+
+	<bean id="gzipInInterceptor"
+		class="org.apache.cxf.transport.common.gzip.GZIPInInterceptor" />
+		
+    <bean id="loginRestService"
+		class="com.sumadhura.employeeservice.rest.service.LoginRestService" />	
+			
+    
+		
+	<bean id="bookingFormRestService"
+		class="com.sumadhura.employeeservice.rest.service.BookingFormRestService" />	
+		
+		<bean id="customerLeadRestService"
+		class="com.sumadhura.employeeservice.rest.service.CustomerLeadRestService" />	
+		
+		
+		 <bean id="flatRestService"
+		class="com.sumadhura.employeeservice.rest.service.FlatRestService" />
+		
+		 <bean id="floorRestService"
+		class="com.sumadhura.employeeservice.rest.service.FloorRestService" />
+		
+		 <bean id="siteRestService"
+		class="com.sumadhura.employeeservice.rest.service.SiteRestService" />
+        <bean id="blockRestService"
+		class="com.sumadhura.employeeservice.rest.service.BlockRestService" />			
+        
+		
+	<bean id="employeeFinancialRestService"
+		class="com.sumadhura.employeeservice.rest.service.EmployeeFinancialRestService" />
+			
+
+        <bean id="messengerRestService"
+		class="com.sumadhura.employeeservice.rest.service.MessengerRestService"/>
+		
+	
+		
+				<bean id="applyLoanEmpRestService"
+		class="com.sumadhura.employeeservice.rest.service.ApplyLoanEmpRestService"/>
+		
+</beans>

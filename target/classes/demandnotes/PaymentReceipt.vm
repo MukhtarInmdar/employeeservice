@@ -1,0 +1,238 @@
+<head>
+    <style>
+    
+
+        body {
+            background: #f1f1f1;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .invoice {
+            font-family: inherit;
+            font-weight: 100;
+            width: 95%;
+            max-width: 1000px;
+            margin: 2% auto;
+            box-sizing: border-box;
+            padding: 70px;
+            border-radius: 5px;
+            background: #fff;
+            min-height: auto;
+            font-size: 13;
+        }
+
+        .header {
+            display: flex;
+            width: 100%;
+
+            align-items: center;
+        }
+
+        .header--invoice {
+            order: 2;
+            text-align: right;
+            width: 40%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .invoice--date,
+        .invoice--number {
+            font-size: 12px;
+            color: #494949;
+        }
+
+        .invoice--recipient {
+            margin-top: 25px;
+            margin-bottom: 4px;
+        }
+
+        .header--logo {
+            order: 1;
+            font-size: 32px;
+            width: 80%;
+           
+        }
+
+        .logo--address {
+            font-size: 13px;
+            padding: 4px;
+			margin-bottom: -98px;
+        }
+
+
+        .logo--address1 {
+          
+            font-size: 13px;
+            font-family: lato;
+            text-transform: capitalize;
+        }
+
+        .description {
+            margin: auto;
+            text-align: justify;
+
+        }
+
+        .items--table {
+            width: 100%;
+            padding: 10px;
+
+            thead {
+                background: #ddd;
+                color: #111;
+                text-align: center;
+                font-weight: 800;
+            }
+
+            tbody {
+                text-align: center;
+            }
+
+            .total-price {
+                border: 2px solid #444;
+                padding-top: 4px;
+                font-weight: 800;
+                background: lighten(green, 50%);
+            }
+        }
+
+        .sessiontitle {
+            text-align: center;
+            font-family: initial;
+        text-decoration:underline;
+            padding: 1px;
+            width: 100%;
+            margin-top: 125px;
+            text-transform: capitalize;
+            font-size: 13px;
+			
+
+        }
+
+        .spansubtitle {
+            font-size: 13px;
+			font-weight:bold;
+           
+        }
+
+        .bottomcls {
+            position: relative;
+            top: -18px;
+            font-size: 11px;
+            font-family: serif;
+            color: #795548;
+        }
+    </style>
+</head>
+
+
+<div class="invoice">
+	#foreach($demandNoteGeneratorInfo in $email.demandNoteGeneratorInfoList)
+#*
+    <div style="width:100%; float:left">
+	    <div style="width:83%;float:left">
+	    </div>
+	    <div style="width:20%;float:left;margin-left:83%">
+	    	<p style='text-align:right;'><img src='${demandNoteGeneratorInfo.rightSidelogoForPdf}'  width='120' height='120' /></p>
+	    </div>
+    </div>  
+  *#  
+    <header class="header" style=" style="margin-bottom: -85px;"">
+
+        <nav class="header--logo">
+            <div class="logo--address" contenteditable="true">
+                Date:-${demandNoteGeneratorInfo.transactionReceiptDate} <br/>
+				Receipt No : <span style="text-decoration:underline">${demandNoteGeneratorInfo.transactionReceiptNo}</span><br/><br/>
+				
+				<span class="spansubtitle"><b>${demandNoteGeneratorInfo.companyName}</b></span><br/>
+				<span class="spansubtitle"><b>Address:</b> </span>
+				<span>${demandNoteGeneratorInfo.companyBillingAddress} PAN: ${demandNoteGeneratorInfo.companyPanNumber}</span><br/><br/>
+				
+				To,&nbsp;<br/>
+				<span class="spansubtitle"><b>${demandNoteGeneratorInfo.customerNames}</b></span><br/>
+				<span>Address: ${demandNoteGeneratorInfo.address}.</span>      		
+		    </div>
+        </nav>
+    </header>
+
+    <section class="sessiontitle" style="text-align: center;text-decoration:underline;">
+        <h2>PAYMENT RECEIPT</h2>
+    </section>
+
+    <section class="description">
+        <p contenteditable="true">Thank you for the payment made towards your flat 
+        <span class="spansubtitle"> <b>Flat No.${demandNoteGeneratorInfo.flatName}, ${demandNoteGeneratorInfo.blockName}, 
+        ${demandNoteGeneratorInfo.floorName}</b></span> in project <span class="spansubtitle"><b>${demandNoteGeneratorInfo.siteName}</b></span>.</p>
+     
+
+        <p contenteditable="true">
+			<span style="text-decoration:underline">Below are the payment details:</span><br/><br/></p>
+			
+		<table>
+			<tr style="font-size: 13px;">
+				<td>Cheque/RTGS/NEFT No.</td>
+				<td>:</td>
+				<td style="font-weight:bold;">
+					#if($demandNoteGeneratorInfo.transactionModeName == "Cheque")
+                    	${demandNoteGeneratorInfo.chequeNumber}
+                    #elseif($demandNoteGeneratorInfo.transactionModeName == "Online")
+                   		${demandNoteGeneratorInfo.referenceNo}
+                    #end
+				</td>
+		    </tr>
+		    <tr style="font-size: 13px;">
+				<td>Cheque/Transaction  date</td>
+				<td>:</td>
+				<td style="font-weight:bold;">${demandNoteGeneratorInfo.transactionReceiveDate}</td>
+		    </tr>
+		    <tr style="font-size: 13px;">
+				<td>Bank</td>
+				<td>:</td>
+				<td style="font-weight:bold;">${demandNoteGeneratorInfo.bankName}.</td>
+		    </tr>
+			    <tr style="font-size: 13px;">
+				<td>Amount (Rs.)</td>
+				<td>:</td>
+				<td style="font-weight:bold;">${demandNoteGeneratorInfo.totalReceiptPaidAmount}/-</td>
+		    </tr>
+	 	</table><br/>
+   	
+    </section>
+
+    <header class="header">
+
+        <nav class="header--logo">
+
+            <div class="logo--address1" contenteditable="true" >
+                Thanking You! <br/>
+                Team Customer Relations<br/>
+               
+            
+  <p contenteditable="true" style="color:#000000"><span class="spansubtitle">Note:</span><span >This is system generated document and does not require signature .</span></p>
+            </div>
+        </nav>
+		
+    </header>
+ #*	
+ 	<div style="position:relative;top:400px!important">
+	 		<div><hr></hr></div>
+	    	<h4 style='margin:0;'><b>${demandNoteGeneratorInfo.companyName}</b></h4>
+	    	<p  style='margin:0;'><font size="1">${demandNoteGeneratorInfo.companyBillingAddress}</font></p>
+	    	#if($demandNoteGeneratorInfo.companyCin != "-")
+			<p  style='margin:0;'><font size="1">Tel: ${demandNoteGeneratorInfo.companyTelephoneNo} CIN: ${demandNoteGeneratorInfo.companyCin} GSTIN: ${demandNoteGeneratorInfo.companyGstin}</font></p>
+			#elseif($demandNoteGeneratorInfo.companyLlpin != "-")	
+			<p  style='margin:0;'><font size="1">Tel: ${demandNoteGeneratorInfo.companyTelephoneNo} LLPIN: ${demandNoteGeneratorInfo.companyLlpin} GSTIN: ${demandNoteGeneratorInfo.companyGstin}</font></p>
+			#else
+			#end
+			##<p  style='margin:0;'><font size="1">GSTIN: ${demandNoteGeneratorInfo.companyGstin} Website: ${demandNoteGeneratorInfo.companyWebsite}</font></p>
+	        <span  style='margin:0;'><font size="1">E-mail: ${demandNoteGeneratorInfo.companyEmail}	URL: <span style="color:blue;text-decoration:underline;">${demandNoteGeneratorInfo.companyWebsite}</span></font></span>
+	        ##<p  style='margin:0;'><font size="1">Website: ${demandNoteGeneratorInfo.companyWebsite}</font></p>
+	 	</div>
+*#	 	
+	 	
+	 	#end	 
+</div>

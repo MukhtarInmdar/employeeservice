@@ -1,0 +1,308 @@
+<head>
+    <style>
+  
+        body {
+            background: #f1f1f1;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .invoice {
+            font-family: inherit;
+            font-weight: 100;
+            width: 95%;
+            max-width: 1000px;
+            margin: 2% auto;
+            box-sizing: border-box;
+            padding: 70px;
+            border-radius: 5px;
+            background: #fff;
+            min-height: auto;
+            font-size: 13;
+        }
+
+        .header {
+            display: flex;
+            width: 100%;
+
+            align-items: center;
+        }
+
+        .header--invoice {
+            order: 2;
+            text-align: right;
+            width: 40%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .invoice--date,
+        .invoice--number {
+            font-size: 13px;
+            color: #494949;
+        }
+
+        .invoice--recipient {
+            margin-top: 25px;
+            margin-bottom: 4px;
+        }
+
+        .header--logo {
+            order: 1;
+            font-size: 30px;
+            width: 60%;
+            font-weight: 900;
+        }
+
+        .logo--address {
+            font-size: 13px;
+            padding: 4px;
+           
+            width: 50%;
+        }
+
+
+        .logo--address1 {
+            font-size: 13px;
+            font-family: lato;
+            text-transform: capitalize;
+        }
+
+        .description {
+            margin: auto;
+            text-align: justify;
+
+        }
+
+       
+
+        .sessiontitle {
+            text-align: center;
+            font-family: initial;
+            padding: 1px;
+            width: 100%;
+            margin-top: 10px;
+            text-transform: capitalize;
+            font-size: 13px;
+
+
+        }
+
+        .spansubtitle {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .bottomcls {
+            position: relative;
+            top: -18px;
+            font-size: 11px;
+            font-family: serif;
+            color: #795548;
+        }
+
+     
+
+       
+    </style>
+</head>
+#set ($customerDetails = $email.dataForPdf.get("customerDetails").get(0))
+ #set ($customerUnitDetails = $email.dataForPdf.get("customerUnitDetails").get(0))
+ #set ($info = ${email.demandNoteGeneratorInfo})
+<article class="invoice" style="font-family: Times New Roman, Times, sans-serif;">
+
+    #*  <header class="header" style="font-family: Times New Roman, Times, sans-serif;">
+
+ 
+       
+      <nav class="header--logo">
+            <div class="logo--address" contenteditable="true">
+                <span>Date:${customerDetails.get("todayDate")}</span><br /><br />
+                <span>To,</span><br />
+                The Manager,<br />
+                Tata Capital Housing Finance Ltd.,
+                <br />
+                Bangalore <br />
+
+                <div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+  *#
+  <p contenteditable="true" style="text-align: justify;"> Date:${customerDetails.get("todayDate")} </p>
+   
+   <p contenteditable="true" style="text-align: justify;"> To, <br />
+     The Manager, <br />
+    Tata Capital Housing Finance Ltd.,<br />
+     Bangalore </p>
+    
+    
+  
+        <p contenteditable="true">Dear Sir,</p>
+        <p contenteditable="true">
+            Sub: Request for NOC in respect of transfer of Flat No. <b> ${customerDetails.get("flatName")}  </b>in our project <b>"${customerDetails.get("siteName")}"</b>
+
+        </p>
+        <p contenteditable="true" style="text-align: justify;">
+            This has reference to the loan of  <b>Rs.160 </b>Crores  sanctioned to us. We have mortgaged the property bearing Sy
+            No:47/1, 47/2A, 47/2B, 47/3, 48/3 & 48/4 Whitefield Village, K.R. Puram Hobli, Bangalore East Taluk,
+            Bangalore-560066.
+        </p>
+
+        <p contenteditable="true" style="text-align: justify;">
+            We are pleased to inform you that we have finalized a deal for transfer of the above unit, the details of
+            which are as under.
+        </p>
+
+        <table style="width:100%; border: 1px solid black;border-collapse:collapse;font-size: 13px;margin-top:20px">
+            <tr style="border: 1px solid black;">
+                <td style="border: 1px solid black;text-align: left;padding: 8px;width:50%;" >
+                    Phase (If Any).
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;width:50%;" >
+                    Phase 1
+                </td>
+            </tr>
+            <tr style="border: 1px solid black;">
+                <td style="border: 1px solid black;text-align: left;padding: 8px;" >
+                    Flat/Unit No.
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;" >
+                 <b>   ${customerDetails.get("flatName")} </b>
+                </td>
+            </tr>
+
+            <tr style="border: 1px solid black;">
+                <td style="border: 1px solid black;text-align: left;padding: 8px;" >
+                    Floor No.
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;" >
+                 <b>   ${customerDetails.get("floorName")}  </b>
+                </td>
+            </tr>
+
+            <tr style="border: 1px solid black;">
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                    Saleable area of the Flat/Unit
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                    ${customerUnitDetails.get("SBUA Sq.ft")}
+                </td>
+            </tr>
+            <tr style="border: 1px solid black;">
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                    Undivided Share
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                   ${customerUnitDetails.get("UDS Sq.ft")} 
+                </td>
+            </tr>
+            <tr style="border: 1px solid black;">
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                    Wing/Building Name No.
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                    ${customerDetails.get("blockName")}
+                </td>
+            </tr>
+
+            <tr style="border: 1px solid black;">
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                   Name of the Purchaser
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                   ${customerDetails.get("customerNames")}
+                </td>
+            </tr>
+
+            <tr style="border: 1px solid black;">
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                  Current Address of the purchaser
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                    ${customerDetails.get("customerAddress")}
+                </td>
+            </tr>
+
+            <tr style="border: 1px solid black;">
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                 Contact No.
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                   ${customerDetails.get("custBookInfoPhoneNo")}
+                </td>
+            </tr>
+
+            <tr style="border: 1px solid black;">
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                    Name of Financer/Financial Institution:
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                   
+                </td>
+            </tr>
+
+            <tr style="border: 1px solid black;">
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                   Booking Date
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                  ${customerDetails.get("bookingDateSlashFormat")} 
+                </td>
+            </tr>
+
+            <tr style="border: 1px solid black;">
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                   Total Sale Consideration
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                   ${customerDetails.get("totalSaleConsideration")}/-
+                </td>
+            </tr>
+
+            <tr style="border: 1px solid black;">
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                  Advance Received form Customer as on date 
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                   ${customerDetails.get("strtotalMilestonePaidAmount")}/-
+                </td>
+            </tr>
+            <tr style="border: 1px solid black;">
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                    Balance amount Receivables 
+                </td>
+                <td style="border: 1px solid black;text-align: left;padding: 8px;">
+                   ${customerDetails.get("strPendingBalanceAmount")}/-
+                </td>
+            </tr>
+
+        </table>
+
+        <p contenteditable="true" style="margin-top:12px">We hereby request you to grant NOC for entering into an agreement for sale in respect
+            for the above flat. </p>
+            <br />
+                 <p contenteditable="true" style="text-align: justify;"> Thanking you, </p><br />
+                 <p contenteditable="true" style="text-align: justify;">For Sumadhura Infracon Pvt Ltd </p><br /><br />
+                <p contenteditable="true" style="text-align: justify;">   Authorised Signatory </p>
+
+      #*      <div class="header--logo">
+                <div class="logo--address" contenteditable="true">
+                    <span>Thanking you,</span><br /><br /><br />
+                    <b>For Sumadhura Infracon Pvt Ltd</b><br />
+                    Authorised Signatory
+                    
+                </div>
+            </div>
+           *# 
+
+
+   
+
+
+
+</article>

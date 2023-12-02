@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>
+         @media screen and (min-width: 375px) and (max-width: 767px) {
+         .cssStyles{
+	         float: left;
+	         width: 35%;
+	         text-align: center;
+	         margin: 2px;
+         }
+         #tabledata{
+	         font-size: 12px;
+	         width:100%;
+         }
+         }
+         @media screen and (max-width: 320px) {
+         .cssStyles{
+         float: left;
+	         width: 80%;
+	         text-align: center;
+	         margin: 2px;
+         }
+         #tabledata{
+	         font-size: 12px;
+ 	        width:100%;
+         }
+         }
+         @media screen and (min-width: 768px) {
+         #tabledata{
+	         font-size: 13px;
+         }
+         }
+      </style>
+   </head>
+   <body>
+      <span style="font-size: 13px;"><strong>Dear ${email.bankContactPersonName}</strong>,</span>
+      <p style="font-size: 13px;text-align: justify;">
+      <p style="font-size: 13px;text-align: justify;">
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This mail is to Notify you that we have sold the Flat No. ${email.flatNo} in the Project ${email.siteName}. Below are the details for your reference.
+     	  ##Below customer purchased the flat in ${email.siteName} project...
+      </p>
+      <p style="font-size: 13px;text-align: justify;">
+      
+		<table style="border-collapse:collapse;">
+		   <tr>
+		      <td style="border: 1px solid black;padding:4px;" align="left"><span style="font-weight:bold;">Project &nbsp;&nbsp;&nbsp;        </span></td>
+		      <td style="border: 1px solid black;padding:4px;" align="left"> ${email.siteName}</td>
+		   </tr>
+		   <tr>
+		      <td style="border: 1px solid black;padding:4px;" align="left"><span style="font-weight:bold;">Flat No &nbsp;&nbsp;&nbsp;        </span></td>
+		      <td style="border: 1px solid black;padding:4px;" align="left"> ${email.flatNo}</td>
+		   </tr>
+		   <tr>
+		      <td style="border: 1px solid black;padding:4px;" align="left"><span style="font-weight:bold;">Customer Name &nbsp;&nbsp;&nbsp;   </span></td>
+		      <td style="border: 1px solid black;padding:4px;" align="left"> ${email.customerName}</td>
+		   </tr>
+		   <tr>
+		      <td style="border: 1px solid black;padding:4px;" align="left"><span style="font-weight:bold;">Booking Date &nbsp;&nbsp;&nbsp;    </span></td>
+		      <td style="border: 1px solid black;padding:4px;" align="left"> ${email.bookingDate}</td>
+		   </tr>
+		   <tr>
+		      <td style="border: 1px solid black;padding:4px;" align="left"><span style="font-weight:bold;">Contact Number &nbsp;&nbsp;&nbsp;  </span></td>
+		      <td style="border: 1px solid black;padding:4px;" align="left"> ${email.contactNumber}</td>
+		   </tr>
+		   <tr>
+		      <td style="border: 1px solid black;padding:4px;" align="left"><span style="font-weight:bold;">Email ID &nbsp;&nbsp;&nbsp;       </span></td>
+		      <td style="border: 1px solid black;padding:4px;" align="left"> ${email.customerEmail}</td>
+		   </tr>
+		</table>      
+      
+      </p> <br/>
+      <span style="font-size: 13px;">Regards,</span><br>
+      <span style="font-size: 13px;">CRM Team - Sumadhura</span><br>
+   </body>
+</html>

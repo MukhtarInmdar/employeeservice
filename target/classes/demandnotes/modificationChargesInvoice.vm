@@ -1,0 +1,146 @@
+<html>
+<head>
+<style>
+
+table, th, td {
+   border: 1px solid black;
+   border-collapse: collapse;
+   padding:5px;
+   font-size:10px;
+   font-family: "Times New Roman";
+   margin-bottom:100px;
+   width:100%
+}
+
+tr.noBorder td{
+  border: 0;
+}
+
+</style>
+</head>
+<body>
+<table>
+#set ($info = ${email.demandNoteGeneratorInfo})
+<tr class="noBorder">
+
+#if($info.leftSidelogoForPdf && !$info.leftSidelogoForPdf.empty)	
+	<td colspan="1" style="text-align:left;">
+		<img src='${info.leftSidelogoForPdf}'  width='110' height='110'/>
+	</td>
+	<td colspan="4" style="text-align:left;">
+#else
+	<td colspan="5" style="text-align:left;">
+#end 
+
+	<span style="font-size:13px";><strong>${info.companyName}</strong></span><br/>
+	${info.companyBillingAddress}<br/>
+	Tel: ${info.companyTelephoneNo}
+		 #if($info.companyCin != "-")
+     	CIN: ${info.companyCin}<br/>	GSTIN: ${info.companyGstin}
+     #elseif($info.companyLlpin != "-")	
+     	LLPIN: ${info.companyLlpin}<br/> GSTIN: ${info.companyGstin}
+     #else
+     #end
+	Email: ${info.companyEmail}<br/>
+	
+	</td>
+	 <td colspan="1" style="text-align:right;"><img src='${info.rightSidelogoForPdf}'  width='100' height='100'/></td>
+  </tr>
+  
+  <tr style="background-color:rgb(57, 144, 209)">
+    <th colspan="6">Flat Modification Charges Invoice</th>
+  </tr>
+  
+  <tr>
+    <td>Invoice No</td>
+    <td colspan="3"> ${info.invoiceNo}</td>
+	<td>Date</td>
+	<td>${info.invoiceDate}</td>
+  </tr>
+ <tr>
+     <td>Name of the customer</td>
+    <td colspan="5">${info.customerNames}</td>
+  </tr>
+<tr>
+     <td>Name of the project</td>
+   
+    <td colspan="5">${info.siteName}</td>
+  </tr>
+<tr>
+    <td>Floor No</td>
+    <td colspan="3"> ${info.floorName}</td>
+    <td>Flat No</td>
+    <td>${info.flatName}</td>  
+  </tr>
+
+
+<tr style="background-color:rgb(57, 144, 209)">
+    <th >S.No</th>
+    <th >Description</th>
+    <th >Unit</th>
+    <th >Quantity</th>
+    <th >Rate</th>
+	<th >Amount</th>
+  </tr>
+  
+   #foreach($modiCostDtls in ${info.finBookingFormModiCostDtlsList}) 
+<tr>
+    <td>${modiCostDtls.modificationChargesId}</td>
+    <td >${modiCostDtls.modificationChargeDesc}</td>
+    <td >${modiCostDtls.units}</td>
+    <td >${modiCostDtls.quantity}</td>
+    <td>${modiCostDtls.rate}</td>
+    <td>${modiCostDtls.basAmount}</td>
+  </tr>
+   #end
+  
+  <tr>
+    <td colspan="1">Total Amount Before tax</td>
+    <td colspan="5">${info.amount}</td>
+  </tr>
+  
+  <tr>
+    <td colspan="1">CGST@ ${info.cgstPercentageValue}%</td>
+    <td colspan="5">${info.totalCgstAmount}</td>
+  </tr>
+ <tr>
+    <td colspan="1">SGST@ ${info.sgstPercentageValue}%</td>
+    <td colspan="5">${info.totalSgstAmount}</td>
+  </tr>
+  
+ <tr>
+    <td colspan="1">Total Tax Amount</td>
+    <td colspan="5">${info.totalTaxAmount}</td>
+  </tr>
+  
+ <tr>
+    <td colspan="1">Total Amount After Tax</td>
+    <td colspan="5">${info.totalAmount}</td>
+  </tr>
+  
+ <tr>
+    <td colspan="1">Total Excess Amount</td>
+    <td colspan="5">${info.totalExcessAmount}</td>
+  </tr> 
+  
+ <tr>
+    <td colspan="1">Total Payble Amount</td>
+    <td colspan="5">${info.totalPayableAmount}</td>
+  </tr>
+  
+  <tr>
+    <td colspan="6">Total Amount Inwards : ${info.totalAmountInWords}</td>
+  </tr>
+  
+<tr>
+  <td colspan="3"><font size="2"> Kindly pay the said amount in favour of #*Bank*# ,<br/> ${info.accountHolderName},<br/>${info.siteAccount}.</font></td>
+  <td colspan="3" style="text-align:center;">With Best Regards<br/>Customer Relations<br/>$info.thanksAndRegardsFrom</td>
+</tr>  
+
+<tr>
+  <td colspan="6">Note:This is the system generated document and does not require signature.</td>
+</tr>
+
+</table>
+</body>
+</html>

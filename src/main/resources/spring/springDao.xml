@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd    		
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+   
+    <bean id="dataSource"
+		class="org.springframework.jndi.JndiObjectFactoryBean"
+		lazy-init="true">
+		<property name="jndiName" value="java:comp/env/jdbc/customerAppSchemasDS" />
+	</bean> 
+
+    <bean id="sumadhuraUATdataSource" class="org.springframework.jndi.JndiObjectFactoryBean" lazy-init="true">
+		<property name="jndiName" value="java:comp/env/jdbc/Sumadhura" />
+	</bean>
+    <bean id="enlivendataSource" class="org.springframework.jndi.JndiObjectFactoryBean" lazy-init="true">
+		<property name="jndiName" value="java:comp/env/jdbc/enliven" />
+	</bean>
+    <!-- <bean id="AmsImsDemodataSource" class="org.springframework.jndi.JndiObjectFactoryBean" lazy-init="true">
+		<property name="jndiName" value="java:comp/env/jdbc/AmsImsDemo" />
+	</bean> -->
+    <!-- <bean id="Sumadhura_VasavidataSource" class="org.springframework.jndi.JndiObjectFactoryBean" lazy-init="true">
+		<property name="jndiName" value="java:comp/env/jdbc/Sumadhura_Vasavi" />
+	</bean> -->
+    <bean id="Sumadhura_Vasavi_dataSource" class="org.springframework.jndi.JndiObjectFactoryBean" lazy-init="true">
+		<property name="jndiName" value="java:comp/env/jdbc/Sumadhura_Vasavi" />
+	</bean>
+    <bean id="capitoltower_UATdataSource" class="org.springframework.jndi.JndiObjectFactoryBean" lazy-init="true">
+		<property name="jndiName" value="java:comp/env/jdbc/capitoltower" />
+	</bean>
+    <bean id="SumadhuraHomesdataSource" class="org.springframework.jndi.JndiObjectFactoryBean" lazy-init="true">
+		<property name="jndiName" value="java:comp/env/jdbc/SumadhuraHomes" />
+	</bean>
+
+	<!-- <bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="sumadhuradataSource" />
+	</bean> -->
+    
+    <bean id="nmdPJdbcTemplateSumadhura" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg ref="sumadhuraUATdataSource" />
+	</bean>
+	<bean id="nmdPJdbcTemplateEnliven" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg ref="enlivendataSource" />
+	</bean>
+	<!-- <bean id="nmdPJdbcTemplateAmsImsDemo" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg ref="AmsImsDemodataSource" />
+	</bean> -->
+	<!-- <bean id="nmdPJdbcTemplateSumadhura_VasaviUAT" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg ref="Sumadhura_VasavidataSource" />
+	</bean> -->
+	<bean id="nmdPJdbcTemplateSUMADHURA_VASAVI" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg ref="Sumadhura_Vasavi_dataSource" />
+	</bean>		
+	<bean id="nmdPJdbcTemplateCapitoltower" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg ref="capitoltower_UATdataSource" />
+	</bean>
+	<bean id="nmdPJdbcTemplateSumadhuraHomes" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg ref="SumadhuraHomesdataSource" />
+	</bean>		
+
+<!-- jdbc/enliven,jdbc/AmsImsDemo,jdbc/Sumadhura_Vasavi,jdbc/SUMADHURA_VASAVI_UAT,jdbc/capitoltower	
+jdbc/SumadhuraHomes  -->
+	 
+    <!--  <bean id="dataSource"
+		class="org.springframework.jndi.JndiObjectFactoryBean"
+		lazy-init="true">
+		<property name="jndiName" value="java:comp/env/jdbc/customerAppSchemasDSCUG" />
+	 </bean>  -->
+	
+	    <bean id="dozerBeanMapper" class="org.dozer.DozerBeanMapper">
+        <property name="mappingFiles">
+            <list>
+                <value>src/main/resources/dozerBeanMapping.xml</value>
+                <value>src/main/resources/spring/dozerBeanMapping.xml</value>
+                <value>/src/main/resources/dozerBeanMapping.xml</value>
+                <value>employeeservice/src/main/resources/spring/dozerBeanMapping.xml</value>
+            </list>
+        </property>
+    </bean> 
+	
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+    <bean id="nmdPJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg ref="dataSource" />
+	</bean>
+	
+	<!-- Enable Annotation based Declarative Transaction Management -->
+	<tx:annotation-driven proxy-target-class="true"
+		transaction-manager="transactionManager" />
+
+</beans>

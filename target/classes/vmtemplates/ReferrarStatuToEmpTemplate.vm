@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div style="width: 100%;margin: 20px auto;">
+        <span style="font-size: 20px;">Dear <strong>${email.employeeName}</strong>,</span>
+         <br>
+        <p style="font-size: 18px;text-align: justify;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The Status has been updated for the Lead (<span style="font-size: 20px;color: blue;">${email.refrenceId}</span>)  who is refereed by our customer
+        <span style="font-size: 20px;color: blue;">${email.customerName}</span> (<span style="font-size: 20px;color: blue;">${email.siteShortNameWithFlatNo}</span>) 
+        </p>
+       
+        </p>
+         <p><b style="font-size: 18px;">Referee Name    :&nbsp;</b><b style="font-size: 16px;">${email.referrerName}</b></p>
+         <p><b style="font-size: 18px;"> Contact No     :&nbsp;</b><b style="font-size: 16px;">${email.refferalPhoneNo}</b></p>
+         <p><b style="font-size: 18px;"> Status         :&nbsp;</b><b style="font-size: 16px;">${email.referralStatusName}</b></p>
+           <br>
+          <p style="font-size:15px;color:red"><b>*DO NOT REPLY TO THIS E-MAIL*</b></p>
+        <p style="font-size:15px;color:red"><b>This is an auto generated E-mail,please do not reply to this message.</b></p> 
+    </div>
+</body>
+</html>

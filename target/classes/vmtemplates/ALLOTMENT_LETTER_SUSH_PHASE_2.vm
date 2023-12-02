@@ -1,0 +1,245 @@
+<head>
+   <style>
+      
+      
+      table {
+      border: 1px solid black;
+      border-collapse: collapse;
+      width:100%;
+      padding:8px;
+      }
+      table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+      padding:3px;
+      text-align:left;
+      }
+      [contenteditable="true"]:hover {
+      outline: lightblue auto 5px;
+      outline: -webkit-focus-ring-color auto 5px;
+      }
+      body {
+      background: #f1f1f1;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      }
+      .invoice {
+      font-family: inherit;
+      font-weight: 100;
+      width: 95%;
+      max-width: 1000px;
+      margin: 2% auto;
+      box-sizing: border-box;
+      padding: 70px;
+      border-radius: 5px;
+      background: #fff;
+      min-height: auto;
+      //font-size: 17px;
+      }
+      .header {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      }
+      .header--invoice {
+      order: 2;
+      text-align: right;
+      width: 40%;
+      margin: 0;
+      padding: 0;
+      }
+      .invoice--date,
+      .invoice--number {
+      font-size: 12px;
+      color: #494949;
+      }
+      .invoice--recipient {
+      margin-top: 25px;
+      margin-bottom: 4px;
+      }
+      .header--logo {
+      order: 1;
+      width: 80%;
+      }
+      .logo--address {
+      font-size: 14px;
+      padding: 4px;
+      }
+      .logo--address1 {
+      font-size: 14px;
+      font-family: lato;
+      text-transform: capitalize;
+      }
+      .description {
+	      margin: auto;
+	      text-align: justify;
+      }
+      .items--table {
+	      width: 100%;
+	      padding: 10px;
+      thead {
+	      background: #ddd;
+	      color: #111;
+	      text-align: center;
+	      font-weight: 800;
+      }
+      tbody {
+	      text-align: center;
+      }
+      .total-price {
+	      border: 2px solid #444;
+	      padding-top: 4px;
+	      font-weight: 800;
+	      background: lighten(green, 50%);
+      }
+      }
+      .sessiontitle {
+	      text-align: center;
+	      font-family: initial;
+	      text-decoration:underline;
+	      padding: 1px;
+	      width: 100%;
+	      text-transform: capitalize;
+	      //font-size: 12px;
+      }
+      .spansubtitle {
+	      font-size: 14px;
+	      font-weight:bold;
+      }
+      .bottomcls {
+	      position: relative;
+	      top: -18px;
+	      font-size: 11px;
+	      font-family: serif;
+	      color: #795548;
+      }
+   </style>
+</head>
+## #set ($info = ${email.demandNoteGeneratorInfo})
+## first {$email.dataForPdf.get("customerDetails")}
+ #set ($customerDetails = $email.dataForPdf.get("customerDetails").get(0))
+ #set ($customerUnitDetails = $email.dataForPdf.get("customerUnitDetails").get(0))
+ #set ($info = ${email.demandNoteGeneratorInfo})
+##second ${customerDetails}
+## {$email.dataForPdf.get("customerUnitDetails").get(0)}
+<article class="invoice" style="font-family: Times New Roman, Times, sans-serif;">
+#*    <div style="float:right">
+    	  <img style="width: 100px;"src ="https://yt3.ggpht.com/ytc/AAUvwnjmCVZlXt5t1VGnkrUP2EicR4Om-TbE3fTEZebJ=s900-c-k-c0x00ffffff-no-rj"/>
+	   </div> 
+*#
+   <header class="header" >
+      <nav class="header--logo">
+      </nav>
+   </header>
+   <section style="text-align: center;font-family: initial;text-decoration:underline;padding: 1px;width: 100%;text-transform: capitalize;">
+      <h3>ALLOTMENT LETTER</h3>
+   </section>
+   <section  style="margin: auto;text-align: justify;font-size: 14px;padding: 4px;">
+      <span style="font-weight:bold">Date:-</span><span>${customerDetails.get("allotmentDate")} </span> <br/><br/>
+      <span style="font-weight:bold">To,</span><br/>
+      <span style="font-weight:bold">Name :</span><span>${customerDetails.get("customerNames")},</span> <br/>
+      <span style="font-weight:bold">Mobile Number :</span><span>${customerDetails.get("mobileNumbers")},</span><br/>
+      <span style="font-weight:bold">Address :</span><span>${customerDetails.get("customerAddress")}.</span><br/>
+   </section>
+   <section  style="margin: auto;text-align: justify;font-size: 14px;padding: 4px;">
+      <p contenteditable="true">Dear Sir/Madam,</p>
+      <p contenteditable="true">
+      		#if($info.siteId == 114)
+	        	With Greetings for the day!
+	        #elseif($info.siteId == 133)
+	        	With Greetings for the day!
+	        #else 
+	        	Greetings from ${info.greetingsFrom}!
+	        #end
+      
+      </p>
+      <p contenteditable="true">
+         With reference to your application dated <span class="spansubtitle"><strong>${customerDetails.get("bookingDate")}</strong></span> for allotment of apartment in our Prestigious Project <span class="spansubtitle"><strong>"${customerDetails.get("siteName")}"</strong></span>. 
+         We are pleased to inform that you have been allotted an apartment of your choice and the details of the same are
+         mentioned below.
+      </p>
+      <br/>
+      <p>
+      <table style="width:100%; border: 1px solid black;border-collapse:collapse;font-size: 13px;">
+         <tr>
+            <td>Project Name:</td>
+            <td>${customerDetails.get("siteName")}</td>
+            <td>Unit type:</td>
+            <td>
+            
+            #if( ${customerUnitDetails.get("Type/Beds")} &&  ${customerUnitDetails.get("Type/Beds")} == "DUPLEX"  )
+            	${customerUnitDetails.get("Type/Beds")} 
+            #else
+            	${customerUnitDetails.get("Type/Beds")} BHK
+            #end
+            
+            
+            </td>
+         </tr>
+         <tr>
+            <td>Unit No: </td>
+            <td>${customerDetails.get("flatName")}</td>
+            <td>Super Built Area: Sqft</td>
+            <td>${customerUnitDetails.get("SBUA")}</td>
+         </tr>
+         <tr>
+            <td>Floor No:</td>
+            <td>${customerDetails.get("floorName")}</td>
+            <td>Carpet Area: Sqft</td>
+            <td>${customerUnitDetails.get("Carpet Area")}</td>
+         </tr>
+         <tr>
+            <td>Block:</td>
+            <td>${customerDetails.get("blockName")}</td>
+            <td>Flat Cost*:</td>
+            <td>${customerDetails.get("totalAgreementCost")}</td>
+         </tr>
+         <tr>
+            <td >No of Car Parking Spaces: </td>
+            <td >${customerUnitDetails.get("carParkingAllotedNumber")}</td>
+            <td colspan="2"></td>
+         </tr>
+      </table>
+      <br/>
+      <p>Please be informed that the payment schedule and the details of other charges are available in the Cost Breakup.</p>
+      <p>The above Flat cost is including the GST and the same will be collected with every installment as per payment schedule.</p>
+      <p>Booking of the Unit shall stand confirmed only on the execution of Agreement of Sale.</p>
+      <p>Assuring you of our best services always.</p>
+     
+ #*   #if($info.companyCity && $info.companyCity == "Bengaluru"  )
+          	#if(${customerDetails.get("siteId")} != 124 && $info.siteId != 139)
+		     	 <p style="font-weight:bold">*The above mentioned Flat Cost is excluding Registration,Stamp duty,BWSSB charges and any other statutory charges.</p>
+	     	 #end
+      #else
+	      #if($info.siteId == 139)
+		      <p>&nbsp;</p>
+		  #else
+	      	<p style="font-weight:bold">*The above mentioned Flat Cost is excluding Registration,Stamp duty,HMWSSB charges and any other statutory charges.</p>
+	      #end 	
+      #end
+*#
+	  <br/><br/><br/><br/>
+      <p style="font-weight:bold">${customerUnitDetails.get("chargesMsg")}</p>
+      
+      </p><br/><br/><br/><br/><br/>
+   </section>
+   <header class="header">
+      <nav class="header--logo">
+         <div class="logo--address1" contenteditable="true" >
+            Thanking You, <br/> 
+            Team Customer Relations<br/>
+            <span style="font-weight:bold">${info.thanksAndRegardsFrom}</span><br/> <br/>
+            <span>Note : This is a system generated document and does not require signature.</span>
+         </div>
+      </nav>
+   </header>
+   #*
+	   <hr/>
+	   <h4 style="text-decoration:underline"><b>SUMADHURA INFRACON PRIVATE LIMITED  </b></h4>
+	   <p class="bottomcls">Sy.No.108/2, Millenia Building, 1st Main MSR Layout, Munnekollala Village, Marathahalli, Outer Ring Road, Bangalore – 560037. 
+	      GSTIN :29AAQCS9641A1ZZ, CIN:U45200KA2012PTC062071, URL: <span style="color:blue">www.sumadhuragroup.com</span>
+	   </p>
+   *#
+</article>

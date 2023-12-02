@@ -1,0 +1,180 @@
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <title>Receipt</title>
+      <style>
+         td{   
+         padding: 10px;
+         } 
+         table{
+           //border: 2px solid #666; 
+         	 padding:10px; 
+         }
+      </style>
+   </head>
+   <body>
+      
+      #foreach($demandNoteGeneratorInfo in $email.demandNoteGeneratorInfoList)
+ #*      
+      <p style='text-align:right'><img src='${demandNoteGeneratorInfo.rightSidelogoForPdf}' width='120' height='120'/></p>
+ *#     
+      <table style="width:100%; border-collapse:collapse;">
+          <tr>
+            <td align="left">
+               <p><font size="2">Receipt No : ${demandNoteGeneratorInfo.transactionReceiptNo}</font></p>
+            </td>
+         </tr>
+         <tr>
+            <td align="left">
+               <p><font size="2">Date : ${demandNoteGeneratorInfo.transactionReceiptDate}</font></p>
+            </td>
+         </tr>
+         <tr>
+            <td align="center">
+               <h6>$email.title</h6>
+            </td>
+         </tr>
+          <tr>
+            <td align="left">
+               <p><font size="2"><strong>Name : ${demandNoteGeneratorInfo.companyName}</strong> </font></p>
+                <font size="1">&nbsp;</font>
+               <p><font size="2"><strong>Address : ${demandNoteGeneratorInfo.companyBillingAddress}</strong> </font></p>
+             	<font size="1">&nbsp;</font>
+             	#if($demandNoteGeneratorInfo.companyGstin != "-")
+               	<p><font size="2"><strong>GSTIN : ${demandNoteGeneratorInfo.companyGstin}</strong></font></p>
+               #end
+            </td>
+         </tr>
+         <tr>
+            <td align="left">
+               <p><font size="2">To, </font></p>
+            </td>
+         </tr>
+         <tr>
+            <td align="left">
+               <p><font size="2"><strong>Name  : ${demandNoteGeneratorInfo.customerNames}</strong></font></p>
+            	  <font size="1">&nbsp;</font>
+               <p><font size="2"><strong>Address : ${demandNoteGeneratorInfo.address}</strong></font></p>
+            </td>
+         </tr>
+ 
+ 
+          <tr>
+            <td align="left">
+               <p><font size="2"> 
+                  ${demandNoteGeneratorInfo.receivedAmountBy}${demandNoteGeneratorInfo.companyName} have received an amount of  Rs. 
+                   <strong> ##${demandNoteGeneratorInfo.totalReceiptAmount}
+    					${demandNoteGeneratorInfo.totalReceiptPaidAmount}               
+                    /- </strong>
+                  ##(${demandNoteGeneratorInfo.mileStoneAmountInWords})
+                  (${demandNoteGeneratorInfo.totalReceiptPaidAmountInWords})
+                   from  <strong> ${demandNoteGeneratorInfo.customerNames} </strong>, 
+                  towards <strong>  Flat  No.${demandNoteGeneratorInfo.flatName}</strong>, "${demandNoteGeneratorInfo.blockName}", 
+                  ${demandNoteGeneratorInfo.floorName}  in  project <strong>  "${demandNoteGeneratorInfo.siteName}" </strong> vide 
+                  
+                    #if($demandNoteGeneratorInfo.transactionModeName == "Cheque")
+                    	$demandNoteGeneratorInfo.transactionModeName No. $demandNoteGeneratorInfo.chequeNumber
+                    	dated ${demandNoteGeneratorInfo.transactionDate}
+                    #elseif($demandNoteGeneratorInfo.transactionModeName == "Online")
+                    	$demandNoteGeneratorInfo.transferModeName No. $demandNoteGeneratorInfo.referenceNo
+                    	dated ${demandNoteGeneratorInfo.transactionDate}
+                    #end
+                    drawn on ${demandNoteGeneratorInfo.bankName}. 
+                  </font>
+               </p>
+            </td>
+         </tr>
+         <tr>
+            <td align="center">
+               <table  style="width:100%; border: 1px solid black; border-collapse:collapse;">
+               ## font-family: Times New Roman, Times, sans-serif;
+                  <tr>
+                     <td style="border: 1px solid black;" align="center">
+                        <font size="1">Sr No</font>
+                     </td>
+                     <td style="border: 1px solid black;" align="center">
+                        <font size="1">Particulars</font>
+                     </td>
+                     <td style="border: 1px solid black;" align="center">
+                        <font size="1">SAC</font>
+                     </td>
+                     <td style="border: 1px solid black;" align="center">
+                        <font size="1">Amount</font>
+                     </td>
+                  </tr>
+                  #foreach($milestone in ${demandNoteGeneratorInfo.mileStones})
+                  <tr>
+                     <td  style="border: 1px solid black;" align="center">
+                        <p><font size="1">$milestone.projectMilestoneId</font></p>
+                     </td>
+                     <td style="border: 1px solid black;" align="center">
+                        <p><font size="1">$milestone.milestoneName</font></p>
+                     </td>
+                     <td style="border: 1px solid black;" align="center">
+                        <p><font size="1">$milestone.SAC</font></p>
+                     </td>
+                     <td style="border: 1px solid black;" align="center">
+                        <p><font size="1">$milestone.dueAmountExcludeGST</font></p>
+                     </td>
+                  </tr>
+                  #end  
+                   <tr>
+                     <td  style="border: 1px solid black;"  colspan="3" align="right"><font size="1">CGST</font></td>
+                     <td   style="border: 1px solid black;" align="center"><font size="1">${demandNoteGeneratorInfo.totalCgstAmount}</font></td>
+                  </tr>
+                  <tr>
+                     <td style="border: 1px solid black;"  colspan="3" align="right"><font size="1">SGST</font></td>
+                     <td style="border: 1px solid black;"  align="center"><font size="1">${demandNoteGeneratorInfo.totalSgstAmount}</font></td>
+                  </tr>
+                  <tr>
+                     <td style="border: 1px solid black;"  colspan="3" align="right"><font size="1">Total</font></td>
+                     <td style="border: 1px solid black;"  align="center"><font size="1">${demandNoteGeneratorInfo.totalReceiptPaidAmount}</font></td>
+                  </tr>
+               </table>
+            </td>
+         </tr>
+         <tr>
+            <td align="left">
+ 			#if($demandNoteGeneratorInfo.thanksAndRegardsFrom == "Thank You From EG")
+					<h6 style='margin:0;'><font size="2">Thank You</font></h6>
+			#else 
+               <h6 style='margin:0;'><font size="2">Thanks & &nbsp; Regards</font></h6>
+               <p  style='margin:0;'><font size="2">Customer Relations</font></p>
+               <p  style='margin:0;'><font size="2">$demandNoteGeneratorInfo.thanksAndRegardsFrom</font></p>
+			#end
+            </td>
+         </tr>
+          
+         <tr>
+            <td align="left">
+               <h6> Note: This is a system generated receipt, hence signature is not required.</h6>
+            </td>
+         </tr>
+
+#*         <tr>
+            <td>
+               <hr>
+               </hr>
+            </td>
+         </tr>
+          <tr>
+            <td align="left">
+               <h6 style='margin:0;'><font size="1">${demandNoteGeneratorInfo.companyName}</font></h6>
+               <p  style='margin:0;'><font size="1">${demandNoteGeneratorInfo.companyBillingAddress}</font></p>
+                 #if($demandNoteGeneratorInfo.companyCin != "-")
+			     	<p  style='margin:0;'><font size="1">Tel: ${demandNoteGeneratorInfo.companyTelephoneNo} CIN: ${demandNoteGeneratorInfo.companyCin} GSTIN: ${demandNoteGeneratorInfo.companyGstin}</font></p>
+			     #elseif($demandNoteGeneratorInfo.companyLlpin != "-")	
+			     	<p  style='margin:0;'><font size="1">Tel: ${demandNoteGeneratorInfo.companyTelephoneNo} LLPIN: ${demandNoteGeneratorInfo.companyLlpin} GSTIN: ${demandNoteGeneratorInfo.companyGstin}</font></p>
+			     #else
+			     #end
+               ##<p  style='margin:0;'><font size="1">GSTIN: ${demandNoteGeneratorInfo.companyGstin} Website: ${demandNoteGeneratorInfo.companyWebsite}</font></p>
+               <p  style='margin:0;'><font size="1">E-mail: ${demandNoteGeneratorInfo.companyEmail}	Website: ${demandNoteGeneratorInfo.companyWebsite} </font></p>
+               ##<p  style='margin:0;'><font size="1">Website: ${demandNoteGeneratorInfo.companyWebsite}</font></p>
+            </td>
+         </tr>
+*#         
+      </table>
+      #end
+   </body>
+</html>

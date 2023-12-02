@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div style="width: 100%;margin: 20px auto;">
+        <p style="font-size: 20px;">Dear Sir/Madam,<strong></strong></p>
+		<br>
+		<p style="font-size: 18px;">Greetings from Sumadhura!<strong></strong></p>
+        <p style="font-size: 18px;text-align: justify;">Please note that we have not received the payments as per the demands sent to date. this is to inform you that the interest will be applicable on all the overdue payments as per the terms.</p>
+        <p style="font-size: 18px;text-align: justify;">Attached is the Interest Letter for your reference. Kindly clear the due's immediately to avoid further interest on your account.</p>
+		<br>
+		<br>
+        <p style="font-size: 18px;text-align: justify;">Regards,</p>
+		<p style="font-size: 18px;text-align: justify;font-weight: bold;">Team Customer Relations</p>
+    </div>
+</body>
+</html>

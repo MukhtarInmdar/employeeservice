@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div>
+        <div style="color:red;font-size:15px">
+            Exception information is :  #if($email.exception)
+                                        $email.toString()
+        </div>                                
+                                        
+                                        <br/>
+            <div style="font-size:12px">                            
+                                      #set($exceptioninfo = $email.exception)
+                                          #foreach($stack in $exceptioninfo.getStackTrace())
+                                                 $stack.toString()
+                                          #end     
+                                      #end   
+            
+            </div> 
+                                                    
+        </div>
+           
+    </body>
+    
+</html>

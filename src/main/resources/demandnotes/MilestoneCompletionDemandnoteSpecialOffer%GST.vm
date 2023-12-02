@@ -1,0 +1,365 @@
+<head>
+    <style>
+	table {
+  border: 1px solid black;
+ border-collapse: collapse;
+ width:100%;
+
+ padding:10px;
+
+
+}
+
+table, th, td {
+  border: 1px solid black;
+ border-collapse: collapse;
+ padding:5px;
+ text-align:center;
+}
+        [contenteditable="true"]:hover {
+            outline: lightblue auto 5px;
+            outline: -webkit-focus-ring-color auto 5px;
+        }
+
+        body {
+            background: #f1f1f1;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .invoice {
+            font-family: inherit;
+            font-weight: 100;
+            width: 95%;
+            max-width: 1000px;
+            margin: 2% auto;
+            box-sizing: border-box;
+            padding: 70px;
+            border-radius: 5px;
+            background: #fff;
+            min-height: auto;
+            font-size: 13;
+        }
+
+        .header {
+            display: flex;
+            width: 100%;
+           
+            align-items: center;
+        }
+
+        .header--invoice {
+            order: 2;
+            text-align: right;
+            width: 40%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .invoice--date,
+        .invoice--number {
+            font-size: 13px;
+            color: #494949;
+        }
+
+        .invoice--recipient {
+            margin-top: 25px;
+            margin-bottom: 4px;
+        }
+
+        .header--logo {
+            order: 1;
+            font-size: 30px;
+            width: 60%;
+            font-weight: 900;
+        }
+
+        .logo--address {
+            font-size: 13px;
+            padding: 4px;
+			margin-bottom: -98px;
+			width:50%;
+        }
+
+
+        .logo--address1 {
+            font-size: 13px;
+            font-family: lato;
+            text-transform: capitalize;
+        }
+
+        .description {
+            margin: auto;
+            text-align: justify;
+
+        }
+
+        .items--table {
+            width: 100%;
+            padding: 10px;
+
+            thead {
+                background: #ddd;
+                color: #111;
+                text-align: center;
+                font-weight: 800;
+            }
+
+            tbody {
+                text-align: center;
+            }
+
+            .total-price {
+                border: 2px solid #444;
+                padding-top: 4px;
+                font-weight: 800;
+                background: lighten(green, 50%);
+            }
+        }
+
+        .sessiontitle {
+            text-align: center;
+            font-family: initial;
+            padding: 1px;
+            width: 100%;
+            margin-top: 10px;
+            text-transform: capitalize;
+            font-size: 13px;
+			
+
+        }
+
+        .spansubtitle {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .bottomcls {
+            position: relative;
+            //top: -18px;
+            bottom: 0;
+            font-size: 11px;
+            font-family: serif;
+            color: #795548;
+        }
+        
+    </style>
+</head>
+
+
+<article class="invoice">
+	#foreach($demandNoteGeneratorInfo in $email.demandNoteGeneratorInfoList)
+	
+    <header class="header" style=" style="margin-bottom: -85px;"">
+#*    
+    <div style="width:100%; float:left">
+	    <div style="width:85%;float:left">
+	    </div>
+	    <div style="width:15%;float:left;margin-left:85%">
+	    	<p style='text-align:right;'><img src='${demandNoteGeneratorInfo.rightSidelogoForPdf}'  width='120' height='120' /></p>
+	    </div>
+    </div>
+*#    
+    
+    <nav class="header--logo">
+		<div class="logo--address" contenteditable="true" style="20px;">
+			<span>Date:-${demandNoteGeneratorInfo.demandNoteGeneratedDate}</span><br/><br/>
+			<span>To,</span><br/>
+			<b>${demandNoteGeneratorInfo.customerNames}</b><br/>
+			
+			#if($demandNoteGeneratorInfo.noOfCustomersIncludedInBooking ==1)
+     			Residing at : 
+     		#elseif($demandNoteGeneratorInfo.noOfCustomersIncludedInBooking ==2)
+     			Both are Residing at : 
+     		#else
+     			All are Residing at :   
+     		#end
+     		${demandNoteGeneratorInfo.address}
+			<br/>
+			Mobile: ${demandNoteGeneratorInfo.mobileNumbers} <br/>
+								
+			<div>
+			</div>
+		</div>				
+	</nav>  
+    </header>
+
+    <div class="sessiontitle" style="text-align: center;font-family: initial;
+    padding: 1px;width: 100%;margin-top: 10px;text-transform: capitalize;font-size: 13px;">
+        <h2><u>Milestone Completion - Demand Note</u></h2>
+    </div>
+
+    <section class="description">
+        <p contenteditable="true">Dear Sir/Madam,</p>
+        <p contenteditable="true">
+        
+         #if($demandNoteGeneratorInfo.siteId == 134 || $demandNoteGeneratorInfo.thanksAndRegardsFrom == "Thank You From EG")
+        	Greetings!
+        #else 
+        	Greetings from ${demandNoteGeneratorInfo.greetingsFrom}!
+        #end
+        
+        </p>
+        <p contenteditable="true" style="text-align: justify;">
+            We wish to inform you that, we have completed a new Milestone &ndash; <span class="spansubtitle"><b>&ldquo;${demandNoteGeneratorInfo.currentMileStoneName}&rdquo;</b></span> in 
+            <span class="spansubtitle"><b>${demandNoteGeneratorInfo.blockName}</b></span> for
+            the <span class="spansubtitle"><b>Flat No. ${demandNoteGeneratorInfo.flatName}</b></span> in project <span class="spansubtitle"><b>&ldquo;${demandNoteGeneratorInfo.siteName}&rdquo;.</b></span>
+            The total Milestone&rsquo;s % completed as on date is <span class="spansubtitle"><b><u>${demandNoteGeneratorInfo.sumOfDemandNotePercentage}%</u></b></span> and as per the payment schedule 
+            the amount due for the new milestone is <b>Rs. <u>${demandNoteGeneratorInfo.currentMilestoneDueAmount}</u>/-</b> 
+            and there is an overdue of <b>Rs. <u>${demandNoteGeneratorInfo.previousMilestoneDueAmount}</u>/-</b> on your account. Please clear the same immediately, as all the delayed payments will attract an interest.
+        </p>
+
+        <p contenteditable="true" style="text-align: justify;">
+           The total amount to be paid is <b>Rs. <u>${demandNoteGeneratorInfo.totalDueAmount}</u>/-</b>, in favour of <span class="spansubtitle"><b>${demandNoteGeneratorInfo.accountHolderName}</b></span>, ${demandNoteGeneratorInfo.siteAccount}. 
+        </p>
+        <p contenteditable="true">Below is the detailed breakdown of Due&rsquo;s & &nbsp;Payments for your reference.
+        </p>
+
+        <table  style="width:100%; border: 1px solid black;border-collapse:collapse;">  
+	      <thead>  
+	        <tr>
+		        <td style="border: 1px solid black;" align="center"> <font size="1">S No.</font></td>
+		        <td style="border: 1px solid black;width:60px;" align="center"> <font size="1">Milestone's Completed</font> </td>
+		        <td style="border: 1px solid black;" align="center"> <font size="1">Due%</font> </td>
+		        <td style="border: 1px solid black;width:50px;" align="center"> <font size="1">Demand Note Date</font>  </td>
+		        <td style="border: 1px solid black;width:50px;" align="center"> <font size="1">Demand Note Due Date</font> </td>
+		        <td style="border: 1px solid black;" align="center"> <font size="1">Demand Amount(Incl GST)</font> </td>
+		        <td style="border: 1px solid black;" align="center"> <font size="1">Amount Received(Incl GST)</font> </td>
+		        #*<td style="border: 1px solid black;" align="center"> <font size="1">Bal Due Amount(Excl GST)</font></td>
+			    <td style="border: 1px solid black;width:55px;" align="center"> <font size="1">CGST</font> </td>
+			    <td style="border: 1px solid black;width:55px;" align="center"> <font size="1">SGST</font> </td>  *#
+		        <td style="border: 1px solid black;" align="center"> <font size="1">Total Due Amount</font> </td>
+		        #if($demandNoteGeneratorInfo.isInterestOrWithOutInterest)
+		        <td style="border: 1px solid black;" align="center"> <font size="1">Interest Amount(Incl GST)</font> </td>
+		        #end
+	       </tr> 
+      	</thead>
+	        #foreach($milestone in ${demandNoteGeneratorInfo.mileStones})
+	        <tr>
+	        	<td  style="border: 1px solid black;" align="center">
+	           		<font size="1">$milestone.projectMilestoneId</font>
+	           	</td>
+	          	<td style="border: 1px solid black;" align="center">
+	          		<font size="1">$milestone.milestoneName</font>
+	          	</td>
+	          	<td style="border: 1px solid black;" align="center">
+	           		<font size="1">$milestone.due%</font>
+	          	</td>
+	          	<td style="border: 1px solid black;" align="center">
+	            	<font size="1">$milestone.demandNoteDate</font>
+	          	</td>
+	         	<td style="border: 1px solid black;" align="center">
+	           		<font size="1">$milestone.demandNoteDueDate</font>
+	         	</td>
+	         	<td style="border: 1px solid black;" align="center">
+	           		<font size="1">$milestone.totalFlatCostIncludeGST</font>
+	         	</td>
+	         	<td style="border: 1px solid black;" align="center">
+	           		<font size="1">$milestone.amountRecivedIncludeGST</font>
+	         	</td>
+	         #*	<td style="border: 1px solid black;" align="center">
+	           		<font size="1">$milestone.dueAmountExcludeGST</font>
+	         	</td>
+		     	<td style="border: 1px solid black;" align="center">
+		        	<font size="1">$milestone.CGST</font>
+		     	</td>
+		     	<td style="border: 1px solid black;" align="center">
+		        	<font size="1">$milestone.SGST</font>
+		     	</td>*#
+	         	<td style="border: 1px solid black;" align="center">
+	           		<font size="1">$milestone.totalDueAmount</font>
+	         	</td>
+		        #if($demandNoteGeneratorInfo.isInterestOrWithOutInterest)
+		        <td style="border: 1px solid black;" align="center">
+		        	<font size="1">$milestone.intrestIncludeGST</font>
+		        </td>
+		        #end
+	   		</tr>
+	   		#end
+    		<tr>
+           		<td  style="border: 1px solid black;" align="center">
+           			<p><font size="1"></font></p>
+           		</td>
+          		<td style="border: 1px solid black;" align="center">
+           			<p><font size="1">Total</font></p>
+          		</td>
+          		<td style="border: 1px solid black;" align="center">
+           			<p><font size="1">$demandNoteGeneratorInfo.totalMilestoneDuePercent%</font></p>
+          		</td>
+          		<td style="border: 1px solid black;" align="center">
+          			<p><font size="1"></font></p>
+         		</td>
+         		<td style="border: 1px solid black;" align="center">
+           			<p><font size="1"></font></p>
+         		</td>
+         		<td style="border: 1px solid black;" align="center">
+           			<p><font size="1">$demandNoteGeneratorInfo.totalAmount</font></p>
+         		</td>
+         		<td style="border: 1px solid black;" align="center">
+           			<p><font size="1">$demandNoteGeneratorInfo.totalPaidAmount</font></p>
+         		</td>
+	        #* 	<td style="border: 1px solid black;" align="center">
+	           		<p><font size="1">$demandNoteGeneratorInfo.amount</font></p>
+	         	</td>
+	         	<td style="border: 1px solid black;" align="center">
+	           		<p><font size="1">$demandNoteGeneratorInfo.totalCgstAmount</font></p>
+	         	</td>
+         		<td style="border: 1px solid black;" align="center">
+           			<p><font size="1">$demandNoteGeneratorInfo.totalSgstAmount</font></p>
+         		</td>  *#     
+         		<td style="border: 1px solid black;" align="center">
+           			<p><font size="1">$demandNoteGeneratorInfo.totalDueAmount</font></p>
+         		</td>
+          		#if($demandNoteGeneratorInfo.isInterestOrWithOutInterest)
+           		<td style="border: 1px solid black;" align="center">
+           			<p><font size="1">$demandNoteGeneratorInfo.totalPendingPenaltyAmount</font></p>
+           		</td>
+        	 	#end
+     		</tr> 
+     </table>
+
+        <p contenteditable="true">Kindly clear the payments on time, to enable us to complete the project as per the schedule. </p>
+    </section>
+
+    <header class="header">
+
+        <nav class="header--logo">
+
+            <div class="logo--address1" contenteditable="true" style="line-height: 24px;">
+                
+                #if($demandNoteGeneratorInfo.thanksAndRegardsFrom == "Thank You From EG")
+					Thank You. <br/>
+				#else 
+	                Thanks & &nbsp;Regards <br/>
+	                Customer Relations<br/>
+	                ${demandNoteGeneratorInfo.thanksAndRegardsFrom}<br/>       
+                #end
+                
+                <p contenteditable="true" style="color:#000000;">
+                *All delayed payments will attract interest as per Agreement Terms.</p>
+  				<p contenteditable="true" style="color:#000000;"><span class="spansubtitle">
+  				<b>This is a system generated Demand Note, No signature is required.</b></span></p>
+            </div>
+        </nav>
+    </header>
+#*    
+    <br/><br/><br/><br/><br/><br/><br/><br/>
+    <div><hr/></div>
+  	<footer class ="foooter">
+	    <h6 style="margin:0;">${demandNoteGeneratorInfo.companyName}</h6>
+	  
+	    <p class="bottomcls" style="margin:2;">${demandNoteGeneratorInfo.companyBillingAddress}
+	     #if($demandNoteGeneratorInfo.companyCin != "-")
+	     	Tel: ${demandNoteGeneratorInfo.companyTelephoneNo} CIN: ${demandNoteGeneratorInfo.companyCin} GSTIN: ${demandNoteGeneratorInfo.companyGstin}, URL: ${demandNoteGeneratorInfo.companyWebsite}
+	     #elseif($demandNoteGeneratorInfo.companyLlpin != "-")	
+	     	Tel: ${demandNoteGeneratorInfo.companyTelephoneNo} LLPIN: ${demandNoteGeneratorInfo.companyLlpin} GSTIN: ${demandNoteGeneratorInfo.companyGstin}, URL: ${demandNoteGeneratorInfo.companyWebsite} 
+	     #else
+	     #end
+	     </p>
+     </footer>
+
+*#	
+	#end	
+</article>

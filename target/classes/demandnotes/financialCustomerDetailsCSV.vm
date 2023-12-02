@@ -1,0 +1,118 @@
+<html>
+<body>
+2 $requestUrl
+1 $email.requestUrl
+ #foreach($demandNoteGeneratorInfo in $email.demandNoteGeneratorInfoList)
+     <table  style="width:100%; border: 1px solid black;border-collapse:collapse;" class = "tableData">
+        <tr>
+        <th style="border: 1px solid black;padding:2px;" align="center"> <font size="1">Sr.No</font></th>
+        <th style="border: 1px solid black;padding:2px;" align="center"> <font size="1">Project</font> </th>
+        <th style="border: 1px solid black;padding:2px;" align="center"> <font size="1">Customer Name</font> </th>
+        <th style="border: 1px solid black;padding:2px;" align="center"> <font size="1">Flat No</font> </th>
+        <th style="border: 1px solid black;padding:2px;" align="center"> <font size="1">Booking Date</font> </th>
+        #if($email.requestUrl == "customerWiseInterestDetails")
+        	<th style="border: 1px solid black;padding:2px;" align="center"> <font size="1">Total Flat Cost</font>  </th>
+        #elseif($email.requestUrl == "milestoneWiseInterestDetails")
+        	<th style="border: 1px solid black;padding:2px;" align="center"> <font size="1">Agreement Date</font>  </th>
+        	<th style="border: 1px solid black;padding:2px;" align="center"> <font size="1">Milestone name</font>  </th>
+        	<th style="border: 1px solid black;padding:2px;" align="center"> <font size="1">Demand Amount</font>  </th>
+        #else
+        
+        #end
+        <th style="border: 1px solid black;padding:2px;" align="center"> <font size="1">Total Paid Amount</font> </th>
+        <th style="border: 1px solid black;padding:2px;" align="center"> <font size="1">Total Interest Amount</font> </th>
+        <th style="border: 1px solid black;padding:2px;" align="center"> <font size="1">Total Delayed Days</font> </th>
+       </tr> 
+        #foreach($customerDetails in ${demandNoteGeneratorInfo.customerDetailsList})
+        <tr>
+           <td  style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1">$customerDetails.sno</font>
+           </td>
+           
+            <td  style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1">$customerDetails.siteName</font>
+           </td>
+           
+            <td  style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1">$customerDetails.customerName</font>
+           </td>
+           
+           <td  style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1">$customerDetails.flatNo</font>
+           </td>
+           
+           <td  style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1">$customerDetails.bookingDate</font>
+           </td>
+        #if($email.requestUrl == "customerWiseInterestDetails")
+			<td style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1">$customerDetails.totalAgreementCost</font>
+           </td>
+        #elseif($email.requestUrl == "milestoneWiseInterestDetails")
+        	<td style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1">$customerDetails.agreementDate</font>
+           </td>
+        	<td style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1">$customerDetails.milestoneName</font>
+           </td>
+           <td style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1">$customerDetails.totalPayAmount</font>
+           </td>
+        #else
+        
+        #end  
+           <td  style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1">$customerDetails.totalPaidAmount</font>
+           </td>
+           
+           <td  style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1">$customerDetails.totalInterestAmount</font>
+           </td>
+
+			<td  style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1">$customerDetails.totalDelayedDays</font>
+           </td>           
+           
+      	</tr>
+    	#end
+    	 ## ${demandNoteGeneratorInfo.customerDetailsList}	 
+    	     	 
+    	 ## last row
+    	 
+    	 <tr>
+            <td  style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1"></font>
+           </td>
+           
+            <td  style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1"> </font>
+           </td>
+           
+           <td  style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1"> </font>
+           </td>
+           
+           <td  style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1">Grand Total </font>
+           </td>
+
+			<td  style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1">$demandNoteGeneratorInfo.totalAmount</font>
+           </td>
+           
+           <td  style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1">$demandNoteGeneratorInfo.totalPaidAmount</font>
+           </td>
+           
+           <td  style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1">$demandNoteGeneratorInfo.totalPendingPenaltyAmount</font>
+           </td>
+
+			<td  style="border: 1px solid black;padding:2px;" align="center">
+           		<font size="1"> </font>
+           </td>           
+         </tr>
+     </table>
+ #end
+</body>
+</html>

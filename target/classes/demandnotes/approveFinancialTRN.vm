@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+
+		@media screen and (min-width: 375px) and (max-width: 767px) {
+			.cssStyles{
+				float: left;
+				width: 35%;
+				text-align: center;
+				margin: 2px;
+			}
+			#tabledata{
+				    font-size: 12px;
+					width:100%;
+			}
+		}
+		@media screen and (max-width: 320px) {
+			.cssStyles{
+				float: left;
+				width: 80%;
+				text-align: center;
+				margin: 2px;
+			}
+			#tabledata{
+				    font-size: 12px;
+					width:100%;
+			}
+		}
+		@media screen and (min-width: 768px) {
+			#tabledata{
+				    font-size: 13px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+#set ($info = ${email.demandNoteGeneratorInfo})
+#set ($financialInfo = ${email.financialTransactionEmailInfo})
+
+    <div style="width: 100%;margin: 13px auto;">
+        #set( $HideTable = "false" )
+        #set( $HideButton = "false" )
+   #if($financialInfo.buttonType == "Created")
+			     <span style="font-size: 13px;">Hello <strong>$financialInfo.nextApprovalLevelName</strong>,</span><br> 	
+			     <p style="font-size: 13px;text-align: justify;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Please approve the below listed flat transaction's under your bucket,</p>
+	        	 <p style="font-size: 13px;text-align: justify;">from  <strong>$financialInfo.currentApprovalLevelName</strong></p>
+		     	
+	#elseif($financialInfo.buttonType == "APPROVED")
+		     	 <span style="font-size: 13px;">Hello <strong>$financialInfo.nextApprovalLevelName</strong>,</span><br>
+			     <p style="font-size: 13px;text-align: justify;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Please approve the below listed flat transaction's under your bucket,</p>
+	        	 <p style="font-size: 13px;text-align: justify;"> from  <strong>$financialInfo.currentApprovalLevelName</strong></p>
+
+	#elseif($financialInfo.buttonType == "Interest waiver initiated")
+		#set( $HideTable = "true" )
+		     <span style="font-size: 13px;">Hello <strong>$financialInfo.nextApprovalLevelName</strong>,</span><br>
+				 #foreach($financialTRN_Info in $email.financialTransactionEmailInfo.financialTransactionDetailsList)
+				    <p style="font-size: 13px;text-align: justify;">Below are the customer details for whom the interest is waived, and the CRM who is assisting this is Mr/Mrs $financialInfo.currentApprovalLevelName, kindly check and approve it,</p>
+					<p style="font-size: 13px;text-align: justify;"> 
+					<ul style="font-size: 13px;text-align: justify;">
+						<li><span style="font-weight:bold;">Project :</span> $financialTRN_Info.siteName</li>
+						<li><span style="font-weight:bold;">Unit No :</span> $financialTRN_Info.flatNo</li>
+						<li><span style="font-weight:bold;">Customer Name :</span> $financialTRN_Info.customerName.</li>
+						<li><span style="font-weight:bold;">Waiver Amount :</span> Rs.$financialTRN_Info.transactionAmount</li>
+					</ul>
+					 </p> <br/>
+
+				 #end ##for each loop
+			<p style="font-size: 13px;text-align: justify;">Please proceed to approve</p>			
+
+	#elseif($financialInfo.buttonType == "Interest waiver rejected")
+		#set( $HideTable = "true" )
+		#set( $HideButton = "true" )
+		     <span style="font-size: 13px;">Hello <strong>All</strong>,</span><br>
+				 #foreach($financialTRN_Info in $email.financialTransactionEmailInfo.financialTransactionDetailsList)
+				    <p style="font-size: 13px;text-align: justify;">For the below mentioned customer Interest waiver request not approved,</p>
+					<p style="font-size: 13px;text-align: justify;">
+					<ul style="font-size: 13px;text-align: justify;">
+						<li><span style="font-weight:bold;">Project :</span> $financialTRN_Info.siteName</li>
+						<li><span style="font-weight:bold;">Unit No :</span> $financialTRN_Info.flatNo</li>
+						<li><span style="font-weight:bold;">Customer Name :</span> $financialTRN_Info.customerName.</li>
+						<li><span style="font-weight:bold;">Waiver Amount :</span> Rs.$financialTRN_Info.transactionAmount</li>
+					</ul>
+					</p> <br/>
+					
+					<p style="font-size: 13px;text-align: justify;">Comments : $financialTRN_Info.comment</p>
+				 #end ##for each loop
+			## <p style="font-size: 13px;text-align: justify;">Please proceed to approve</p>
+
+	#elseif($financialInfo.buttonType == "Interest waiver approved")
+		#set( $HideTable = "true" )
+		#set( $HideButton = "true" )
+		     ##<span style="font-size: 13px;">Hello <strong>$financialInfo.currentApprovalLevelName</strong>,</span><br>
+		       <span style="font-size: 13px;">Hello <strong>All</strong>,</span><br>
+				 #foreach($financialTRN_Info in $email.financialTransactionEmailInfo.financialTransactionDetailsList)
+				    <p style="font-size: 13px;text-align: justify;"> Below are the customer details for whom the interest is waived,</p>
+					<p style="font-size: 13px;text-align: justify;">
+						<ul style="font-size: 13px;text-align: justify;">
+							<li><span style="font-weight:bold;">Project :</span> $financialTRN_Info.siteName</li>
+							<li><span style="font-weight:bold;">Unit No :</span> $financialTRN_Info.flatNo</li>
+							<li><span style="font-weight:bold;">Customer Name :</span> $financialTRN_Info.customerName.</li>
+							<li><span style="font-weight:bold;">Waiver Amount :</span> Rs.$financialTRN_Info.transactionAmount</li>
+						</ul>
+					</p> <br/>
+
+				 #end ##for each loop
+			<p style="font-size: 13px;text-align: justify;"></p>
+			
+	#elseif($financialInfo.buttonType == "Modify")
+		     	
+		     	<span style="font-size: 13px;">Hello <strong>$financialInfo.nextApprovalLevelName</strong>,</span><br>
+		    	<p style="font-size: 13px;text-align: justify;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Please Modify the below listed flat transaction's under your bucket,</p>
+        		<p style="font-size: 13px;text-align: justify;">from  <strong>$financialInfo.currentApprovalLevelName</strong></p>
+
+	#elseif($financialInfo.buttonType == "REJECTED")
+		     	<span style="font-size: 13px;">Hello <strong>All</strong>,</span><br>
+			    <p style="font-size: 13px;text-align: justify;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Financial Transaction has been rejected, Please find more details in the table below.</p>
+	        	<p style="font-size: 13px;text-align: justify;">Financial Transaction rejected by  <strong>$financialInfo.currentApprovalLevelName</strong></p>
+
+	 #elseif($financialInfo.buttonType == "Cheque Bounced")
+		     #*	<span style="font-size: 13px;">Hello <strong>All</strong>,</span><br>
+			    <p style="font-size: 13px;text-align: justify;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Financial Transaction has been bounced, Please find more details in the table below.</p>
+	        	<p style="font-size: 13px;text-align: justify;">Financial Transaction rejected by  <strong>$financialInfo.currentApprovalLevelName</strong></p>
+			 *#
+			 <span style="font-size: 13px;">Dear <strong>All</strong>,</span><br>
+			 <p style="font-size: 13px;text-align: justify;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; This is to bring to your attention that, below are the list of customers whose cheque has bounced, complete required details are provided for the respective customer, You can have a quick look at the list below.</p>
+			 	 
+	#elseif($financialInfo.buttonType == "Transaction Completed")
+		      	<span style="font-size: 13px;">Hello <strong>All</strong>,</span><br>
+			    <p style="font-size: 13px;text-align: justify;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Financial Transaction Approved successfully, Please find more details in the table below.</p>
+
+	#elseif($financialInfo.buttonType == "Transaction Payment Request")
+	#set( $HideTable = "true" )
+		      	<span style="font-size: 13px;">Dear <strong>$financialInfo.nextApprovalLevelName</strong>,</span><br>
+			    <p style="font-size: 13px;text-align: justify;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$financialInfo.currentApprovalLevelName
+			    #foreach($financialTRN_Info in $email.financialTransactionEmailInfo.financialTransactionDetailsList)
+			     has raised a request for refund of Rs.$financialTRN_Info.transactionAmount towards the $financialInfo.paymentTowards for unit No. $financialTRN_Info.flatNo Project $financialTRN_Info.siteName <br/>
+			     Customer Name $financialTRN_Info.customerName.
+ 						<br/><br/>Please process the refund and update the same in Customer App.</p>	        	
+				#end ##for each loop
+ 			  		
+ 	 #elseif($financialInfo.buttonType == "Transaction Payment Request Approved")
+ 	 #set( $HideTable = "true" )
+		      	<span style="font-size: 13px;">Dear <strong>$financialInfo.nextApprovalLevelName</strong>,</span><br>
+			    <p style="font-size: 13px;text-align: justify;">
+			    
+			    ## &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$financialInfo.currentApprovalLevelName
+			    
+			    #foreach($financialTRN_Info in $email.financialTransactionEmailInfo.financialTransactionDetailsList)
+			    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;As per your request, the accounts team has processed the refund of Rs.$financialTRN_Info.transactionAmount for unit No. $financialTRN_Info.flatNo Project  $financialTRN_Info.siteName <br/>
+			    	Customer Name $financialTRN_Info.customerName towards $financialInfo.paymentTowards. 
+
+					#if($financialTRN_Info.transactionModeName == "Cheque")
+						<br/><br/>Please update the cheque handed over date to customer.</p> ## (For Online payment remove this line)
+					#end ##if condition	        	
+ 				#end ##for each loop		
+ 			
+ 			
+ 	#elseif($financialInfo.buttonType == "Transaction Payment Refund")
+ 	#set( $HideTable = "true" )
+		      	<span style="font-size: 13px;">Dear <strong>$financialInfo.nextApprovalLevelName</strong>,</span><br>
+			    <p style="font-size: 13px;text-align: justify;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$financialInfo.currentApprovalLevelName
+			    
+			    #foreach($financialTRN_Info in $email.financialTransactionEmailInfo.financialTransactionDetailsList)
+				     has handover the cheque to the Mr/Mrs Customer Name $financialTRN_Info.customerName, unit No. $financialTRN_Info.flatNo Project $financialTRN_Info.siteName <br/>
+				     at cheque handing over date : $financialTRN_Info.chequeHandoverDate               . 
+	
+					Cheque number :$financialTRN_Info.chequeNumber and  Amount : $financialTRN_Info.transactionAmount.</p>	        	
+				#end ##for each loop
+ 			
+ 	 #elseif($financialInfo.buttonType == "Transaction Payment Refund Approved")
+ 	 		#set( $HideTable = "true" )
+ 	 		#set( $HideButton = "true" )
+		      	<span style="font-size: 13px;">Dear <strong>$financialInfo.nextApprovalLevelName</strong>,</span><br>
+			    <p style="font-size: 13px;text-align: justify;">
+			    ## &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$financialInfo.currentApprovalLevelName
+			    #foreach($financialTRN_Info in $email.financialTransactionEmailInfo.financialTransactionDetailsList)
+			    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Customer Name $financialTRN_Info.customerName , unit No.$financialTRN_Info.flatNo Project $financialTRN_Info.siteName<br/> cheque number $financialTRN_Info.chequeNumber , 
+			    	cheque amount $financialTRN_Info.transactionAmount has cleared on clearance date $financialTRN_Info.chequeClearanceDate.        	
+ 				#end ##for each loop
+		     #else 
+    #end
+        
+ 	<table id="tabledata" style="border:1px solid #000;border-collapse: collapse;margin-top: 30px;">
+			 #if($financialInfo.buttonType != "Cheque Bounced" && $HideTable == "false")
+				<thead>
+					<tr  style="background: #f0f0f0;">
+							<th  style="border: 1px solid black; font-size: 12px;">Project</th>	
+							<th style="border: 1px solid black; font-size: 12px;">Trn Id</th>
+							<th style="border: 1px solid black; font-size: 12px;">Transaction Type</th>
+							<th style="border: 1px solid black; font-size: 12px;">Transaction Mode</th>
+							<th style="border: 1px solid black; font-size: 12px;">Transaction Amount</th>
+							<th style="border: 1px solid black; font-size: 12px;">Customer Name</th>
+							<th style="border: 1px solid black; font-size: 12px;">Flat No</th>
+							<!--<th style="border: 1px solid black; font-size: 12px;">Comments</th> -->
+					</tr>
+				</thead>
+	            <tbody>
+	            #foreach($financialTRN_Info in $email.financialTransactionEmailInfo.financialTransactionDetailsList)
+					<tr>
+							<td style="border: 1px solid black; font-size: 12px;">$financialTRN_Info.siteName</td>	
+							<td style="border: 1px solid black; font-size: 12px;">$financialTRN_Info.finTransactionNo</td>
+							<td style="border: 1px solid black; font-size: 12px;">$financialTRN_Info.transactionTypeName</td>
+							<td style="border: 1px solid black; font-size: 12px;">$financialTRN_Info.transactionModeName</td>
+							<td style="border: 1px solid black; font-size: 12px;">$financialTRN_Info.transactionAmount</td>
+							<td style="border: 1px solid black; font-size: 12px;">$financialTRN_Info.customerName</td>
+							<td style="border: 1px solid black; font-size: 12px;">$financialTRN_Info.flatNo</td>
+							<!--<td style="border: 1px solid black; font-size: 12px;">$financialTRN_Info.comment</td> -->
+					</tr>
+				#end
+	            </tbody>
+			#elseif($financialInfo.buttonType == "Cheque Bounced")
+			   <thead>
+					<tr  style="background: #f0f0f0;">
+						<th  style="border: 1px solid black; font-size: 12px;">Project</th>
+						<th style="border: 1px solid black; font-size: 12px;">Customer Name</th>	
+						<th style="border: 1px solid black; font-size: 12px;">Flat No</th>
+						<th style="border: 1px solid black; font-size: 12px;">Cheque Number</th>
+						<th style="border: 1px solid black; font-size: 12px;">Cheque Amount</th>
+						<th style="border: 1px solid black; font-size: 12px;">Cheque Dated</th>
+					</tr>
+				</thead>
+	            <tbody>
+	            #foreach($financialTRN_Info in $email.financialTransactionEmailInfo.financialTransactionDetailsList)
+					<tr>
+					    <td style="border: 1px solid black; font-size: 12px;">$financialTRN_Info.siteName</td>	
+						<td style="border: 1px solid black; font-size: 12px;">$financialTRN_Info.customerName</td>
+						<td style="border: 1px solid black; font-size: 12px;">$financialTRN_Info.flatNo</td>
+						<td style="border: 1px solid black; font-size: 12px;">$financialTRN_Info.chequeNumber</td>
+						<td style="border: 1px solid black; font-size: 12px;">$financialTRN_Info.transactionAmount</td>
+						<td style="border: 1px solid black; font-size: 12px;">$financialTRN_Info.transactionDate</td>
+					</tr>
+				#end
+	            </tbody>
+			 #else 
+		     	
+		     #end
+        </table>
+        
+        <div style="width: 100%;margin-top: 40px;">
+			<!--<a href="#Approve" class="cssStyles" style="font-size: 13px;padding: 9px 12px;text-decoration: none;background-color: #337ab7;border-color: #2e6da4;  color: #fff;border-radius: 10px; ">Approve</a>&nbsp;&nbsp;
+            <a href="#Reject" class="cssStyles" style="font-size: 13px;padding: 9px 12px;text-decoration: none;background-color: #337ab7;border-color: #2e6da4;  color: #fff;border-radius: 10px; ">Reject</a>&nbsp;&nbsp;	-->	
+        #if($financialInfo.buttonType != "REJECTED" && $financialInfo.buttonType != "Cheque Bounced"  && $HideButton == "false")   
+            <a href="${financialInfo.portalUrl}" class="cssStyles" style="font-size: 13px;padding: 9px 12px;text-decoration: none;background-color: #337ab7;border-color: #2e6da4;  color: #fff;border-radius: 10px; ">Edit and Approve</a>
+		#end
+		</div>
+
+		#*
+	        <div style="margin-top: 80px;clear: both;">
+	            ## <img src="http://129.154.74.18:8090/images/sumadhura_projects_images/Sumadhura_Logo.jpg" width = "150" height = "150"><br>
+	             <img src='${info.rightSidelogoForPdf}'  width='120' height='120'/> <br/>
+	            <span style="border-bottom: 3px solid #d86464;font-size: 15px;">${info.companyName}</span>
+	            <p style="font-size: 13px;text-align: justify;">${info.companyBillingAddress}</p>
+	            <p style="font-size: 13px;text-align: justify;"><strong>Tel </strong>: ${info.companyTelephoneNo}, </p>
+	            <p style="font-size: 13px;text-align: justify;"><strong>Email </strong>: ${info.companyEmail}, </p>
+	            <p style="font-size: 13px;text-align: justify;"><strong>GSTIN </strong>: ${info.companyGstin}, </p>
+	            <p style="font-size: 13px;text-align: justify;"><strong>CIN </strong>: ${info.companyCin}, </p>
+	        </div>
+        *#
+    </div>
+</body>
+
+</html>

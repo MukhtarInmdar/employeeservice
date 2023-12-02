@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div style="width: 100%;margin: 20px auto;">
+        <span style="font-size: 20px;">Dear <strong>${email.customerName}</strong>,</span>
+        <br>
+        <br>
+        <p style="font-size: 18px;text-align: justify;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Your ticket bearing <span style="font-size: 20px;color: blue;">${email.ticketId}|${email.flatNumber}</span> has been reassigned successfully!</p>
+		<p style="font-size: 18px;text-align: justify;">The ticket is forwarded to the concerned <span style="font-size: 20px;color: blue;">${email.departmentName}</span> Department for necessary action.You will receive a response from them shortly. </p>
+       <!-- <p style="font-size: 18px;text-align: justify;">In the mean time, please click on the below link to know the status of the ticket.</p>
+        <p><a href="www.facebook.com" target="_blank">URL</a></p>
+        <p><b style="font-size: 18px;">Ticket message :</b><b style="font-size: 16px;">${email.message}</b></p> -->
+        <p style="font-size: 18px;"><b style="font-size: 18px;">Ticket Owner: </b> <b style="font-size: 16px;">${email.ticketOwner}</b><span style="font-size: 16px;"> will be assisting you with this particular ticket.</span>
+        </p>
+        <p style="font-size: 18px;"><b>*DO NOT REPLY TO THIS E-MAIL*</b></p>
+        <p style="font-size: 18px;"><b>This is an auto generated E-mail,please do not reply to this message.</b></p>
+    </div>
+</body>
+
+</html>

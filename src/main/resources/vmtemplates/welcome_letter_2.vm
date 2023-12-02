@@ -1,0 +1,59 @@
+<head>
+   
+</head>
+ #set ($info = ${email.demandNoteGeneratorInfo})
+ #set ($customerDetails = $email.dataForPdf.get("customerDetails").get(0))
+ #set ($customerUnitDetails = $email.dataForPdf.get("customerUnitDetails").get(0))
+ #set ($welcomeMailGeneratorInfo = ${email.welcomeMailGeneratorInfo})
+## #set ($firstApplicantDetails = ${email.welcomeMailGeneratorInfo.customerDetailsList.get(0)})
+## #set ($coApplicantDetails = ${email.welcomeMailGeneratorInfo.coApplicantDetailsList})
+  
+<body  class="welcomeMail">
+<article class="invoice welcomeMail">
+   ## <div  contenteditable="true">
+      ## <span >Sub :</span>Welcome to Aspire Aurum - B704 <br/> commented details
+   ## </div>
+   <section style="margin: auto;text-align: justify;">
+      <p contenteditable="true">Dear ${customerDetails.get("customerNames")},</p>
+      <div></div>
+      <p><strong>Welcome to  Sumadhura Group!!!</strong></p>
+      <div></div>
+      <p contenteditable="true">We congratulate you and your family on your <strong>New Home!</strong></p>
+      <div></div>
+      <p contenteditable="true">With reference to your Booking application dated ${customerDetails.get("bookingDate")} for <strong>Flat No ${customerDetails.get("flatName")} ,Block ${customerDetails.get("blockName")} </strong>, in our Signature Series project <strong> "${customerDetails.get("siteName")}",</strong> Situated at Survey No: ${info.surveyNo}, ${info.siteAddress}.</p>
+      <div></div>
+      <p contenteditable="true">We would like to brief you on the flat details and payment terms.</p>
+      <div></div>
+      <p contenteditable="true">The SBUA for your flat is ${customerUnitDetails.get("SBUA")} with a Total cost of Rs.${customerDetails.get("totalAgreementCost")}/ .The Allotment Letter, Cost Break – up  & Draft of Agreement of sale  are attached herewith for your kind perusal.</p>
+      <div></div>
+      <p contenteditable="true">We have received the booking amount of Rs.${customerDetails.get("totalMilestonePaidAmountWithComma")}/-. Please execute the Agreement of sale within <strong>10days</strong> from the date of booking by clearing the balance Booking amount of Rs.  ${customerDetails.get("balanceBookingAmount")} (10% of the total consideration).</p>
+       <div></div>
+      <p contenteditable="true">The Legal charges of <strong>${customerUnitDetails.get("flat_legal_and_doc_charges_Sum_With_GST")} </strong> to be paid on the day of Agreement Execution.</p>
+       <div></div>
+      <p contenteditable="true">Also, request you to initiate the Loan process at the earliest, if you are planning to avail the Home Loan.</p>
+      <div></div>
+      <p contenteditable="true">Kindly note that as per the payment schedule, the due towards the completed milestone's has to be paid within <strong>30days</strong> from the date of Booking, kindly refer to the Demand note for the due amount in Sumadhura App under Financial Tab.</p>
+      <div></div>
+      <p contenteditable="true">The payment receipts of your flat will be available in the Sumadhura App under Financial Tab for your reference, you can view or download the same.</p>
+       <div></div>
+      <p contenteditable="true">All the future Demands, Project Notifications, all other Communications will be through Sumadhura App. Hence, request you to kindly write to us on Sumadhura App only.</p>
+       <div></div>
+      <p contenteditable="true">I would be your personalized Customer Service Representative for all your Financial & Documentation services. For any further queries and concerns, please contact me on  ${customerDetails.get("empMobileNumber")} (or) you can write to us on this Platform through Ticket/Inbox (Sumadhura App). We would be Happy to Serve You!</p>
+      <div></div>
+      <p contenteditable="true">Please find below, the ${customerDetails.get("siteName")} Bank Account Details for online fund transfers:</p>
+       <div></div>
+      <p contenteditable="true">
+       <label  class="keyname1" style="float:left;font-size: 15px">Ac Name <span   style="font-weight:bold">:</span> <span   class="keyname" style="margin-left:20px;">$info.accountHolderName</span></label><div></div>     
+       <label  class="keyname1" style="float:left;font-size: 15px">Ac no <span   style="font-weight:bold">:</span> <span   class="keyname" style="margin-left:20px;">${customerDetails.get("accountBankNumber")}</span></label><div></div>            
+       <label  class="keyname1" style="float:left;font-size: 15px">IFSC <span   style="font-weight:bold">:</span> <span   class="keyname" style="margin-left:20px;">${customerDetails.get("accountIfscCode")}</span></label>       <div></div>      
+       <label  class="keyname1" style="float:left;font-size: 15px">Bank <span   style="font-weight:bold">:</span><span   class="keyname" style="margin-left:20px;">${customerDetails.get("accountBankName")}</span></label>           <div></div>
+      </p> 
+   </section> <header class="header"> <nav class="header--logo">
+         <div class="logo--address1" contenteditable="true" >
+            Happy to Assist You Always!! <br/><br/>
+            Thanks & Regards<br/>
+           CRM Representative  - ${customerDetails.get("siteName")}<br/>
+            
+		    
+         </div>
+      </nav> </header> </article> <body>

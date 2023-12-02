@@ -1,0 +1,276 @@
+package com.sumadhura.employeeservice.service;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.itextpdf.text.DocumentException;
+import com.sumadhura.employeeservice.dto.EmployeeFinancialRequest;
+import com.sumadhura.employeeservice.dto.EmployeeFinancialResponse;
+import com.sumadhura.employeeservice.dto.EmployeeFinancialTransactionRequest;
+import com.sumadhura.employeeservice.dto.EmployeeFinancialTransactionResponse;
+import com.sumadhura.employeeservice.dto.FileInfo;
+import com.sumadhura.employeeservice.dto.FinBookingFormExcessAmountResponse;
+import com.sumadhura.employeeservice.dto.FinBookingFormModiCostResponse;
+import com.sumadhura.employeeservice.dto.FinancialProjectMileStoneResponse;
+import com.sumadhura.employeeservice.enums.FinEnum;
+import com.sumadhura.employeeservice.enums.MetadataId;
+import com.sumadhura.employeeservice.enums.Status;
+import com.sumadhura.employeeservice.exception.EmployeeFinancialServiceException;
+import com.sumadhura.employeeservice.exception.InSufficeientInputException;
+import com.sumadhura.employeeservice.exception.InformationNotFoundException;
+import com.sumadhura.employeeservice.exception.MaxUploadSizeExceededException;
+import com.sumadhura.employeeservice.exception.RefundAmountException;
+import com.sumadhura.employeeservice.persistence.dto.CustomerPropertyDetailsPojo;
+import com.sumadhura.employeeservice.persistence.dto.DropDownPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinClearedUncleareTXPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinModificationInvoicePojo;
+import com.sumadhura.employeeservice.persistence.dto.FinProjDemNoteStatisticsPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinProjectAccountPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinTransactionEntryPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinancialMileStoneClassifidesPojo;
+import com.sumadhura.employeeservice.persistence.dto.FinancialProjectMileStonePojo;
+import com.sumadhura.employeeservice.persistence.dto.PercentagesPojo;
+import com.sumadhura.employeeservice.persistence.dto.StatePojo;
+import com.sumadhura.employeeservice.persistence.dto.StatusPojo;
+import com.sumadhura.employeeservice.service.dto.BookingFormRequest;
+import com.sumadhura.employeeservice.service.dto.CustomerPropertyDetailsInfo;
+import com.sumadhura.employeeservice.service.dto.DemandNoteGeneratorInfo;
+import com.sumadhura.employeeservice.service.dto.EmployeeFinancialServiceInfo;
+import com.sumadhura.employeeservice.service.dto.EmployeeFinancialTransactionServiceInfo;
+import com.sumadhura.employeeservice.service.dto.FinTransactionClearedInfo;
+import com.sumadhura.employeeservice.service.dto.FinancialProjectMileStoneInfo;
+import com.sumadhura.employeeservice.service.dto.FlatBookingInfo;
+import com.sumadhura.employeeservice.service.dto.MileStoneInfo;
+import com.sumadhura.employeeservice.service.dto.SiteDetailsInfo;
+
+/**
+ * 
+ * @author @NIKET CH@V@N
+ *
+ */
+public interface EmployeeFinancialService {
+
+	List<EmployeeFinancialResponse> getAllMileStoneAliasNameAssociatedWithSite(EmployeeFinancialServiceInfo employeeFinancialInfo);
+
+	List<EmployeeFinancialResponse> getMileStoneNameAssociatedWithMilestoneClassifidesId(
+			EmployeeFinancialServiceInfo employeeFinancialInfo);
+
+	List<EmployeeFinancialResponse> getDemandNoteBlockDetails(
+			EmployeeFinancialServiceInfo employeeFinancialDemandNoteInfo);
+
+	public List<DropDownPojo> getAllIncompletedEmpSitesList(EmployeeFinancialRequest employeeFinancialRequest)
+			throws InSufficeientInputException;
+
+	public List<FinancialMileStoneClassifidesPojo> getAllAliasNamesForMileStone(
+			EmployeeFinancialRequest employeeFinancialRequest);
+
+	public List<PercentagesPojo> getMileStonePercentages(EmployeeFinancialRequest employeeFinancialRequest);
+
+	public void createMileStoneDataForDemandNote(EmployeeFinancialRequest employeeFinancialRequest)throws InformationNotFoundException;
+
+	public List<SiteDetailsInfo> getActiveBlocksFlats(EmployeeFinancialServiceInfo employeeFinancialServiceInfo);
+
+	public List<SiteDetailsInfo> getRaisedMilestoneSites(EmployeeFinancialServiceInfo employeeFinancialServiceInfo);
+
+	public EmployeeFinancialResponse getDemandNotes(EmployeeFinancialServiceInfo employeeFinancialServiceInfo);
+
+	public List<Object> generateDemandNotePreview(EmployeeFinancialServiceInfo employeeFinancialServiceInfo, HashMap<Long, Long> generatedMileStones,String requestFrom,Map<Long, List<FinancialProjectMileStonePojo>> customerGeneratedMilestone, Map<Long, List<FinancialProjectMileStonePojo>> flatPreviousMilestoneNonPaidData) throws InSufficeientInputException, InstantiationException, IllegalAccessException, FileNotFoundException, IOException, DocumentException, EmployeeFinancialServiceException, Exception;
+
+	EmployeeFinancialResponse generateDemandNoteService(EmployeeFinancialServiceInfo employeeFinancialDemandNoteInfo)throws InSufficeientInputException, InstantiationException, IllegalAccessException, IOException, DocumentException, EmployeeFinancialServiceException, Exception;
+
+    EmployeeFinancialTransactionResponse saveFinancialTransactionRequest(EmployeeFinancialTransactionServiceInfo serviceInfo) throws MaxUploadSizeExceededException, InstantiationException, IllegalAccessException, InSufficeientInputException, RefundAmountException, InformationNotFoundException, EmployeeFinancialServiceException, CloneNotSupportedException, Exception;
+    
+    public EmployeeFinancialTransactionResponse getFinTransactionTypeModeData(EmployeeFinancialTransactionServiceInfo employeeFinancialTransactionInfo);
+
+	public EmployeeFinancialTransactionResponse getFinProjectAccountData(EmployeeFinancialTransactionServiceInfo employeeFinancialTransactionInfo) throws Exception;
+
+	public EmployeeFinancialTransactionResponse getPendingAmountData(EmployeeFinancialTransactionServiceInfo employeeFinancialTransactionInfo);
+	
+	EmployeeFinancialTransactionResponse doOnlinePaymentAnonymousEntry(EmployeeFinancialTransactionServiceInfo serviceInfo) throws InSufficeientInputException, EmployeeFinancialServiceException;
+
+	FileInfo doModificationChargesEntry(EmployeeFinancialTransactionServiceInfo serviceInfo) throws  Exception;
+	
+	public EmployeeFinancialTransactionResponse getMisReceiptChequeOnlineData(EmployeeFinancialTransactionServiceInfo employeeFinancialTransactionServiceInfo,List<Long> loadType) throws Exception;
+
+	public EmployeeFinancialTransactionResponse getMisPendingTransactions(EmployeeFinancialTransactionServiceInfo employeeFinancialTransactionServiceInfo) throws Exception;
+
+	public EmployeeFinancialTransactionResponse setApproveOrRejectMisReceiptOrPayment(EmployeeFinancialTransactionServiceInfo employeeFinancialTransactionRequestToEmployeeFinancialTransactionServiceInfo, FinEnum multipleOrSingleApproval) throws InstantiationException, IllegalAccessException, InformationNotFoundException, EmployeeFinancialServiceException, JsonGenerationException, JsonMappingException, IOException, DocumentException, CloneNotSupportedException, Exception;
+
+	public EmployeeFinancialTransactionResponse getAnonymousEntriesData(EmployeeFinancialTransactionServiceInfo employeeFinancialTransactionServiceInfo);
+
+	public EmployeeFinancialTransactionResponse getTaxPercentageData(EmployeeFinancialTransactionServiceInfo employeeFinancialTransactionServiceInfo);
+
+	public List<FileInfo> saveLegalCharges(EmployeeFinancialTransactionServiceInfo employeeFinancialTransactionServiceInfo) throws Exception;
+
+	List<EmployeeFinancialResponse> getMileStoneDetailsForTDS(
+			EmployeeFinancialServiceInfo employeeFinancialRequestToemployeeFinancialInfo) throws Exception;
+
+	EmployeeFinancialResponse updateMileStoneTDSDetails(EmployeeFinancialServiceInfo info) throws InstantiationException, IllegalAccessException;
+
+	EmployeeFinancialResponse loadDemandNotePDFFile(EmployeeFinancialServiceInfo serviceInfo) throws InstantiationException, IllegalAccessException;
+
+	EmployeeFinancialResponse deleteDemandNoteZipFile(
+			EmployeeFinancialServiceInfo employeeFinancialRequestToemployeeFinancialInfo);
+
+	public List<FlatBookingInfo> getCustomerDetailsAndPendingAmounts(EmployeeFinancialServiceInfo employeeFinancialServiceInfo);
+
+	public List<FinBookingFormExcessAmountResponse> getExcessAmountDetailsForRefund(EmployeeFinancialTransactionServiceInfo employeeFinancialTransactionServiceInfo);
+
+	EmployeeFinancialResponse getCustomerLedger(EmployeeFinancialServiceInfo serviceInfo) throws Exception;
+
+	EmployeeFinancialResponse getCustomerLedgerDetails(EmployeeFinancialServiceInfo serviceInfo) throws Exception;
+
+	EmployeeFinancialResponse updateInterestRates(EmployeeFinancialServiceInfo serviceInfo) throws Exception;
+
+	EmployeeFinancialResponse loadRequestedData(EmployeeFinancialServiceInfo serviceInfo);
+
+	EmployeeFinancialTransactionResponse deleteFinancialTransaction(
+			EmployeeFinancialTransactionServiceInfo serviceInfo) throws Exception;
+
+	EmployeeFinancialTransactionResponse editFinancialTransaction(EmployeeFinancialTransactionServiceInfo serviceInfo) throws Exception;
+
+	EmployeeFinancialResponse uploadDemandNoteMilestones(EmployeeFinancialServiceInfo serviceInfo) throws Exception;
+
+	//Object approveFinancialMultipleTransaction(EmployeeFinancialMultipleTRNInfo employeeFinancialTransactionServiceInfo) throws Exception;
+
+	public EmployeeFinancialTransactionServiceInfo reConstructTransactionRequest(EmployeeFinancialTransactionResponse transactionDetails,
+			EmployeeFinancialTransactionServiceInfo serviceInfo,
+			EmployeeFinancialTransactionServiceInfo transactionServiceInfoForRecall, String name) throws Exception;
+
+	List<CustomerPropertyDetailsInfo> getCustomerPropertyDetails(EmployeeFinancialServiceInfo serviceInfo);
+
+	FinancialProjectMileStoneResponse getCustomerInvoices(EmployeeFinancialTransactionServiceInfo transactionServiceInfo) throws Exception;
+
+	List<Map<String, Object>> getNonRefundFlats(EmployeeFinancialRequest employeeFinancialRequest);
+
+	List<FileInfo> getTempInterestCalculation(
+			EmployeeFinancialServiceInfo employeeFinancialRequestToemployeeFinancialInfo, HashMap<Long, Long> hashMap,
+			String string, HashMap<Long, List<FinancialProjectMileStonePojo>> hashMap2);
+
+	List<FinancialProjectMileStonePojo> isMileStoneInitiatedForThisFlatBookingFormId(FinancialProjectMileStoneInfo financialProjectMileStoneInfo,
+			CustomerPropertyDetailsInfo customerPropertyDetailsInfo,
+			FinProjDemNoteStatisticsPojo finProjDemNoteStatisticsPojo);
+
+List<Object> getCustomerFinancialDetails(EmployeeFinancialServiceInfo serviceInfo) throws Exception;
+	public EmployeeFinancialResponse generateConsolidatedReceipt(EmployeeFinancialServiceInfo employeeFinancialServiceInfo) throws Exception;
+
+	List<Map<String, Object>> deleteUploadedAttachments(EmployeeFinancialRequest employeeFinancialRequest);
+
+	Map<String, List<Map<String, Object>>> generateClosingBalance(EmployeeFinancialServiceInfo serviceInfo) throws Exception;
+
+	EmployeeFinancialTransactionResponse reAdjustTransaction(EmployeeFinancialTransactionServiceInfo serviceInfo) throws Exception;
+
+	List<FinTransactionEntryPojo> getTransactionDataOnReceiveDate(
+			EmployeeFinancialTransactionServiceInfo employeeFinancialTransactionServiceInfo, Status approved, MetadataId transactionType);
+
+	EmployeeFinancialTransactionResponse updateOnlinePaymentAnonymousEntry(EmployeeFinancialTransactionServiceInfo serviceInfo) throws Exception;
+
+	EmployeeFinancialTransactionResponse modifyOrRejectSuspenseEntry(EmployeeFinancialTransactionServiceInfo transactionServiceInfo) throws Exception;
+
+	List<FinModificationInvoicePojo> getPendingModificationInvoices( EmployeeFinancialRequest employeeFinancialPojo) throws Exception;
+	
+	EmployeeFinancialResponse editDemandNoteDetails(EmployeeFinancialServiceInfo serviceInfo) throws Exception;
+
+	void sendFinancialInterestUpdateEmail(EmployeeFinancialRequest employeeFinancialRequest) throws Exception;
+
+	List<MileStoneInfo> getFinancialMilestoneDetails(EmployeeFinancialServiceInfo employeeFinancialDemandNoteInfo) throws Exception;
+
+	EmployeeFinancialTransactionResponse saveInterestWaiver(EmployeeFinancialTransactionServiceInfo transactionServiceInfo) throws Exception;
+
+	List<FinBookingFormModiCostResponse> getModificationInvoiceDetails(EmployeeFinancialRequest employeeFinancialRequest) throws Exception;
+
+	EmployeeFinancialTransactionServiceInfo interestCalculateAndConstructTransactionObject(EmployeeFinancialServiceInfo serviceInfo1) throws Exception;
+
+	FileInfo approveModificationChargesEntry(EmployeeFinancialTransactionServiceInfo transactionServiceInfo)throws Exception;
+
+	void rejectModificationChargesEntry(EmployeeFinancialTransactionServiceInfo serviceInfo) throws Exception;
+
+	EmployeeFinancialTransactionResponse checkTemplates(EmployeeFinancialTransactionRequest financialTransactionRequest) throws Exception;
+
+
+	List<Object> generateDemandNoteAndReplacePDF(EmployeeFinancialServiceInfo employeeFinancialServiceInfo,
+			HashMap<Long, Long> generatedMileStones, String requestFrom,
+			Map<Long, List<FinancialProjectMileStonePojo>> customerGeneratedMilestone,
+			Map<Long, List<FinancialProjectMileStonePojo>> flatPreviousMilestoneNonPaidData) throws Exception;
+
+	EmployeeFinancialTransactionResponse getPendingInterestWaiverTransactions(EmployeeFinancialTransactionServiceInfo employeeFinancialTransactionServiceInfo);
+
+	List<Object> uploadFinancialTransaction(EmployeeFinancialServiceInfo serviceInfo) throws Exception;
+
+	List<FinancialProjectMileStonePojo> getMileStoneNameAssociatedWithMilestoneClassifidesIdForDemandNote(
+			EmployeeFinancialServiceInfo employeeFinancialInfo);
+
+	FinancialProjectMileStonePojo checkMilestoneGeneratedForFlat(
+			List<FinancialProjectMileStonePojo> financialProjectMileStonePojoList1,
+			FinancialProjectMileStoneInfo mileStoneInfo);
+
+	List<Map<String, Object>> loadDemandNoteFormats(
+			EmployeeFinancialServiceInfo employeeFinancialRequestToemployeeFinancialInfo);
+
+	void updateMileStoneDataForDemandNote(EmployeeFinancialRequest employeeFinancialRequest) throws Exception;
+	
+	public abstract EmployeeFinancialTransactionResponse getInterestWaivedAndPaidDetails(EmployeeFinancialServiceInfo empFinSerInfo);
+
+	public abstract FinancialProjectMileStoneResponse getAllCustomersInvoices(EmployeeFinancialTransactionServiceInfo empFinTranSerInfo);
+
+	public double roundOffAmount(Double amount);
+
+	public String convertUstoInFormat(Double amount);
+
+	List<Object> saveMaintenance_Charges(EmployeeFinancialTransactionServiceInfo serviceInfo) throws Exception;
+
+	List<Object> saveCorpusFund(EmployeeFinancialTransactionServiceInfo serviceInfo) throws Exception;
+
+	List<Object> saveFlatKhataBifurcationAndOtherCharges(EmployeeFinancialTransactionServiceInfo serviceInfo) throws Exception;
+
+	List<Object> loadInterestAmount(List<CustomerPropertyDetailsPojo> customerPropertyDetailsPojoList,
+			CustomerPropertyDetailsInfo customerPropertyDetailsInfo) throws Exception;
+
+	void updatePenaltyOldGstAmountRecordsAndAdjustAmount(EmployeeFinancialTransactionServiceInfo serviceInfo);
+
+	void validatePenaltyRecords(EmployeeFinancialServiceInfo serviceInfo) throws Exception;
+
+	EmployeeFinancialTransactionResponse checkPushNotification(
+			EmployeeFinancialTransactionRequest financialTransactionRequest) throws Exception;
+
+	//void loadLastApprovedWaiverAmount(List<DemandNoteGeneratorInfo> demandNoteGeneratorInfoList);
+
+	void insertOldBookingTransactionToNewBooking(BookingFormRequest newBookingRequest) throws Exception;
+
+	List<Map<String, Object>> getSuspenseEntryReport(EmployeeFinancialTransactionServiceInfo empFinTranSerInfo);
+
+	public Map<String, Object> loadTransactionStatusModuleData(EmployeeFinancialTransactionRequest empTransReq) throws Exception;
+
+	Map<String,List<FinTransactionClearedInfo>> getClearedTransactionReport(EmployeeFinancialTransactionRequest empTransReq);
+
+	Map<String,List<FinTransactionClearedInfo>> getPendingTransactionReport(EmployeeFinancialTransactionRequest empTransReq);
+
+	List<FinTransactionClearedInfo> getSuspnesEntryTransactionReport(EmployeeFinancialTransactionRequest empTransReq);
+
+	EmployeeFinancialTransactionResponse viewFinProjectAccountDataForInvoices(EmployeeFinancialTransactionServiceInfo employeeFinancialTransactionServiceInfo) throws Exception;
+
+	Map<String, List<FinClearedUncleareTXPojo>> getClearedUnclearedTxReport(
+			EmployeeFinancialTransactionRequest empTransReq);
+
+	List<FinProjectAccountPojo> getAccountNumbers(EmployeeFinancialTransactionRequest tansactionServiceInfo);
+
+	EmployeeFinancialTransactionRequest dateWiseSearchFunctionalityUtil(EmployeeFinancialTransactionRequest request);
+
+	List<StatusPojo> getBookingStatuses(EmployeeFinancialTransactionRequest tansactionServiceInfo);
+
+	List<StatePojo> getStates(EmployeeFinancialTransactionRequest tansactionServiceInfo);
+
+	List<Object> updateMaintenance_ChargesPayAmount(EmployeeFinancialTransactionServiceInfo employeeFinancialTransactionServiceInfo) throws Exception;
+
+	void sendBookingErrorMail(Exception exception, CustomerPropertyDetailsInfo customerPropertyDetailsPojo,
+			String condition);
+	void updateOldBookingPendingTransactionToNewBooking(BookingFormRequest bookingRequest) throws Exception;
+
+	int checkDuplicateTransactionOrNot(EmployeeFinancialTransactionRequest tansactionServiceInfo);
+	
+}

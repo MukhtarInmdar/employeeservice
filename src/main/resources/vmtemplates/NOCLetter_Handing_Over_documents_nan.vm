@@ -1,0 +1,269 @@
+<head>
+    <style>
+	table {
+  border: 1px solid black;
+ border-collapse: collapse;
+ width:100%;
+
+ padding:10px;
+
+
+}
+
+table, th, td {
+  border: 1px solid black;
+ border-collapse: collapse;
+ padding:5px;
+ text-align:center;
+}
+        [contenteditable="true"]:hover {
+            outline: lightblue auto 5px;
+            outline: -webkit-focus-ring-color auto 5px;
+        }
+
+        body {
+            background: #f1f1f1;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .invoice {
+          font-family: inherit;
+            font-weight: -50;
+            width: -100%;
+            max-width: -50px;
+            margin: 1% auto;
+            box-sizing: border-box;
+            padding:-20px;
+            border-radius:1px;
+            background: #fff;
+         ## font-size: 5px!important;
+            min-height: auto;
+        }
+
+        .header {
+            display: flex;
+            width: 100%;
+
+            align-items: center;
+        }
+
+        .header--invoice {
+            order: 2;
+            text-align: right;
+            width: 40%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .invoice--date,
+        .invoice--number {
+            font-size: 9px;
+            color: #494949;
+        }
+
+        .invoice--recipient {
+            margin-top: 25px;
+            margin-bottom: 4px;
+        }
+
+        .header--logo {
+            order: 1;
+            font-size: 32px;
+            width: 80%;
+            font-weight: 900;
+        }
+
+        .logo--address {
+            font-size: 14px;
+            padding: 4px;
+         
+        }
+
+
+        .logo--address1 {
+           
+            font-size: 16px;
+            font-family: lato;
+            text-transform: capitalize;
+        }
+
+        .description {
+            margin: auto;
+            text-align: justify;
+
+        }
+
+        .items--table {
+            width: 100%;
+            padding: 10px;
+
+            thead {
+                background: #ddd;
+                color: #111;
+                text-align: center;
+                font-weight: 800;
+            }
+
+            tbody {
+                text-align: center;
+            }
+
+            .total-price {
+                border: 2px solid #444;
+                padding-top: 4px;
+                font-weight: 800;
+                background: lighten(green, 50%);
+            }
+        }
+
+        .sessiontitle {
+            text-align: center;
+            font-family: initial;
+            padding: 1px;
+            width: 100%;
+            text-transform: capitalize;
+            font-size: 14px;
+			text-decoration:underline;
+			
+
+        }
+
+        .spansubtitle {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .bottomcls {
+            position: relative;
+            top: -18px;
+            font-size: 11px;
+            font-family: serif;
+            color: #795548;
+        }
+        
+    </style>
+</head>
+
+#set ($customerDetails = $email.dataForPdf.get("customerDetails").get(0))
+ #set ($customerUnitDetails = $email.dataForPdf.get("customerUnitDetails").get(0))
+ #set ($info = ${email.demandNoteGeneratorInfo})
+ 
+<article class="invoice" style="font-family: Times New Roman, Times, sans-serif;">
+##style="line-height:20px"
+
+    <section class="sessiontitle">
+      <h3 style="text-align: center;" ><u>APARTMENT UNIT /FLAT POSSESSION HANDING OVER</u></h3>
+    </section>
+    <section class="description">
+        <p><span class="spansubtitle"><b>From,</b></span></p>
+        <p style="margin-top:5px">$info.companySalutation $info.companyName.,</p>
+        <p>
+            #if($info.condition == "Land Owner")
+			
+			#elseif($info.condition == "Aspire Series")
+				a proprietorship firm/ partnership firm/ company incorporated under the provisions of the Companies Act 1956,
+			#else
+				A company incorporated under the provisions of Indian Companies Act 1956,
+			#end
+			
+			#if($info.condition == "Land Owner")
+				##land owner is a person so residing at
+				residing at: $info.companyBillingAddress
+			#else
+				## ex. sumadhura is compnay so *registered office at
+        		having its registered office at: $info.companyBillingAddress
+        		 <p >
+		         Represented by it's Authorised Signatory,
+		        </p>
+        	#end
+
+        </p>
+
+       
+        <p style="margin-top:5px"><span class="spansubtitle"><b>To,</b></span></p>
+        <p style="margin-top:5px"><span class="spansubtitle"><b>${customerDetails.get("customerNameWithCoApplicants")}</b></span></p>
+		<p style="margin-top:5px"><span class="spansubtitle"><b>${customerDetails.get("residenceType")} :</b></span> ${customerDetails.get("customerAddress")}.</p>
+      
+	   <p style="margin-top:5px"><b>SUB</b> :- Handing over Possession of Apartment unit/ Flat bearing No. <span class="spansubtitle"><b>${customerDetails.get("flatName")},</b>
+	   </span> in <span class="spansubtitle"><b>${customerDetails.get("floorName")}</b></span> 
+	   of the <span class="spansubtitle"><b>${customerDetails.get("blockName")},</b></span> having super built up area of 
+	   <span class="spansubtitle"><b>${customerUnitDetails.get("SBUA Sq.ft")} Sq. Feet  </b></span> or 
+	   <span class="spansubtitle"><b>${customerUnitDetails.get("SBUA Sq.Mtrs")} Sq. Mtrs, ${customerDetails.get("blockName")},</b></span> 
+	    in the multistoried residential building known as <span class="spansubtitle"><b>"${customerDetails.get("siteName")}"</b></span></p>
+		
+		<p style="margin-top:5px"><span class="spansubtitle"><b>Dear Sir/ Madam,</b></span></p>
+		
+		<p style="margin-top:5px"><span class="spansubtitle"><b>Congratulations on the Handing over of your Apartment unit/Flat!</b></span></p>
+		
+		<p style="margin-top:5px">
+			#if($info.condition == "Land Owner")I, #else We, #end
+the $info.builderOrLandOwner i.e, $info.companySalutation $info.companyName.,
+		 
+		    #if($info.condition == "Land Owner")
+			
+			#elseif($info.condition == "Aspire Series")
+				a proprietorship firm/ partnership firm/ company incorporated under the provisions of the Companies Act 1956,
+			#else
+				A company incorporated under the provisions of Indian Companies Act 1956,
+			#end
+			
+			#if($info.condition == "Land Owner")
+				
+				residing at: $info.companyBillingAddress
+			#else
+        		having its registered office at: $info.companyBillingAddress
+        	#end
+		 
+		 , have completed the Apartment complex in all respects  
+		as well as Apartment unit/ Flat bearing No. 
+		<span class="spansubtitle"><b>${customerDetails.get("flatName")},</b></span> in 
+		<span class="spansubtitle"><b>${customerDetails.get("floorName")},</b></span> of the 
+		<span class="spansubtitle"><b>${customerDetails.get("blockName")},</b></span> having super built up area of 
+		<span class="spansubtitle"><b>${customerUnitDetails.get("SBUA Sq.ft")} Sq. Feet </b></span> or 
+		<span class="spansubtitle"><b>${customerUnitDetails.get("SBUA Sq.Mtrs")} Sq. Mtrs, ${customerDetails.get("blockName")},</b></span> 
+		as per the terms and conditions, specifications as agreed in the Agreement with respect of  apartment complex known as 
+		 <span class="spansubtitle"><b>"${customerDetails.get("siteName")}"</b></span> constructed over property bearing 
+		 Sy.No.10/2, Old Sy.No.10, <b>present BBMP Katha No. 1087/Sy.No.10/2</b>, measuring 11115.16 Sq.Mtrs  out of 3 Acres (12140.46 Sq.Mtrs) as a 
+		 Portion of the land Measuring 1025.3 Sq.Mtrs in the aforesaid property was acquired by 
+		 the KIADB for Bangalore Metro Rail Project and presently actual possession of the property 
+		 measures 10487.58Sq.Mtrssituated at Hoodi Village, K.R.PuramHobli, Bangalore East Taluk, Bangalore. 
+		</p>
+		<p style="margin-top:5px">
+		This is in reference to the Agreement dated <span class="spansubtitle"><b>${customerUnitDetails.get("agreementDate")}</b></span> 
+		and Sale Deed dated <span class="spansubtitle"><b>${customerUnitDetails.get("saleDeedDate")}</b></span> registered as 
+		<span class="spansubtitle">Document No.<b> ${customerUnitDetails.get("saleDeedNo")},</b></span>   Stored in <span class="spansubtitle">CD No <b> ${customerUnitDetails.get("saleDeedCDno")},</b></span> 
+		Book I. , registered before the Office of the Sub-Registrar, Shivajinagar (Mahadevapura), Bangalore, in respect of Apartment unit/ Flat as 
+		mentioned above.
+		</p>
+     
+	 <p style="margin-top:5px">
+	 #if($info.condition == "Land Owner")
+	 I 
+	 #else 
+	 We 
+	 #end
+	 here by Handing over the possession of the said Apartment unit/ Flat for Occupation.
+	 
+	 #if($info.condition == "Land Owner")
+	 I 
+	 #else 
+	 We 
+	 #end 
+	 once again confirm that we have completed the 
+	 construction in all aspects with the agreed specifications. We also confirm that there are no pending works in your  Apartment unit/ Flat 
+	 and we are handing over it to your full satisfaction.
+	 </p>
+	 
+	 <p style="margin-top:5px">
+	 Please be informed that any works here after has to be taken care by yourself and $info.builderOrLandOwner i.e, $info.companySalutation $info.companyName 
+	 will not be responsible for the same. 
+	 </p>
+	 
+	 <p style="margin-top:5px">Thanking You!<br/><br/>For $info.companyName<br/></p>
+    </section><br/><br/>
+      <p style="margin-top:5px">Place: Bangalore<br/>Date : ${customerDetails.get("todayDate")}</p>
+
+</article>
